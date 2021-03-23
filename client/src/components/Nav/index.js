@@ -1,12 +1,18 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 
 function Nav() {
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
-      <a className="navbar-brand" href="/">
-        React Reading List
-      </a>
-    </nav>
+    <header>
+      <nav>
+        <NavLink to="/" exact>
+          Home
+        </NavLink>
+        <NavLink to="/dashboard">Dashboard</NavLink>
+        <NavLink to="/log">Log</NavLink>
+        <NavLink to="/Profile">About Me</NavLink>
+      </nav>
+    </header>
   );
 }
 
