@@ -1,3 +1,5 @@
 module.exports = {
-  Book: require("./book")
+  Action: require("./action"),
+  Child: require("./child"),
+  User: require("./user")
 };
