@@ -28,6 +28,8 @@
     "react-router-dom": "^5.2.0",
     "sass": "^1.32.8",
     "sass-loader": "^11.0.1",
-    "styled-components": "^5.2.1"
+    "styled-components": "^5.2.1",
+    "react-date-picker": "^8.1.0",
+    "react-time-picker": "^4.2.0"
   }
 }
