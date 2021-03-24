@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Home from "./pages/Home"
 import Dashboard from "./pages/Dashboard"
 import Log from "./pages/Log"
@@ -8,7 +8,7 @@ import Nav from "./components/Nav";
 
 function App() {
   return (
-    <BrowserRouter>
+    <Router>
       <Nav />
       <Switch>
         <Route component={Home} path="/" exact></Route>
@@ -16,7 +16,7 @@ function App() {
         <Route component={Log} path="/log" exact></Route>
         <Route component={Profile} path="/profile" exact></Route>
       </Switch>
-    </BrowserRouter>
+    </Router>
   );
 }
 
