@@ -1,7 +1,30 @@
+@use "../../scss/mixins";
+
 header {
     position: fixed;
     bottom: 0;
     width: 100%;
     overflow: hidden;
-    background-color: black;
+    // background-color: gray;
+    background: rgba( 7, 7, 7, 0.15 );
+    // box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 4.0px );
+    -webkit-backdrop-filter: blur( 4.0px );
+    // border: 1px solid rgba( 255, 255, 255, 0.18 );
+}
+
+nav {
+    height: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+
+    a {
+        text-decoration: none;
+        text-transform: uppercase;
+        color: black;
+
+       @include mixins.animate-underline-left;
+    }
 }
