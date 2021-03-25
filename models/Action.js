@@ -11,23 +11,26 @@ const actionSchema = new Schema({
     default: Date.now,
   },
   endTime: {
-      type: Date,
-      default: Date.now,
+    type: Date,
+    default: Date.now,
   },
-  lastedUpdatedBy: {type: Schema.Types.ObjectId, ref: "User" },
-  child: {type: Schema.Types.ObjectId, ref: "Child" },
+  lastedUpdatedBy: { type: Schema.Types.ObjectId, ref: "User" },
+  child: { type: Schema.Types.ObjectId, ref: "Child" },
   foodOz: {
-      type: Number
+    type: Number,
   },
+  whichBreast: {
+    left: { type: Boolean },
+    right: { type: Boolean },
+   },
   diaperContents: {
-      pee: { type: Boolean },
-      poo: { type: Boolean },
+    pee: { type: Boolean },
+    poo: { type: Boolean },
   },
   endedByUser: {
-      type: Boolean,
-      default: false,
-  }
-
+    type: Boolean,
+    default: false,
+  },
 });
 
 const Action = mongoose.model("Action", actionSchema);

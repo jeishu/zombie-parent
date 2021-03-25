@@ -17,8 +17,8 @@ const userSchema = new Schema({
     type: Date,
     default: Date.now,
   },
-  children: [{ type: Schema.Types.ObjectId, ref: "Child" }],
-  activeChildren: [{ type: Schema.Types.ObjectId, ref: "Child" }],
+  child: [{ type: Schema.Types.ObjectId, ref: "Child" }],
+  activeChild: [{ type: Schema.Types.ObjectId, ref: "Child" }],
   careOptions: {
     showBottle: { type: Boolean, required: true, default: true },
     showNurse: { type: Boolean, required: true, default: true },
