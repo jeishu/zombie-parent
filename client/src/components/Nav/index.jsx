@@ -13,7 +13,6 @@ function Nav() {
     <header>
       <nav>
         <NavLink to="/" exact className={location.pathname === "/" ? "active" : ""}>Home</NavLink>
-        <NavLink to="/dashboard" className={location.pathname === "/dashboard" ? "active" : ""}>Dashboard</NavLink>
         <NavLink to="/log" className={location.pathname === "/log" ? "active" : ""}>Log</NavLink>
         <NavLink to="/profile" className={location.pathname === "/profile" ? "active" : ""}>Profile</NavLink>
       </nav>

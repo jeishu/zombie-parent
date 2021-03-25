@@ -3,26 +3,22 @@
     {
       "id": 1,
       "name": "Bob",
-      "image": "https://picsum.photos/200",
       "dob": "1/1/19"
     },
     {
       "id": 2,
       "name": "Deb",
-      "image": "https://picsum.photos/200",
       "dob": "1/1/20"
     },
     {
       "id": 3,
       "name": "Ed",
-      "image": "https://picsum.photos/200",
       "dob": "1/1/21"
     }
   ],
   "user": {
     "id": 1,
     "firstName": "Frankie",
-    "lastName": "Blue",
-    "image": "https://picsum.photos/200"
+    "lastName": "Blue"
   }
 }

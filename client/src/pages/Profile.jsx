@@ -12,8 +12,6 @@ export default function Profile() {
     <main>
       <h1>Profile Page</h1>
       <h1>{`${jsonData.user.firstName} ${jsonData.user.lastName}`}</h1>
-      <img src={jsonData.user.image} alt="Randomly generated image" />
-      {/* add profile image? */}
 
       {/* add and see children */}
       {/* https://github.com/wojtekmaj/react-date-picker */}
