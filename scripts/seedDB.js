@@ -3,16 +3,13 @@ const db = require("../models");
 
 // This file empties the Books collection and inserts the books below
 
-mongoose.connect(
-  process.env.MONGODB_URI ||
-  "mongodb://localhost/zombieparent"
-);
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/zombieparent");
 
 const childSeed = [
   {
     name: "Lil Testy",
     birthDate: new Date(Date.now()),
-  }
+  },
 ];
 
 const userSeed = [
@@ -32,9 +29,9 @@ const userSeed = [
     statsView: {
       lastView: "default",
       lastRange: "week",
-    }
-  }
-]
+    },
+  },
+];
 
 const actionSeed = [
   {
@@ -44,11 +41,11 @@ const actionSeed = [
     lastedUpdatedBy: {},
     child: {},
     diaperContents: {
-      pee: true
+      pee: true,
     },
-    endedByUser: true
+    endedByUser: true,
   },
-  { 
+  {
     name: "diaper",
     beginTime: new Date(Date.now()),
     endTime: new Date(Date.now()),
@@ -56,9 +53,9 @@ const actionSeed = [
     child: {},
     diaperContents: {
       pee: true,
-      poo: true
+      poo: true,
     },
-    endedByUser: true
+    endedByUser: true,
   },
   {
     name: "bottle",
@@ -67,7 +64,7 @@ const actionSeed = [
     lastedUpdatedBy: {},
     child: {},
     foodOz: 2,
-    endedByUser: true
+    endedByUser: true,
   },
   {
     name: "nurse",
@@ -76,28 +73,58 @@ const actionSeed = [
     lastedUpdatedBy: {},
     child: {},
     whichBreast: {
-      left: true
+      left: true,
     },
-    endedByUser: true
+    endedByUser: true,
   },
-  { 
+  {
     name: "sleep",
     beginTime: new Date(Date.now()),
     endTime: new Date(Date.now()),
     lastedUpdatedBy: {},
     child: {},
-    endedByUser: true
-  }
-]
+    endedByUser: true,
+  },
+];
 
-db.Book
-  .remove({})
-  .then(() => db.Book.collection.insertMany(bookSeed))
-  .then(data => {
-    console.log(data.result.n + " records inserted!");
-    process.exit(0);
+db.User.remove({})
+  .then(() => db.User.collection.insertMany(userSeed))
+  .then((data) => {
+    console.log(data.result.n + " User records inserted!");
+    // process.exit(0);
   })
-  .catch(err => {
+  .catch((err) => {
+    console.error(err);
+    process.exit(1);
+  });
+
+db.Child.remove({})
+  .then(() => db.Child.collection.insertMany(childSeed))
+  .then((data) => {
+    console.log(data.result.n + " Child records inserted!");
+  
+    db.Child.findOne({ name: "Lil Testy" })
+      .then((data) => {
+        console.log(data);
+        db.User.findOneAndUpdate(
+          { name: "Mama Testy"},
+          { $push: { children: { _id: data._id}  }}
+          )
+          .then((data) => {
+            console.log(data);
+          })
+          .catch((err) => {
+            console.error(err);
+            process.exit(1);
+          })
+        // process.exit(0);
+      })
+      .catch((err) => {
+        console.error(err);
+        process.exit(1);
+      });
+  })
+  .catch((err) => {
     console.error(err);
     process.exit(1);
   });
