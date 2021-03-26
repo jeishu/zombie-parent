@@ -9,14 +9,16 @@ header {
     background: rgba( 7, 7, 7, 0.15 );
     backdrop-filter: blur( 4.0px );
     -webkit-backdrop-filter: blur( 4.0px );
-    
+        
     @media (min-width: 768px) {
-        position: fixed;
-        left: 0;
-        backdrop-filter: none;
-        -webkit-backdrop-filter: none;
-        width: 175px;
-        height: 100vh;
+      position: fixed;
+      left: 0;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      width: 175px;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
 }
 
