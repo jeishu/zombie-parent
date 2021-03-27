@@ -102,21 +102,27 @@ db.Child.remove({})
   .then(() => db.Child.collection.insertMany(childSeed))
   .then((data) => {
     console.log(data.result.n + " Child records inserted!");
-  
+
     db.Child.findOne({ name: "Lil Testy" })
       .then((data) => {
         console.log(data);
         db.User.findOneAndUpdate(
-          { name: "Mama Testy"},
-          { $push: { children: { _id: data._id}  }}
-          )
+          { name: "Mama Testy" },
+          {
+            $push: {
+              children: {
+                _id: data._id,
+              },
+            },
+          }
+        )
           .then((data) => {
             console.log(data);
           })
           .catch((err) => {
             console.error(err);
             process.exit(1);
-          })
+          });
         // process.exit(0);
       })
       .catch((err) => {
