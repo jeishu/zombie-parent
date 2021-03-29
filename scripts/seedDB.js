@@ -18,8 +18,8 @@ const userSeed = [
     password: "isthisatest",
     joinDate: new Date(Date.now()),
     lastLogin: new Date(Date.now()),
-    children: [],
-    activeChildren: [],
+    child: [],
+    activeChild: [],
     careOptions: {
       showBottle: true,
       showNurse: true,
@@ -38,8 +38,8 @@ const actionSeed = [
     name: "diaper",
     beginTime: new Date(Date.now()),
     endTime: new Date(Date.now()),
-    lastedUpdatedBy: {},
-    child: {},
+    // lastedUpdatedBy: {},
+    // child: {},
     diaperContents: {
       pee: true,
     },
@@ -49,8 +49,8 @@ const actionSeed = [
     name: "diaper",
     beginTime: new Date(Date.now()),
     endTime: new Date(Date.now()),
-    lastedUpdatedBy: {},
-    child: {},
+    // lastedUpdatedBy: {},
+    // child: {},
     diaperContents: {
       pee: true,
       poo: true,
@@ -61,8 +61,8 @@ const actionSeed = [
     name: "bottle",
     beginTime: new Date(Date.now()),
     endTime: new Date(Date.now()),
-    lastedUpdatedBy: {},
-    child: {},
+    // lastedUpdatedBy: {},
+    // child: {},
     foodOz: 2,
     endedByUser: true,
   },
@@ -70,8 +70,8 @@ const actionSeed = [
     name: "nurse",
     beginTime: new Date(Date.now()),
     endTime: new Date(Date.now()),
-    lastedUpdatedBy: {},
-    child: {},
+    // lastedUpdatedBy: {},
+    // child: {},
     whichBreast: {
       left: true,
     },
@@ -81,17 +81,29 @@ const actionSeed = [
     name: "sleep",
     beginTime: new Date(Date.now()),
     endTime: new Date(Date.now()),
-    lastedUpdatedBy: {},
-    child: {},
+    // lastedUpdatedBy: {},
+    // child: {},
     endedByUser: true,
   },
 ];
 
+let userId;
+let childId;
+
 db.User.remove({})
-  .then(() => db.User.collection.insertMany(userSeed))
-  .then((data) => {
-    console.log(data.result.n + " User records inserted!");
-    // process.exit(0);
+  .then(() => {
+    db.User.collection
+      .insertMany(userSeed)
+      .then((data) => {
+        console.log(data.result.n + " User records inserted!");
+        // console.log(JSON.stringify(data));
+        console.log(data.ops[0]._id + " is userId");
+        userId = data.ops[0]._id;
+      })
+      .catch((error) => {
+        console.error(error);
+        process.exit(1);
+      });
   })
   .catch((err) => {
     console.error(err);
@@ -106,18 +118,55 @@ db.Child.remove({})
     db.Child.findOne({ name: "Lil Testy" })
       .then((data) => {
         console.log(data);
+        console.log(data._id + " is childId");
+        childId = data._id;
+
         db.User.findOneAndUpdate(
           { name: "Mama Testy" },
           {
             $push: {
-              children: {
-                _id: data._id,
+              child: {
+                _id: childId,
+              },
+              activeChild: {
+                _id: childId,
               },
             },
+          },
+          {
+            new: true,
           }
         )
           .then((data) => {
             console.log(data);
+            db.Action.remove({}).then(() => {
+              db.Action.insertMany(actionSeed)
+                .then((data) => {
+                  // console.log(JSON.stringify(data));
+                  console.log(data.length + " records inserted");
+                  db.Action.updateMany(
+                    {}, 
+                    {
+                      $set: {
+                        lastUpdatedBy: userId,
+                        child: childId,
+                      }
+                    }
+                    
+                  )
+                    .then((data) => {
+                      console.log(JSON.stringify(data));
+                    })
+                    .catch((err) => {
+                      console.error(err);
+                      process.exit(1);
+                    });
+                })
+                .catch((err) => {
+                  console.error(err);
+                  process.exit(1);
+                });
+            });
           })
           .catch((err) => {
             console.error(err);

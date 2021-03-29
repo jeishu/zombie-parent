@@ -14,7 +14,7 @@ const actionSchema = new Schema({
     type: Date,
     default: Date.now,
   },
-  lastedUpdatedBy: { type: Schema.Types.ObjectId, ref: "User" },
+  lastUpdatedBy: { type: Schema.Types.ObjectId, ref: "User" },
   child: { type: Schema.Types.ObjectId, ref: "Child" },
   foodOz: {
     type: Number,
