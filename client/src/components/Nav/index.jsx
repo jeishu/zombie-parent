@@ -1,6 +1,7 @@
 import React from "react";
 import { NavLink, useLocation } from "react-router-dom";
-import "./nav.scss"
+import "./nav.scss";
+import Time from "../Time/index";
 // import styled from "styled-components";
 // import dashboard from "../../img/nav/dashboard.svg";
 // import home from "../../img/nav/home.svg";
@@ -9,11 +10,12 @@ import "./nav.scss"
 
 function Nav() {
   const location = useLocation();
+
   return (
     <header>
+      <Time/>
       <nav>
         <NavLink to="/" exact className={location.pathname === "/" ? "active" : ""}>Home</NavLink>
-        <NavLink to="/dashboard" className={location.pathname === "/dashboard" ? "active" : ""}>Dashboard</NavLink>
         <NavLink to="/log" className={location.pathname === "/log" ? "active" : ""}>Log</NavLink>
         <NavLink to="/profile" className={location.pathname === "/profile" ? "active" : ""}>Profile</NavLink>
       </nav>
