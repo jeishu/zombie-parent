@@ -21,15 +21,12 @@ export default function Log() {
         break;
       case "Diaper":
         setBtns("Pee", "Poo", "Both", "now/set", "now/set", "now/set");
-        // setDir(dir => [...dir, "Diaper>"]);
         break;
       case "Eat":
         setBtns("Nurse", "Bottle", "Cancel", "Nurse", "Bottle", "Default");
-        // setDir(dir => [...dir, "Eat>"]);
         break;
       case "Nap":
         setBtns("Start Time", "End Time", "Add Time", "Start Time", "End Time", "Add Time");
-        // setDir(dir => [...dir, "Nap>"]);
         break;
       case "Nurse":
         setBtns("Left", "Right", "Cancel", "Feed", "Feed", "Default");
@@ -45,6 +42,10 @@ export default function Log() {
         break;
       case "Add Time":
         setBtns("Start Time", "End Time", "Cancel", "Start Time", "End Time", "Default");
+        break;
+      default:
+        setBtns("Diaper", "Eat", "Nap", "Diaper", "Eat", "Nap");
+        setDir(dir => ["Log>"]);
         break;
     }
   };
