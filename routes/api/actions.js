@@ -11,4 +11,8 @@ router
   .put(actionsController.update)
   .delete(actionsController.remove);
 
+router
+  .route("/lastday/:id")
+  .get(actionsController.findActionsLastDay);
+
 module.exports = router;
