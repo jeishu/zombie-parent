@@ -2,8 +2,6 @@ import React from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import "./nav.scss";
 import Time from "../Time/index";
-// import styled from "styled-components";
-import Dashboard from "../../img/nav/Dashboard";
 import Home from "../../img/nav/Home";
 import Log from "../../img/nav/Log";
 import Profile from "../../img/nav/Profile.jsx";
@@ -15,25 +13,28 @@ function Nav() {
     <header>
       <Time />
       <nav>
-        <NavLink
-          to="/"
-          exact
-          className={location.pathname === "/" ? "active" : ""}
-        >
-          <Home />
-        </NavLink>
-        <NavLink
-          to="/log"
-          className={location.pathname === "/log" ? "active" : ""}
-        >
-          <Log />
-        </NavLink>
-        <NavLink
-          to="/profile"
-          className={location.pathname === "/profile" ? "active" : ""}
-        >
-          <Profile />
-        </NavLink>
+        <div className="nav-container">
+          <NavLink
+            to="/"
+            exact
+            className={location.pathname === "/" ? "active" : ""}
+          >
+            <Home />
+          </NavLink>
+          <NavLink
+            to="/log"
+            className={location.pathname === "/log" ? "active" : ""}
+          >
+            <Log />
+          </NavLink>
+          <NavLink
+            to="/profile"
+            className={location.pathname === "/profile" ? "active" : ""}
+          >
+            <Profile />
+          </NavLink>
+        </div>
+
       </nav>
       {/* <div>
         Icons made by{" "}
