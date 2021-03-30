@@ -30,7 +30,7 @@ module.exports = {
       .populate("child")
       .sort({ endTime: -1 }) // this is good
       .exec(function (err, actions) {
-        console.log(JSON.stringify(actions, null, 2));
+        // console.log(JSON.stringify(actions, null, 2));
         if (err) return res.status(422).json(err);
         return res.json(actions);
       });
