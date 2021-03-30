@@ -1,15 +1,16 @@
 const db = require("../models");
+const moment = require("moment");
 
 module.exports = {
   findActionsByDateRange: function (req, res) {
     db.Action
-    .findAll(
+    .find(
       { 
         _id: req.params.id,
         endTime:
         {
-          $gte: new Date(new Date(req.query.startDate).setHours(00, 00, 00)),
-          $lt: new Date(new Date(req.query.endDate).setHours(23, 59, 59))
+          $gte: moment(req.query.startTime),
+          $lt: moment(req.query.endTime)
            }
       },
       { sort: -1}
@@ -18,16 +19,19 @@ module.exports = {
     .catch(err => res.status(422).json(err));
   },
   findActionsLastDay: function (req, res) {
+    let yesterday = moment().subtract(24, "hours").toISOString();
     db.Action
-    .findAll(
+    .find(
       {
-        _id: req.params.id,
-        endtime: {
-          $gte: new Date(new Date().getTime() - (24 * 60 * 60 * 1000))
+        child: req.params.id,
+        endTime: {
+          $gte: yesterday
         }
       },
       { sort: -1}
     )
+    .select("name beginTime endTime")
+    .populate("child")
     .then(dbModel => res.json(dbModel))
     .catch(err => res.status(422).json(err));
   },
