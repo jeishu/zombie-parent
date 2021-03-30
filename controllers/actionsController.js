@@ -30,7 +30,6 @@ module.exports = {
       },
       { sort: -1}
     )
-    .select("name beginTime endTime")
     .populate("child")
     .then(dbModel => res.json(dbModel))
     .catch(err => res.status(422).json(err));
