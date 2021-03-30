@@ -13,25 +13,28 @@ function Nav() {
     <header>
       <Time />
       <nav>
-        <NavLink
-          to="/"
-          exact
-          className={location.pathname === "/" ? "active" : ""}
-        >
-          <Home />
-        </NavLink>
-        <NavLink
-          to="/log"
-          className={location.pathname === "/log" ? "active" : ""}
-        >
-          <Log />
-        </NavLink>
-        <NavLink
-          to="/profile"
-          className={location.pathname === "/profile" ? "active" : ""}
-        >
-          <Profile />
-        </NavLink>
+        <div className="nav-container">
+          <NavLink
+            to="/"
+            exact
+            className={location.pathname === "/" ? "active" : ""}
+          >
+            <Home />
+          </NavLink>
+          <NavLink
+            to="/log"
+            className={location.pathname === "/log" ? "active" : ""}
+          >
+            <Log />
+          </NavLink>
+          <NavLink
+            to="/profile"
+            className={location.pathname === "/profile" ? "active" : ""}
+          >
+            <Profile />
+          </NavLink>
+        </div>
+
       </nav>
       {/* <div>
         Icons made by{" "}
