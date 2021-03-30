@@ -1,4 +1,5 @@
 import React from "react";
+import "./svg.scss";
 
 const Dashboard = () => {
   return (
@@ -9,6 +10,7 @@ const Dashboard = () => {
       viewBox="0 0 512 512"
       width="512"
       xmlns="http://www.w3.org/2000/svg"
+      className=""
     >
       <g>
         <path d="m110.678 302h169.574l-84.787-84.787z" />

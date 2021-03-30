@@ -1,4 +1,5 @@
 import React from "react";
+import "./svg.scss";
 
 const Log = () => {
   return (

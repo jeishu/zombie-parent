@@ -1,0 +1,16 @@
+@use "../../scss/colors";
+
+svg {
+    width: 30px;
+    height: auto;
+
+    @media (min-width: 768px){
+        width: 50px;
+    }
+}
+
+.active {
+    // border-bottom: 1px solid colors.$active-color;
+    color: colors.$active-color;
+    fill: colors.$active-color;
+  }

@@ -2,8 +2,6 @@ import React from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import "./nav.scss";
 import Time from "../Time/index";
-// import styled from "styled-components";
-import Dashboard from "../../img/nav/Dashboard";
 import Home from "../../img/nav/Home";
 import Log from "../../img/nav/Log";
 import Profile from "../../img/nav/Profile.jsx";
