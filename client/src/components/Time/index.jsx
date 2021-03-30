@@ -4,7 +4,7 @@ import "./time.scss";
 
 const Time = () => {
     return (
-        <Moment format="h:mm:ss a" local interval={1} className="time"/>
+        <Moment format="h:mm a" local interval={1} className="time"/>
     )
 }
 
