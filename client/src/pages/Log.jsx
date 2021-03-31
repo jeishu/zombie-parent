@@ -76,17 +76,17 @@ export default function Log() {
           buttonContent={btn1.name}
           btnAction={() => updateButtons(btn1.btn, btn1.name)}
         />{" "}
-        <br />
+        {/* <br /> */}
         <LogBtn
           buttonContent={btn2.name}
           btnAction={() => updateButtons(btn2.btn, btn2.name)}
         />{" "}
-        <br />
+        {/* <br /> */}
         <LogBtn
           buttonContent={btn3.name}
           btnAction={() => updateButtons(btn3.btn, btn3.name)}
         />{" "}
-        <br />
+        {/* <br /> */}
       </main>
     </main>
   );
