@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+const moment = require("moment");
 
 const actionSchema = new Schema({
   name: {
@@ -8,11 +9,11 @@ const actionSchema = new Schema({
   },
   beginTime: {
     type: Date,
-    default: Date.now,
+    default: moment(),
   },
   endTime: {
     type: Date,
-    default: Date.now,
+    default: moment(),
   },
   lastUpdatedBy: { type: Schema.Types.ObjectId, ref: "User" },
   child: { type: Schema.Types.ObjectId, ref: "Child" },
