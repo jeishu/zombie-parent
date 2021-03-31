@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Hierarchy from "../components/Hierarchy"
 import LogBtn from "../components/LogBtn";
+import "./log.scss";
 
 export default function Log() {
   const [btn1, setBtn1] = useState({ name: "Diaper", btn: "Diaper" });
@@ -66,10 +67,10 @@ export default function Log() {
   console.log(btn1.btn, btn2.btn, btn3.btn);
 
   return (
-    <main>
+    <main className="page">
       <h1>Log Page</h1>
-      <main>
-        <Hierarchy dir={dir} />
+      <Hierarchy dir={dir} />
+      <main className="log-container">
         {/* <LogBtn buttonContent="Back" btnAction={() => handleClick} /> <br /> */}
         <LogBtn
           buttonContent={btn1.name}

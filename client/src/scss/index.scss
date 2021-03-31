@@ -17,3 +17,11 @@ body {
         margin: 0;
     }
 }
+
+.page {
+    padding: 2rem;
+    height: 600px;
+    @media (min-width: 768px) {
+        padding: 0rem 2rem 2rem;
+    }
+}

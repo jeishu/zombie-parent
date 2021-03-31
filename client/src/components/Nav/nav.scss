@@ -27,9 +27,13 @@ nav {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
+  @media (min-width: 768px) {
+    padding-left: 3.5rem;
+  }
 
   .nav-container {
     height: 50px;
+    width: 100%;
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
@@ -40,6 +44,7 @@ nav {
       justify-content: flex-end;
       align-items: flex-start;
       height: 100%;
+      width: 100%;
       padding-bottom: 100px;
     }
 
