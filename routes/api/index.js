@@ -4,9 +4,9 @@ const childRoutes = require("./children");
 const actionRoutes = require("./actions");
 
 
-router.use("/user", userRoutes);
-router.use("/child", childRoutes);
-router.use("/action", actionRoutes);
+router.use("/users", userRoutes);
+router.use("/childs", childRoutes);
+router.use("/actions", actionRoutes);
 
 
 module.exports = router;
