@@ -1,14 +1,46 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Hierarchy from "../components/Hierarchy";
 import LogBtn from "../components/LogBtn";
+import API from "../utils/API";
 
 export default function Log() {
   const [btn1, setBtn1] = useState({ name: "Diaper", btn: "Diaper" });
   const [btn2, setBtn2] = useState({ name: "Eat", btn: "Eat" });
   const [btn3, setBtn3] = useState({ name: "Nap", btn: "Nap" });
   const [dir, setDir] = useState([{ name: "Log", btn: "Default", key: 0 }]);
+  const [user, setUser] = useState({
+    _id: "6064d1b34c03365638292266",
+    name: "Mama Testy",
+    activeChild: [{ _id: "6064d1b34c03365638292265" }],
+    careOptions: {
+      showBottle: true,
+      showNurse: true,
+      showNap: true,
+      showDiaper: true,
+    },
+  });
+  const [child, setChild] = useState({
+    _id: "6064d1b34c03365638292265",
+    name: "Lil Testy"
+  });
+
+  // useEffect(() => {
+  //   API.(id)
+  //     .then(res => setBook(res.data))
+  //     .catch(err => console.log(err));
+  // }, [])
 
   const updateButtons = (choice, name) => {
+    const lastDir = dir[dir.length - 1];
+
+    if (choice === "Add Now" && lastDir === "Pee") {
+      handleDiaperSubmit({ pee: true });
+    } else if (choice === "Add Now" && lastDir === "Poo") {
+      handleDiaperSubmit({ poo: true });
+    } else if (choice === "Add Now" && lastDir === "Both") {
+      handleDiaperSubmit({ pee: true, poo: true });
+    }
+
     addDir(choice, name);
 
     switch (choice) {
@@ -85,15 +117,24 @@ export default function Log() {
     setBtn3({ name: name3, btn: button3 });
   };
 
-  // function handleDiaperSubmit(event) {
-  //   API.saveBook({
-  //     title: formObject.title,
-  //     author: formObject.author,
-  //     synopsis: formObject.synopsis
-  //   })
-  //     .then(res => loadBooks())
-  //     .catch(err => console.log(err));
-  // };
+  function handleDiaperSubmit(contents) {
+    // name, child, user id
+    let actionData = {
+      diaperContent: contents,
+      name: user.name,
+      child: child._id
+    };
+    API.saveAction(actionData)// .then(res => loadBooks())
+      .catch((err) => console.log(err));
+  }
+
+  function handleEatSubmit(contents) {
+    let actionData = {
+
+    };
+    API.saveAction(actionData)
+    .catch((err) => console.log(err))
+  }
 
   // console.log(btn1.name, btn2.name, btn3.name);
   // console.log(btn1.btn, btn2.btn, btn3.btn);
