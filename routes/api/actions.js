@@ -19,4 +19,12 @@ router
   .route("/lastday/:id/:name")
   .get(actionsController.findActionsLastDayByName);
 
+router
+  .route("/lastweek/:id")
+  .get(actionsController.findActionsLastWeek);
+
+router
+  .route("/lastweek/:id/:name")
+  .get(actionsController.findActionsLastWeekByName);
+
 module.exports = router;

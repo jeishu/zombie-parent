@@ -31,8 +31,43 @@ module.exports = {
         return res.json(actions);
       });
   },
+  findActionsLastWeek: function (req, res) {
+    let lastWeek = moment().subtract(168, "hours").toISOString();
+    db.Action.find(
+      {
+        child: req.params.id,
+        endTime: {
+          $gte: lastWeek,
+        },
+      })
+      .populate("child")
+      .sort({ endTime: -1 })
+      .exec(function (err, actions) {
+        // console.log(JSON.stringify(actions, null, 2));
+        if (err) return res.status(422).json(err);
+        return res.json(actions);
+      });
+  },
   findActionsLastDayByName: function (req, res) {
     let yesterday = moment().subtract(24, "hours").toISOString();
+    db.Action.find(
+      {
+        child: req.params.id,
+        name: req.params.name,
+        endTime: {
+          $gte: yesterday,
+        },
+      })
+      .populate("child")
+      .sort({ endTime: -1 })
+      .exec(function (err, actions) {
+        // console.log(JSON.stringify(actions, null, 2));
+        if (err) return res.status(422).json(err);
+        return res.json(actions);
+      });
+  },
+  findActionsLastWeekByName: function (req, res) {
+    let lastWeek = moment().subtract(168, "hours").toISOString();
     db.Action.find(
       {
         child: req.params.id,
