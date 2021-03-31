@@ -73,7 +73,7 @@ module.exports = {
         child: req.params.id,
         name: req.params.name,
         endTime: {
-          $gte: yesterday,
+          $gte: lastWeek,
         },
       })
       .populate("child")
