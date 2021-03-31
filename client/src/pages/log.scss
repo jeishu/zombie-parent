@@ -32,7 +32,7 @@ $transition: 0.3s ease-out all;
     position: relative;
     margin: 10px 0;
 
-    // &.white:hover > p {color: $white;}
+    &.white:hover > p {color: $white;}
 
     &.white > p {
         background: $white;
@@ -43,20 +43,6 @@ $transition: 0.3s ease-out all;
             border: 1px solid transparent;
         }
     }
-
-    // &.transparent:hover > p {
-    //     color: $white;
-    //     & span.text {
-    //         box-shadow: 0 0 0 1px $white;
-    //     }
-    // }
-    // &.transparent > p {
-    //     background: $base;
-    //     color: $white;
-    //     & span.base {
-    //         border: 1px solid $white;
-    //     }
-    // }
 
     &:after,
     &:before {
@@ -82,6 +68,7 @@ $transition: 0.3s ease-out all;
         width: 100%;
         position: relative;
         overflow: hidden;
+        padding: 1rem;
 
         & span.base {
             position: absolute;
