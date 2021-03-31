@@ -3,16 +3,14 @@ const moment = require("moment");
 
 module.exports = {
   findActionsByDateRange: function (req, res) {
-    db.Action.find(
-      {
-        _id: req.params.id,
-        endTime: {
-          $gte: moment(req.query.startTime),
-          $lt: moment(req.query.endTime),
-        },
+    db.Action.find({
+      _id: req.params.id,
+      endTime: {
+        $gte: moment(req.query.startTime),
+        $lt: moment(req.query.endTime),
       },
-      { sort: -1 }
-    )
+    })
+      .sort({ endTime: -1 })
       .then((dbModel) => res.json(dbModel))
       .catch((err) => res.status(422).json(err));
   },
@@ -24,11 +22,27 @@ module.exports = {
         endTime: {
           $gte: yesterday,
         },
-      }
-      // { sort: -1 }  this was bad. anything here will limit fields
-    )
+      })
       .populate("child")
-      .sort({ endTime: -1 }) // this is good
+      .sort({ endTime: -1 })
+      .exec(function (err, actions) {
+        // console.log(JSON.stringify(actions, null, 2));
+        if (err) return res.status(422).json(err);
+        return res.json(actions);
+      });
+  },
+  findActionsLastDayByName: function (req, res) {
+    let yesterday = moment().subtract(24, "hours").toISOString();
+    db.Action.find(
+      {
+        child: req.params.id,
+        name: req.params.name,
+        endTime: {
+          $gte: yesterday,
+        },
+      })
+      .populate("child")
+      .sort({ endTime: -1 })
       .exec(function (err, actions) {
         // console.log(JSON.stringify(actions, null, 2));
         if (err) return res.status(422).json(err);

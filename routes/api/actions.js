@@ -15,4 +15,8 @@ router
   .route("/lastday/:id")
   .get(actionsController.findActionsLastDay);
 
+router
+  .route("/lastday/:id/:name")
+  .get(actionsController.findActionsLastDayByName);
+
 module.exports = router;
