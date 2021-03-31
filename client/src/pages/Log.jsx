@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Hierarchy from "../components/Hierarchy"
+import Hierarchy from "../components/Hierarchy";
 import LogBtn from "../components/LogBtn";
 import "./log.scss";
 
@@ -7,10 +7,10 @@ export default function Log() {
   const [btn1, setBtn1] = useState({ name: "Diaper", btn: "Diaper" });
   const [btn2, setBtn2] = useState({ name: "Eat", btn: "Eat" });
   const [btn3, setBtn3] = useState({ name: "Nap", btn: "Nap" });
-  const [dir, setDir] = useState(["Log>"]);
-  
+  const [dir, setDir] = useState([{ name: "Log", btn: "Default", key: 0 }]);
+
   const updateButtons = (choice, name) => {
-    addDir(name)
+    addDir(choice, name);
 
     switch (choice) {
       case "Default":
@@ -18,7 +18,7 @@ export default function Log() {
       case "End Time":
       case "Set Time":
         setBtns("Diaper", "Eat", "Nap", "Diaper", "Eat", "Nap");
-        setDir(dir => ["Log>"]);
+        setDir([{branch: "Log>", name: "Log", btn: "Default", key: 0}]);
         break;
       case "Diaper":
         setBtns("Pee", "Poo", "Both", "now/set", "now/set", "now/set");
@@ -45,17 +45,40 @@ export default function Log() {
         setBtns("Start Time", "End Time", "Cancel", "Start Time", "End Time", "Default");
         break;
       default:
-        setBtns("Diaper", "Eat", "Nap", "Diaper", "Eat", "Nap");
-        setDir(dir => ["Log>"]);
+        // setBtns("Diaper", "Eat", "Nap", "Diaper", "Eat", "Nap");
+        // setDir(dir => ["Log>"]);
+        console.log("This action does not update the buttons");
         break;
     }
   };
 
-  const addDir = (btnName) => {
-    if (btnName != "Switch" && btnName != "Start" && btnName != "Oz" && btnName != "Start Time") {
-      setDir(dir => [...dir, btnName + ">"]);
+  const dirTree = (dir, choice, name) => {
+    for (let i = dir.length; i > 0; i++) {
+      const dirLengthLessOne = dir[i] - 1;
+      if (choice !== dir[dirLengthLessOne].name) {
+        setDir(dir.filter((e) => e.key !== dirLengthLessOne));
+      }
     }
-  }
+    updateButtons(choice, name);
+  };
+
+  const addDir = (btnChoice, btnName) => {
+    let dirLength = dir.length;
+    let dirLengthLessOne = dir.length - 1;
+    if (btnName === "Switch") {
+      setDir(dir.filter((e) => e.key !== dirLengthLessOne));
+    } else if (
+      btnName !== "Switch" &&
+      btnName !== "Start" &&
+      btnName !== "Oz" &&
+      btnName !== "Start Time"
+    ) {
+      setDir((dir) => [
+        ...dir,
+        { name: btnName, btn: btnChoice, key: dirLength },
+      ]);
+    }
+  };
 
   const setBtns = (name1, name2, name3, button1, button2, button3) => {
     setBtn1({ name: name1, btn: button1 });
@@ -63,8 +86,8 @@ export default function Log() {
     setBtn3({ name: name3, btn: button3 });
   };
 
-  console.log(btn1.name, btn2.name, btn3.name);
-  console.log(btn1.btn, btn2.btn, btn3.btn);
+  // console.log(btn1.name, btn2.name, btn3.name);
+  // console.log(btn1.btn, btn2.btn, btn3.btn);
 
   return (
     <main className="page">
@@ -87,6 +110,7 @@ export default function Log() {
           btnAction={() => updateButtons(btn3.btn, btn3.name)}
         />{" "}
         {/* <br /> */}
+        {/* <LogBtn buttonContent="Back" /> <br /> */}
       </main>
     </main>
   );

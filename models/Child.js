@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+const moment = require("moment");
 
 const childSchema = new Schema({
   name: {
@@ -8,7 +9,7 @@ const childSchema = new Schema({
   },
   birthDate: {
     type: Date,
-    default: Date.now,
+    default: moment(),
   },
 });
 

@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+const moment = require("moment");
 
 const userSchema = new Schema({
   name: {
@@ -11,11 +12,11 @@ const userSchema = new Schema({
   },
   joinDate: {
     type: Date,
-    default: Date.now,
+    default: moment(),
   },
   lastLogin: {
     type: Date,
-    default: Date.now,
+    default: moment(),
   },
   child: [{ type: Schema.Types.ObjectId, ref: "Child" }],
   activeChild: [{ type: Schema.Types.ObjectId, ref: "Child" }],

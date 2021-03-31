@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const db = require("../models");
+const moment = require("moment");
 
 // This file empties the Books collection and inserts the books below
 
@@ -8,7 +9,7 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/zombieparent");
 const childSeed = [
   {
     name: "Lil Testy",
-    birthDate: new Date(Date.now()),
+    birthDate: moment().subtract(1, "days"),
   },
 ];
 
@@ -16,8 +17,8 @@ const userSeed = [
   {
     name: "Mama Testy",
     password: "isthisatest",
-    joinDate: new Date(Date.now()),
-    lastLogin: new Date(Date.now()),
+    joinDate: moment().subtract(1, "days"),
+    lastLogin: moment().subtract(1, "days"),
     child: [],
     activeChild: [],
     careOptions: {
@@ -36,10 +37,8 @@ const userSeed = [
 const actionSeed = [
   {
     name: "diaper",
-    beginTime: new Date(Date.now()),
-    endTime: new Date(Date.now()),
-    // lastedUpdatedBy: {},
-    // child: {},
+    beginTime: moment().subtract(10, "hours"),
+    endTime: moment().subtract(10, "hours"),
     diaperContents: {
       pee: true,
     },
@@ -47,10 +46,8 @@ const actionSeed = [
   },
   {
     name: "diaper",
-    beginTime: new Date(Date.now()),
-    endTime: new Date(Date.now()),
-    // lastedUpdatedBy: {},
-    // child: {},
+    beginTime: moment().subtract(4, "hours"),
+    endTime: moment().subtract(4, "hours"),
     diaperContents: {
       pee: true,
       poo: true,
@@ -59,19 +56,15 @@ const actionSeed = [
   },
   {
     name: "bottle",
-    beginTime: new Date(Date.now()),
-    endTime: new Date(Date.now()),
-    // lastedUpdatedBy: {},
-    // child: {},
+    beginTime: moment().subtract(3, "hours"),
+    endTime: moment().subtract(3, "hours"),
     foodOz: 2,
     endedByUser: true,
   },
   {
     name: "nurse",
-    beginTime: new Date(Date.now()),
-    endTime: new Date(Date.now()),
-    // lastedUpdatedBy: {},
-    // child: {},
+    beginTime: moment().subtract(90, "minutes"),
+    endTime: moment().subtract(80, "minutes"),
     whichBreast: {
       left: true,
     },
@@ -79,10 +72,8 @@ const actionSeed = [
   },
   {
     name: "sleep",
-    beginTime: new Date(Date.now()),
-    endTime: new Date(Date.now()),
-    // lastedUpdatedBy: {},
-    // child: {},
+    beginTime: moment().subtract(4, "hours"),
+    endTime: moment().subtract(3, "hours"),
     endedByUser: true,
   },
 ];
