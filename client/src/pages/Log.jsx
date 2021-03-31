@@ -52,10 +52,10 @@ export default function Log() {
   };
 
   const dirTree = (dir, choice, name) => {
-    for (let i = dir.length; i > 0; i++) {
-      const dirLengthLessOne = dir[i] - 1;
-      if (choice !== dir[dirLengthLessOne].name) {
-        setDir(dir.filter((e) => e.key !== dirLengthLessOne));
+    for (let i = dir.length - 1; i > 0; i--) {
+      const element = dir[i];
+      if (choice !== dir[element].name) {
+        setDir(dir.filter((e) => e.key !== element));
       }
     }
     updateButtons(choice, name);
@@ -84,6 +84,16 @@ export default function Log() {
     setBtn2({ name: name2, btn: button2 });
     setBtn3({ name: name3, btn: button3 });
   };
+
+  // function handleDiaperSubmit(event) {
+  //   API.saveBook({
+  //     title: formObject.title,
+  //     author: formObject.author,
+  //     synopsis: formObject.synopsis
+  //   })
+  //     .then(res => loadBooks())
+  //     .catch(err => console.log(err));
+  // };
 
   // console.log(btn1.name, btn2.name, btn3.name);
   // console.log(btn1.btn, btn2.btn, btn3.btn);
