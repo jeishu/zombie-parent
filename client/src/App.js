@@ -7,6 +7,7 @@ import LoginPage from "./pages/login";
 import Profile from "./pages/Profile"
 import Nav from "./components/Nav";
 
+
 function App() {
   // Set default log state to false
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -15,7 +16,7 @@ function App() {
   // Fire.auth().onAuthStateChanged((user) => {
   //   return user ? setIsLoggedIn(true) : setIsLoggedIn(false);
   // });
-
+  
   return (
     <Router>
       <Nav />    

@@ -2,7 +2,7 @@ import React from "react";
 
 const Hierarchy = (props) => {
   return (
-    <ul>
+    <ul className="log-order">
       {props.dir.map((dir) => {
         return (
           <li

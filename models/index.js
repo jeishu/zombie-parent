@@ -1,5 +1,5 @@
 module.exports = {
-  Action: require("./action"),
-  Child: require("./child"),
-  User: require("./user")
+  Action: require("./Action"),
+  Child: require("./Child"),
+  User: require("./User")
 };
