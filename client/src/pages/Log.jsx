@@ -30,7 +30,7 @@ export default function Log() {
   //     .catch(err => console.log(err));
   // }, [])
 
-  const updateButtons = (choice, name) => {
+  const updateButtons = (choice, name, key) => {
     const lastDir = dir[dir.length - 1];
 
     if (choice === "Add Now" && lastDir === "Pee") {
@@ -41,7 +41,7 @@ export default function Log() {
       handleDiaperSubmit({ pee: true, poo: true });
     }
 
-    addDir(choice, name);
+    addDir(choice, name, key);
 
     switch (choice) {
       case "Default":
@@ -49,7 +49,7 @@ export default function Log() {
       case "End Time":
       case "Set Time":
         setBtns("Diaper", "Eat", "Nap", "Diaper", "Eat", "Nap");
-        setDir([{branch: "Log>", name: "Log", btn: "Default", key: 0}]);
+        setDir([{name: "Log", btn: "Default", key: 0}]);
         break;
       case "Diaper":
         setBtns("Pee", "Poo", "Both", "now/set", "now/set", "now/set");
@@ -58,7 +58,7 @@ export default function Log() {
         setBtns("Nurse", "Bottle", "Cancel", "Nurse", "Bottle", "Default");
         break;
       case "Nap":
-        setBtns("Start Time", "End Time", "Add Time", "Start Time", "End Time", "Add Time");
+        setBtns("Start", "End", "Add Time", "Start Time", "End Time", "Add Time");
         break;
       case "Nurse":
         setBtns("Left", "Right", "Cancel", "Feed", "Feed", "Default");
@@ -83,30 +83,34 @@ export default function Log() {
     }
   };
 
-  const dirTree = (dir, choice, name) => {
-    for (let i = dir.length - 1; i > 0; i--) {
-      const element = dir[i];
-      if (choice !== dir[element].name) {
-        setDir(dir.filter((e) => e.key !== element));
-      }
-    }
-    updateButtons(choice, name);
+  const dirTree = async (clickedDir) => {
+    // console.log(clickedDir)
+    let tempDir = dir;
+    // console.log("before");
+    console.log(tempDir);
+    let slicedDir = tempDir.slice(0, clickedDir.key);
+    // console.log(clickedDir.key);
+    // console.log("after");
+    // console.log(slicedDir);
+    setDir(slicedDir);
   };
 
-  const addDir = (btnChoice, btnName) => {
-    let dirLength = dir.length;
+  const addDir = (btnChoice, btnName, btnKey) => {
     let dirLengthLessOne = dir.length - 1;
+    console.log(btnKey)
+
     if (btnName === "Switch") {
       setDir(dir.filter((e) => e.key !== dirLengthLessOne));
     } else if (
       btnName !== "Switch" &&
       btnName !== "Start" &&
       btnName !== "Oz" &&
-      btnName !== "Start Time"
+      btnName !== "Start Time" &&
+      btnName !== dir[dirLengthLessOne].name
     ) {
       setDir((dir) => [
         ...dir,
-        { name: btnName, btn: btnChoice, key: dirLength },
+        { name: btnName, btn: btnChoice, key: btnKey + 1},
       ]);
     }
   };
@@ -118,13 +122,12 @@ export default function Log() {
   };
 
   function handleDiaperSubmit(contents) {
-    // name, child, user id
     let actionData = {
       diaperContent: contents,
       name: user.name,
       child: child._id
     };
-    API.saveAction(actionData)// .then(res => loadBooks())
+    API.createAction(actionData)// .then(res => loadBooks())
       .catch((err) => console.log(err));
   }
 
@@ -136,27 +139,24 @@ export default function Log() {
     .catch((err) => console.log(err))
   }
 
-  // console.log(btn1.name, btn2.name, btn3.name);
-  // console.log(btn1.btn, btn2.btn, btn3.btn);
-
   return (
     <main>
       <h1>Log Page</h1>
       <main>
-        <Hierarchy dir={dir} dirTree={dirTree} />
+        <Hierarchy dir={dir} dirTree={dirTree} updateButtons={updateButtons} />
         <LogBtn
           buttonContent={btn1.name}
-          btnAction={() => updateButtons(btn1.btn, btn1.name)}
+          btnAction={() => updateButtons(btn1.btn, btn1.name, dir[dir.length -1].key)}
         />{" "}
         <br />
         <LogBtn
           buttonContent={btn2.name}
-          btnAction={() => updateButtons(btn2.btn, btn2.name)}
+          btnAction={() => updateButtons(btn2.btn, btn2.name, dir[dir.length -1].key)}
         />{" "}
         <br />
         <LogBtn
           buttonContent={btn3.name}
-          btnAction={() => updateButtons(btn3.btn, btn3.name)}
+          btnAction={() => updateButtons(btn3.btn, btn3.name, dir[dir.length -1].key)}
         />{" "}
         <br />
         {/* <LogBtn buttonContent="Back" /> <br /> */}

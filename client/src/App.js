@@ -4,6 +4,7 @@ import Home from "./pages/Home"
 import Log from "./pages/Log"
 import Profile from "./pages/Profile"
 import Nav from "./components/Nav";
+import Login from "./pages/login";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route component={Home} path="/" exact></Route>
         <Route component={Log} path="/log" exact></Route>
         <Route component={Profile} path="/profile" exact></Route>
+        <Route component={Login} path="/login" exact></Route>
       </Switch>
     </Router>
   );
