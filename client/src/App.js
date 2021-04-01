@@ -1,22 +1,33 @@
-import React from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import React, { useState } from "react";
+import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
+import Fire from "./firebase";
 import Home from "./pages/Home"
 import Log from "./pages/Log"
+import LoginPage from "./pages/login";
 import Profile from "./pages/Profile"
 import Nav from "./components/Nav";
-import Login from "./pages/login";
+
 
 function App() {
+  // Set default log state to false
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  // If user is logged in, return user, else set log status to false
+  // Fire.auth().onAuthStateChanged((user) => {
+  //   return user ? setIsLoggedIn(true) : setIsLoggedIn(false);
+  // });
+  
   return (
     <Router>
-      <Nav />
-      <Switch>
-        <Route component={Home} path="/" exact></Route>
-        <Route component={Log} path="/log" exact></Route>
-        <Route component={Profile} path="/profile" exact></Route>
-        <Route component={Login} path="/login" exact></Route>
-      </Switch>
-    </Router>
+      <Nav />    
+          <Switch>
+            <Route component={Home} path="/" exact>
+              {isLoggedIn ? <Home /> : <LoginPage />}
+            </Route>
+            <Route component={Log} path="/log" exact></Route>
+            <Route component={Profile} path="/profile" exact></Route>
+          </Switch >
+    </Router >
   );
 }
 

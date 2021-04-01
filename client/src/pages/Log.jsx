@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Hierarchy from "../components/Hierarchy";
 import LogBtn from "../components/LogBtn";
 import API from "../utils/API";
+import "./log.scss";
 
 export default function Log() {
   const [btn1, setBtn1] = useState({ name: "Diaper", btn: "Diaper" });
@@ -140,7 +141,7 @@ export default function Log() {
   }
 
   return (
-    <main>
+    <main className="page">
       <h1>Log Page</h1>
       <main>
         <Hierarchy dir={dir} dirTree={dirTree} updateButtons={updateButtons} />
@@ -148,17 +149,17 @@ export default function Log() {
           buttonContent={btn1.name}
           btnAction={() => updateButtons(btn1.btn, btn1.name, dir[dir.length -1].key)}
         />{" "}
-        <br />
+        {/* <br /> */}
         <LogBtn
           buttonContent={btn2.name}
           btnAction={() => updateButtons(btn2.btn, btn2.name, dir[dir.length -1].key)}
         />{" "}
-        <br />
+        {/* <br /> */}
         <LogBtn
           buttonContent={btn3.name}
           btnAction={() => updateButtons(btn3.btn, btn3.name, dir[dir.length -1].key)}
         />{" "}
-        <br />
+        {/* <br /> */}
         {/* <LogBtn buttonContent="Back" /> <br /> */}
       </main>
     </main>

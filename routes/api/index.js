@@ -5,7 +5,7 @@ const actionRoutes = require("./actions");
 
 
 router.use("/users", userRoutes);
-router.use("/childs", childRoutes);
+router.use("/children", childRoutes);
 router.use("/actions", actionRoutes);
 
 
