@@ -9,7 +9,7 @@ export default function Profile() {
   const children = jsonData.children;
 
   return (
-    <main>
+    <main className="page">
       <h1>Profile Page</h1>
       <h1>{`${jsonData.user.firstName} ${jsonData.user.lastName}`}</h1>
 

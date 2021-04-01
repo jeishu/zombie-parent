@@ -1,12 +1,8 @@
 import React from "react";
-
 import Stopwatch from "../components/StopWatch/index";
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid, Paper } from "@material-ui/core";
 import PieChart from "../components/PieChart/PieChart";
-
-
-
 
 const useStyles = makeStyles((theme) => ({
   grid: {
@@ -30,7 +26,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Home() {
   const classes = useStyles();
-
 
   return (
     <main>
