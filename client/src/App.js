@@ -5,7 +5,10 @@ import Log from "./pages/Log"
 import Profile from "./pages/Profile"
 import Nav from "./components/Nav";
 
+
 function App() {
+  
+
   return (
     <Router>
       <Nav />
