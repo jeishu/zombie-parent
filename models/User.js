@@ -7,6 +7,11 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
+  email: {
+      type: String,
+      required: "Email can't be empty.",
+      unique: true
+  },
   password: {
     type: String,
   },
@@ -20,6 +25,7 @@ const userSchema = new Schema({
   },
   child: [{ type: Schema.Types.ObjectId, ref: "Child" }],
   activeChild: [{ type: Schema.Types.ObjectId, ref: "Child" }],
+  lastViewedChild: { type: Schema.Types.ObjectId, ref: "Child"},
   careOptions: {
     showBottle: { type: Boolean, required: true, default: true },
     showNurse: { type: Boolean, required: true, default: true },
