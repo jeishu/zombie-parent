@@ -1,4 +1,5 @@
 import React from "react";
+import "./hierarchy.scss"
 
 const Hierarchy = (props) => {
   return (
@@ -7,7 +8,6 @@ const Hierarchy = (props) => {
         return (
           <li
             key={dir.key}
-            style={{ listStyleType: "none", color: "white", display: "inline" }}
             onClick={() => props.dirTree(dir, dir.btn, dir.name)}
           >
             {dir.name}{`>`}

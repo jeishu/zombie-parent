@@ -1,6 +1,4 @@
-$base: #0f1923;
-$white: #ece8e1;
-$yellow: #FFBB00;
+@use "../scss/colors" as *;
 $height: auto;
 $transition: 0.3s ease-out all;
 
@@ -13,7 +11,7 @@ $transition: 0.3s ease-out all;
 }
 
 .log-order {
-    padding: 1rem 2rem;
+    padding: 1rem 2rem 0rem;
 }
 
 .log-buttons {
@@ -37,7 +35,7 @@ $transition: 0.3s ease-out all;
     &.white > p {
         background: $white;
         color: $base;
-        // padding: 1rem;
+        padding: 2rem;
 
         & span.base {
             border: 1px solid transparent;
@@ -76,21 +74,11 @@ $transition: 0.3s ease-out all;
             height: 100%;
             left: 0;
             border: 1px solid $yellow;
-
-            &:before {
-                content: "";
-                width: 2px;
-                height: 2px;
-                left: -1px;
-                top: -1px;
-                background: $base;
-                position: absolute;
-                transition: $transition;
-            }
         }
 
         & span.bg {
             left: -5%;
+            top: 0%;
             position: absolute;
             background: $yellow;
             width: 0;
@@ -106,20 +94,9 @@ $transition: 0.3s ease-out all;
             position: relative;
             left: 0;
             top: 0;
-            // &:after {
-            //     content: "";
-            //     width: 4px;
-            //     height: 4px;
-            //     right: 0%;
-            //     bottom: 0%;
-            //     background: $base;
-            //     position: absolute;
-            //     transition: $transition;
-            //     z-index: 5;
-            // }
         }
     }
-    &:hover, &:active {
+    &:hover {
         color: $white;
         & span.bg {
             width: 110%;

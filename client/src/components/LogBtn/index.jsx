@@ -4,8 +4,8 @@ const LogBtn = (props) => {
   return (
     <div className="log-buttons white">
       <p  onClick={props.btnAction}>
-        <span className="bg"></span>
         <span className="base"></span>
+        <span className="bg"></span>
         <span className="text" >{props.buttonContent}</span>
       </p>
     </div>
