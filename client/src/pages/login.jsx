@@ -1,9 +1,11 @@
 import React from "react";
+import Login from "../components/Sessions/Login"
 
-export default function Login() {
+export default function LoginPage() {
   return (
     <main>
-      <h1>Login Page</h1>
+
+      <Login />
     
     </main>
   );
