@@ -1,5 +1,10 @@
+@use "../../scss/mixins" as *;
+
 .log-order li {
     color: white;
     list-style-type: none;
     display: inline;
+    font-size: 2rem;
+    text-transform: uppercase;
+    @include animate-underline-left;
 }
