@@ -11,11 +11,12 @@ import Log from "./pages/Log";
 import LoginPage from "./pages/login";
 import Profile from "./pages/Profile";
 import Nav from "./components/Nav";
+import API from "./utils/API";
 
 function App() {
   // Set default log state to false
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState();
 
   // If user is logged in, return user, else set log status to false
   Fire.auth().onAuthStateChanged((user) => {

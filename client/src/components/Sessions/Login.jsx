@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import Fire from "../../Fire";
+import API from "../../utils/API";
+
 
 const Login = () => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
+  const [user, setUser] = useState();
 
   const login = (event) => {
     event.preventDefault();
@@ -11,6 +14,12 @@ const Login = () => {
     // Error handling for incorrect authentication
     Fire.auth()
       .signInWithEmailAndPassword(email, password)
+      // populate user
+      .then((userCredential) => {
+        // console.log(JSON.stringify(userCredential.user))
+        let user = userCredential.user;
+
+      })
       .catch((error) => {
         console.error("Incorrect username or password");
       });
@@ -26,6 +35,22 @@ const Login = () => {
     // Error handling for incorrect authentication
     Fire.auth()
       .createUserWithEmailAndPassword(email, password)
+      // populate user
+      .then((userCredential) => {
+        // console.log(JSON.stringify(userCredential.user))
+        let user = userCredential.user;
+        API.createUser({
+          uid: user.uid,
+          email
+        })
+        .then((dbModel) => {
+          console.log(JSON.stringify(dbModel));
+          setUser(dbModel);
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+      })
       .catch((error) => {
         console.error("Incorrect username or password");
       });
@@ -34,7 +59,6 @@ const Login = () => {
     console.log(`submitted email:
         ${email} password: ${password}`);
   };
-
 
   return (
     <div>
@@ -52,8 +76,12 @@ const Login = () => {
           placeholder="Password"
         />
         <br />
-        <button type="submit" onClick={login}>Sign In</button>
-        <button type="submit" onClick={signup}>Sign Up</button>
+        <button type="submit" onClick={login}>
+          Sign In
+        </button>
+        <button type="submit" onClick={signup}>
+          Sign Up
+        </button>
       </form>
     </div>
   );
