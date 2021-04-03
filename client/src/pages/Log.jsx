@@ -34,17 +34,17 @@ export default function Log() {
   const updateButtons = (choice, name, key) => {
     const lastDir = dir[dir.length - 1];
 
-    if (choice === "Add Now" && lastDir === "Pee") {
-      handleDiaperSubmit({ pee: true });
-    } else if (choice === "Add Now" && lastDir === "Poo") {
-      handleDiaperSubmit({ poo: true });
-    } else if (choice === "Add Now" && lastDir === "Both") {
-      handleDiaperSubmit({ pee: true, poo: true });
-    } else if (choice === "Start" && lastDir === "Left") {
-      handleEatSubmit({})
-    } else if (choice === "Start" && lastDir === "Right") {
-      handleEatSubmit({})
-    } else if (choice === "Start" && lastDir === "")
+    // if (choice === "Add Now" && lastDir === "Pee") {
+    //   handleDiaperSubmit({ pee: true });
+    // } else if (choice === "Add Now" && lastDir === "Poo") {
+    //   handleDiaperSubmit({ poo: true });
+    // } else if (choice === "Add Now" && lastDir === "Both") {
+    //   handleDiaperSubmit({ pee: true, poo: true });
+    // } else if (choice === "Start" && lastDir === "Left") {
+    //   handleEatSubmit({})
+    // } else if (choice === "Start" && lastDir === "Right") {
+    //   handleEatSubmit({})
+    // } else if (choice === "Start" && lastDir === "Bottle")
 
     addDir(choice, name, key);
 
@@ -53,6 +53,7 @@ export default function Log() {
       case "Add Now":
       case "End Time":
       case "Set Time":
+      case "Stop Time":
         setBtns("Diaper", "Eat", "Nap", "Diaper", "Eat", "Nap");
         setDir([{name: "Log", btn: "Default", key: 0}]);
         break;
@@ -124,47 +125,47 @@ export default function Log() {
     setBtn3({ name: name3, btn: button3 });
   };
 
-  function handleDiaperSubmit(contents) {
-    let actionData = {
-      name: user.name,
-      lastUpdatedBy: { _id: user._id },
-      child: { _id: child._id },
-      diaperContent: contents,
-    };
-    API.createAction(actionData) // .then(res => loadBooks())
-      .catch((err) => console.log(err));
-  }
+  // function handleDiaperSubmit(contents) {
+  //   let actionData = {
+  //     name: user.name,
+  //     lastUpdatedBy: { _id: user._id },
+  //     child: { _id: child._id },
+  //     diaperContent: contents,
+  //   };
+  //   API.createAction(actionData) // .then(res => loadBooks())
+  //     .catch((err) => console.log(err));
+  // }
 
-  function handleEatSubmit(contents) {
-    let actionData = {
-      name: user.name,
-      beginTime: "",
-      endTime: "",
-      lastUpdatedBy: { _id: user._id },
-      child: { _id: child._id },
-      foodOz: null,
-      whichBreast: {
-        left: false,
-        right: false,
-      },
-      endedByUser: true,
-    };
-    API.saveAction(actionData)
-    .catch((err) => console.log(err));
-  }
+  // function handleEatSubmit(contents) {
+  //   let actionData = {
+  //     name: user.name,
+  //     beginTime: "",
+  //     endTime: "",
+  //     lastUpdatedBy: { _id: user._id },
+  //     child: { _id: child._id },
+  //     foodOz: null,
+  //     whichBreast: {
+  //       left: false,
+  //       right: false,
+  //     },
+  //     endedByUser: true,
+  //   };
+  //   API.saveAction(actionData)
+  //   .catch((err) => console.log(err));
+  // }
 
-  function handleNapSubmit(contents) {
-    let actionData = {
-      name: user.name,
-      beginTime: "",
-      endTime: "",
-      lastUpdatedBy: { _id: user._id },
-      child: { _id: child._id },
-      endedByUser: true,
-    };
-    API.saveAction(actionData)
-    .catch((err) => console.log(err));
-  }
+  // function handleNapSubmit(contents) {
+  //   let actionData = {
+  //     name: user.name,
+  //     beginTime: "",
+  //     endTime: "",
+  //     lastUpdatedBy: { _id: user._id },
+  //     child: { _id: child._id },
+  //     endedByUser: true,
+  //   };
+  //   API.saveAction(actionData)
+  //   .catch((err) => console.log(err));
+  // }
 
   return (
     <main className="page">

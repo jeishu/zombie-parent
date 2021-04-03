@@ -10,7 +10,7 @@ import Nav from "./components/Nav";
 
 function App() {
   // Set default log state to false
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
 
   // If user is logged in, return user, else set log status to false
   // Fire.auth().onAuthStateChanged((user) => {
