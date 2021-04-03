@@ -16,11 +16,13 @@ const childSeed = [
 const userSeed = [
   {
     name: "Mama Testy",
+    email: "mama@test.com",
     password: "isthisatest",
     joinDate: moment().subtract(1, "days"),
     lastLogin: moment().subtract(1, "days"),
     child: [],
     activeChild: [],
+    lastViewedChild: {},
     careOptions: {
       showBottle: true,
       showNurse: true,
@@ -115,6 +117,9 @@ db.Child.remove({})
         db.User.findOneAndUpdate(
           { name: "Mama Testy" },
           {
+            lastViewedChild: {
+              _id: childId,
+            },
             $push: {
               child: {
                 _id: childId,
@@ -136,14 +141,13 @@ db.Child.remove({})
                   // console.log(JSON.stringify(data));
                   console.log(data.length + " records inserted");
                   db.Action.updateMany(
-                    {}, 
+                    {},
                     {
                       $set: {
                         lastUpdatedBy: userId,
                         child: childId,
-                      }
+                      },
                     }
-                    
                   )
                     .then((data) => {
                       console.log(JSON.stringify(data));
