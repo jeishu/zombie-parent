@@ -5,9 +5,14 @@ import Time from "../Time/index";
 import Home from "../../img/nav/Home";
 import Log from "../../img/nav/Log";
 import Profile from "../../img/nav/Profile.jsx";
+import Fire from "../../Fire";
 
 function Nav() {
   const location = useLocation();
+
+  const signOut = () => {
+    Fire.auth().signOut();
+  };
 
   return (
     <header>
@@ -33,8 +38,11 @@ function Nav() {
           >
             <Profile />
           </NavLink>
-        </div>
 
+          <span onClick={signOut}>
+            <a href="#">Sign out</a>
+          </span>
+        </div>
       </nav>
       {/* <div>
         Icons made by{" "}
