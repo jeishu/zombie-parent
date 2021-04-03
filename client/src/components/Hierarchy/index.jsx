@@ -8,7 +8,7 @@ const Hierarchy = (props) => {
           <li
             key={dir.key}
             style={{ listStyleType: "none", color: "white", display: "inline" }}
-            onClick={() => props.dirTree(dir, dir.btn, dir.name)}
+            onClick={() => props.dirTree(dir).then(() => props.updateButtons(dir.btn, dir.name, dir.key - 1))}
           >
             {dir.name}{`>`}
           </li>
