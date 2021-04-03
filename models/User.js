@@ -4,11 +4,19 @@ const moment = require("moment");
 
 const userSchema = new Schema({
   name: {
-    type: String,
-    required: true,
+    type: String
   },
-  password: {
+  email: {
+      type: String,
+      unique: true
+  },
+  // password: {
+  //   type: String,
+  // },
+  uid: { 
     type: String,
+    required: true, 
+    unique: true,
   },
   joinDate: {
     type: Date,
@@ -20,6 +28,7 @@ const userSchema = new Schema({
   },
   child: [{ type: Schema.Types.ObjectId, ref: "Child" }],
   activeChild: [{ type: Schema.Types.ObjectId, ref: "Child" }],
+  lastViewedChild: { type: Schema.Types.ObjectId, ref: "Child"},
   careOptions: {
     showBottle: { type: Boolean, required: true, default: true },
     showNurse: { type: Boolean, required: true, default: true },
