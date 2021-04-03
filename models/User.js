@@ -12,8 +12,13 @@ const userSchema = new Schema({
       required: "Email can't be empty.",
       unique: true
   },
-  password: {
+  // password: {
+  //   type: String,
+  // },
+  uid: { 
     type: String,
+    required: true, 
+    unique: true,
   },
   joinDate: {
     type: Date,
