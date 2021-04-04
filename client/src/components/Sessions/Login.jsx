@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import Fire from "../../Fire";
 import API from "../../utils/API";
+import { useUserContext } from "../../utils/GlobalState";
 
 
 const Login = () => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
-  const [user, setUser] = useState();
+  const [state, dispatch] = useUserContext();
 
   const login = (event) => {
     event.preventDefault();
@@ -19,6 +20,16 @@ const Login = () => {
         // console.log(JSON.stringify(userCredential.user))
         let user = userCredential.user;
 
+        //api.getUser
+        API.getUserByUid(user.uid)
+        .then(dbModel => {
+          dispatch({
+            type: "setUser",
+            user: dbModel
+          })
+          .then(console.log(JSON.stringify(state)))
+          .catch((error) => {console.error(error)})
+        })
       })
       .catch((error) => {
         console.error("Incorrect username or password");
@@ -45,11 +56,16 @@ const Login = () => {
         })
         .then((dbModel) => {
           console.log(JSON.stringify(dbModel));
-          setUser(dbModel);
+          dispatch({
+            type: "setUser",
+            user: dbModel
+          })
+          .then(console.log(JSON.stringify(state)))  // after this run other login get requests
+          .catch((error) => {console.error(error)})
         })
         .catch((error) => {
           console.log(error);
-        })
+        });
       })
       .catch((error) => {
         console.error("Incorrect username or password");

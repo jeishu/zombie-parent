@@ -11,7 +11,7 @@ import Log from "./pages/Log";
 import LoginPage from "./pages/login";
 import Profile from "./pages/Profile";
 import Nav from "./components/Nav";
-import API from "./utils/API";
+import { UserProvider } from "./utils/GlobalState";
 
 function App() {
   // Set default log state to false
@@ -21,22 +21,24 @@ function App() {
   // If user is logged in, return user, else set log status to false
   Fire.auth().onAuthStateChanged((user) => {
     return user
-      ? (setIsLoggedIn(true) /* , setUser({ uid: user.uid } )*/)
+      ? setIsLoggedIn(true) /* , setUser({ uid: user.uid } )*/
       : setIsLoggedIn(false);
   });
 
-  console.log('logged in?', isLoggedIn);
+  console.log("logged in?", isLoggedIn);
 
   return (
     <Router>
-      <Nav />
-      <Switch>
-        <Route component={Home} path="/" exact>
-          {isLoggedIn ? <Home /> : <LoginPage />}
-        </Route>
-        <Route component={Log} path="/log" exact></Route>
-        <Route component={Profile} path="/profile" exact></Route>
-      </Switch>
+      <UserProvider>
+        <Nav />
+        <Switch>
+          <Route component={Home} path="/" exact>
+            {isLoggedIn ? <Home /> : <LoginPage />}
+          </Route>
+          <Route component={Log} path="/log" exact></Route>
+          <Route component={Profile} path="/profile" exact></Route>
+        </Switch>
+      </UserProvider>
     </Router>
   );
 }
