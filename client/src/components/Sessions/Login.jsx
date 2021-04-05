@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import Fire from "../../Fire";
 import API from "../../utils/API";
-import { useUserContext } from "../../utils/GlobalState";
+import { useStoreContext } from "../../utils/GlobalState";
 
 
 const Login = () => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
-  const [state, dispatch] = useUserContext();
+  const [state, dispatch] = useStoreContext();
 
   const login = (event) => {
     event.preventDefault();
