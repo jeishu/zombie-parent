@@ -11,7 +11,7 @@ import Log from "./pages/Log";
 import LoginPage from "./pages/login";
 import Profile from "./pages/Profile";
 import Nav from "./components/Nav";
-import { UserProvider } from "./utils/GlobalState";
+import { StoreProvider } from "./utils/GlobalState";
 
 function App() {
   // Set default log state to false
@@ -29,7 +29,7 @@ function App() {
 
   return (
     <Router>
-      <UserProvider>
+      <StoreProvider>
         <Nav />
         <Switch>
           <Route component={Home} path="/" exact>
@@ -38,7 +38,7 @@ function App() {
           <Route component={Log} path="/log" exact></Route>
           <Route component={Profile} path="/profile" exact></Route>
         </Switch>
-      </UserProvider>
+      </StoreProvider>
     </Router>
   );
 }

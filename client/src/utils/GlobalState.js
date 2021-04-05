@@ -1,60 +1,65 @@
 import React, { createContext, useReducer, useContext } from "react";
 
-const UserContext = createContext({
+const StoreContext = createContext({
   user: {},
   child: {},
   sleep: {},
   feeding: {},
   diaper: {},
+  loading: false,
 });
-const { Provider } = UserContext;
+const { Provider } = StoreContext;
 
-async function reducer(state, action) {
+function reducer(state, action) {
   switch (action.type) {
     case "setUser":
-      let result = await [...state, { user: action.user }];
-      return result;
+      return {
+        ...state,
+        user: action.user,
+        loading: false,
+      };
     case "setChild":
-      return [
+      return {
         ...state,
-        {
-          child: action.child,
-        },
-      ];
+        child: action.child,
+        loading: false,
+      };
     case "setSleep":
-      return [
+      return {
         ...state,
-        {
-          sleep: action.sleep,
-        },
-      ];
+        sleep: action.sleep,
+        loading: false,
+      };
     case "setFeeding":
-      return [
+      return {
         ...state,
-        {
-          feeding: action.feeding,
-        },
-      ];
+        feeding: action.feeding,
+        loading: false,
+      };
     case "setDiaper":
-      return [
+      return {
         ...state,
-        {
-          diaper: action.diaper,
-        },
-      ];
+        diaper: action.diaper,
+        loading: false,
+      };
+    case "loading":
+      return {
+        ...state,
+        loading: true,
+      };
     default:
       return state;
   }
 }
 
-function UserProvider({ value = [], ...props }) {
+function StoreProvider({ value = [], ...props }) {
   const [state, dispatch] = useReducer(reducer, []);
 
   return <Provider value={[state, dispatch]} {...props} />;
 }
 
-function useUserContext() {
-  return useContext(UserContext);
+function useStoreContext() {
+  return useContext(StoreContext);
 }
 
-export { UserProvider, useUserContext };
+export { StoreProvider, useStoreContext };
