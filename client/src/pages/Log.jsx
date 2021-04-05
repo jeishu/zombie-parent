@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Hierarchy from "../components/Hierarchy";
 import LogBtn from "../components/LogBtn";
+import SetTime from "../components/SetTime";
 import API from "../utils/API";
 import "./log.scss";
 
@@ -32,14 +33,21 @@ export default function Log() {
   // }, [])
 
   const updateButtons = (choice, name, key) => {
-    const lastDir = dir[dir.length - 1];
+    const lastDir = dir[dir.length - 1].name;
+    // console.log(lastDir.name);
 
-    // if (choice === "Add Now" && lastDir === "Pee") {
-    //   handleDiaperSubmit({ pee: true });
-    // } else if (choice === "Add Now" && lastDir === "Poo") {
-    //   handleDiaperSubmit({ poo: true });
-    // } else if (choice === "Add Now" && lastDir === "Both") {
-    //   handleDiaperSubmit({ pee: true, poo: true });
+    if (choice === "Add Now" && lastDir === "Pee") {
+      console.log("youve reached the if statement");
+      handleDiaperAddNowSubmit({ pee: true });
+    } else if (choice === "Add Now" && lastDir === "Poo") {
+      handleDiaperAddNowSubmit({ poo: true });
+    } else if (choice === "Add Now" && lastDir === "Both") {
+      handleDiaperAddNowSubmit({ pee: true, poo: true });
+    } else if (choice === "Set Time" && "Pee") {
+
+      // handleDiaperSetTimeSubmit(contents)
+    }
+
     // } else if (choice === "Start" && lastDir === "Left") {
     //   handleEatSubmit({})
     // } else if (choice === "Start" && lastDir === "Right") {
@@ -52,7 +60,7 @@ export default function Log() {
       case "Default":
       case "Add Now":
       case "End Time":
-      case "Set Time":
+      // case "Set Time":
       case "Stop Time":
         setBtns("Diaper", "Eat", "Nap", "Diaper", "Eat", "Nap");
         setDir([{name: "Log", btn: "Default", key: 0}]);
@@ -125,16 +133,33 @@ export default function Log() {
     setBtn3({ name: name3, btn: button3 });
   };
 
-  // function handleDiaperSubmit(contents) {
-  //   let actionData = {
-  //     name: user.name,
-  //     lastUpdatedBy: { _id: user._id },
-  //     child: { _id: child._id },
-  //     diaperContent: contents,
-  //   };
-  //   API.createAction(actionData) // .then(res => loadBooks())
-  //     .catch((err) => console.log(err));
-  // }
+  function handleDiaperAddNowSubmit(contents) {
+    console.log("you logged a new diaper.");
+    console.log(contents);
+    let actionData = {
+      name: "diaper",
+      endedByUser: true,
+      lastUpdatedBy: { _id: user._id },
+      child: { _id: child._id },
+      diaperContents: contents,
+    };
+    API.createAction(actionData) // .then(res => loadBooks())
+      .catch((err) => console.log(err));
+  }
+
+  function handleDiaperSetTimeSubmit(contents) {
+    console.log("you logged a new diaper.");
+    console.log(contents);
+    let actionData = {
+      name: "diaper",
+      endedByUser: true,
+      lastUpdatedBy: { _id: user._id },
+      child: { _id: child._id },
+      diaperContents: contents,
+    };
+    API.createAction(actionData) // .then(res => loadBooks())
+      .catch((err) => console.log(err));
+  }
 
   // function handleEatSubmit(contents) {
   //   let actionData = {
@@ -190,6 +215,7 @@ export default function Log() {
             updateButtons(btn3.btn, btn3.name, dir[dir.length - 1].key)
           }
         />{" "}
+        <SetTime handleSubmit={handleDiaperSetTimeSubmit}/>
       </main>
     </main>
   );
