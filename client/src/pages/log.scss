@@ -1,13 +1,14 @@
 @use "../scss/colors" as *;
+
 $height: auto;
 $transition: 0.3s ease-out all;
 
-.log-main {
-    background: rgba( 7, 7, 7, 0.15 );
-    backdrop-filter: blur( 4.0px );
-    -webkit-backdrop-filter: blur( 4.0px );
-    height: 100vh;
-}
+// .log-main {
+//     background: rgba( 7, 7, 7, 0.15 );
+//     backdrop-filter: blur( 4.0px );
+//     -webkit-backdrop-filter: blur( 4.0px );
+//     height: 100vh;
+// }
 
 .log-container {
     display: flex;
