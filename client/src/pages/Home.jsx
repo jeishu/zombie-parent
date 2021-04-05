@@ -7,7 +7,7 @@ import PieChart from "../components/PieChart/PieChart";
 const useStyles = makeStyles((theme) => ({
   grid: {
     width: '100%',
-    margin: '0px',
+    margin: '0px'
   },
   paper: {
     padding: theme.spacing(2),
@@ -18,8 +18,7 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: '500',
     fontSize: '1.5rem',
     letterSpacing: '1.5px',
-    padding: '2rem',
-    
+    padding: '2rem'
   }
 }));
 
@@ -30,22 +29,22 @@ export default function Home() {
   return (
     <main>
       <h1></h1>
-    <Grid container spacing={6} className={classes.grid}>
-      <Grid item xs={6} md={6} lg={4}>
-        <Paper className={classes.paper}>This is for the timer aspect of the Zombie Parent App.</Paper>
+      <Grid container spacing={6} className={classes.grid}>
+        <Grid item xs={6} md={6} lg={4}>
+          <Paper className={classes.paper}>This is for the timer aspect of the Zombie Parent App.</Paper>
+        </Grid>
+        <Grid item xs={6} md={6} lg={4}>
+          <Paper className={classes.paper}>Number of naps taken today.</Paper>
+        </Grid>
+        <Grid item xs={6} md={6} lg={4}>
+          <Paper className={classes.paper}>Circle Chart showing a percentage of all actions done that day.
+          <PieChart />
+          </Paper>
+        </Grid>
+        <Grid item xs={6} md={6} lg={12}>
+          <Paper className={classes.paper}>Visual representation of the day.</Paper>
+        </Grid>
       </Grid>
-      <Grid item xs={6} md={6} lg={4}>
-        <Paper className={classes.paper}>Number of naps taken today.</Paper>
-      </Grid>
-      <Grid item xs={6} md={6} lg={4}>
-        <Paper className={classes.paper}>Circle Chart showing a percentage of all actions done that day.
-          <PieChart/>
-        </Paper>
-      </Grid>
-      <Grid item xs={6} md={6} lg={12}>
-        <Paper className={classes.paper}>Visual representation of the day.</Paper>
-      </Grid>
-    </Grid>
     </main>
   );
 }

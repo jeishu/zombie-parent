@@ -1,0 +1,27 @@
+@use "../../scss/mixins" as *;
+
+.log-order {
+    padding: 1rem 0  0;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+}
+
+.hierarchy {
+    color: white;
+    list-style-type: none;
+    display: flex;
+    flex-direction: row;
+    font-size: 1.3rem;
+    text-transform: uppercase;
+    
+    .hierarchy-name {
+        @include animate-underline-left;
+        cursor: pointer;
+    }
+    svg {
+        width: 10px;
+        fill: white;
+    }
+}
