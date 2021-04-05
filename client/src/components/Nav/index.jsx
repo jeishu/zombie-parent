@@ -13,6 +13,7 @@ function Nav() {
 
   const signOut = () => {
     Fire.auth().signOut();
+    //add something that clears user/action/child data
   };
 
   return (
