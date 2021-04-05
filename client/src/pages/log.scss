@@ -2,13 +2,11 @@
 $height: auto;
 $transition: 0.3s ease-out all;
 
-main {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    align-items: center;
-    height: 100%;
-    width: 100%;
+.log-main {
+    background: rgba( 7, 7, 7, 0.15 );
+    backdrop-filter: blur( 4.0px );
+    -webkit-backdrop-filter: blur( 4.0px );
+    height: 100vh;
 }
 
 .log-container {
@@ -17,7 +15,6 @@ main {
     justify-content: space-evenly;
     align-items: center;
     height: 90%;
-    
 }
 
 .log-buttons {

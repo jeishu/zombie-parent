@@ -143,7 +143,7 @@ export default function Log() {
   return (
     <main className="page">
       <h1>Log Page</h1>
-      <main>
+      <main className="log-main">
         <Hierarchy dir={dir} dirTree={dirTree} updateButtons={updateButtons} />
         <LogBtn
           buttonContent={btn1.name}

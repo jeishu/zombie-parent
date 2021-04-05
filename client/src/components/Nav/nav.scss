@@ -10,6 +10,7 @@ header {
     background: rgba( 7, 7, 7, 0.15 );
     backdrop-filter: blur( 4.0px );
     -webkit-backdrop-filter: blur( 4.0px );
+    z-index: 99;
         
     @media (min-width: 768px) {
       position: fixed;
