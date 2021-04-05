@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const StopWatch = () => {
+const StopWatch = (props) => {  //pass in prop here for time from wherever this timer is running
     const [time, setTime] = useState(0);
     const [timerOn, setTimeOn] = useState(false);
 

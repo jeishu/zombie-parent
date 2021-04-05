@@ -14,34 +14,34 @@ async function reducer(state, action) {
     case "setUser":
       let result = await [...state, { user: action.user }];
       return result;
-    // case "setChild":
-    //   return [
-    //     ...state,
-    //     {
-    //       child: action.child,
-    //     },
-    //   ];
-    // case "setSleep":
-    //   return [
-    //     ...state,
-    //     {
-    //       sleep: action.sleep,
-    //     },
-    //   ];
-    // case "setFeeding":
-    //   return [
-    //     ...state,
-    //     {
-    //       feeding: action.feeding,
-    //     },
-    //   ];
-    // case "setDiaper":
-    //   return [
-    //     ...state,
-    //     {
-    //       diaper: action.diaper,
-    //     },
-    //   ];
+    case "setChild":
+      return [
+        ...state,
+        {
+          child: action.child,
+        },
+      ];
+    case "setSleep":
+      return [
+        ...state,
+        {
+          sleep: action.sleep,
+        },
+      ];
+    case "setFeeding":
+      return [
+        ...state,
+        {
+          feeding: action.feeding,
+        },
+      ];
+    case "setDiaper":
+      return [
+        ...state,
+        {
+          diaper: action.diaper,
+        },
+      ];
     default:
       return state;
   }
