@@ -11,4 +11,8 @@ router
   .put(childrenController.update)
   .delete(childrenController.remove);
 
+router
+  .route("/checkcode/:id")
+  .get(childrenController.checkCode);
+
 module.exports = router;
