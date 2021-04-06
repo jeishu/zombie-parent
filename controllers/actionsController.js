@@ -84,6 +84,11 @@ module.exports = {
         return res.json(actions);
       });
   },
+  findUnfinishedByChildId: function (req, res) {
+    db.Action.findMany({child: req.params.id, endedByUser: false})
+      .then((dbModel) => res.json(dbModel))
+      .catch((err) => res.status(422).json(err));
+  },
   findById: function (req, res) {
     db.Action.findById(req.params.id)
       .then((dbModel) => res.json(dbModel))
