@@ -39,6 +39,7 @@ function App() {
           <Route component={Profile} path="/profile" exact></Route>
         </Switch>
       </StoreProvider>
+      
     </Router>
   );
 }
