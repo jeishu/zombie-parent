@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Fire from "../../Fire";
 import API from "../../utils/API";
 import { useStoreContext } from "../../utils/GlobalState";
+import initialLogin from "../../utils/initialLogin";
 import "./login.scss";
 
 
@@ -17,21 +18,10 @@ const Login = () => {
     Fire.auth()
       .signInWithEmailAndPassword(email, password)
       // populate user
-      .then((userCredential) => {
-        // console.log(JSON.stringify(userCredential.user))
-        let user = userCredential.user;
-
-        //api.getUser
-        API.getUserByUid(user.uid)
-        .then(dbModel => {
-          dispatch({
-            type: "setUser",
-            user: dbModel
-          })
-          .then(console.log(JSON.stringify(state)))
-          .catch((error) => {console.error(error)})
-        })
-      })
+      // .then((userCredential) => {
+        
+      
+      // })
       .catch((error) => {
         console.error("Incorrect username or password");
       });
@@ -50,23 +40,7 @@ const Login = () => {
       // populate user
       .then((userCredential) => {
         // console.log(JSON.stringify(userCredential.user))
-        let user = userCredential.user;
-        API.createUser({
-          uid: user.uid,
-          email
-        })
-        .then((dbModel) => {
-          console.log(JSON.stringify(dbModel));
-          dispatch({
-            type: "setUser",
-            user: dbModel
-          })
-          .then(console.log(JSON.stringify(state)))  // after this run other login get requests
-          .catch((error) => {console.error(error)})
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+        initialLogin(userCredential, state, dispatch);
       })
       .catch((error) => {
         console.error("Incorrect username or password");

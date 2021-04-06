@@ -47,6 +47,15 @@ function reducer(state, action) {
         ...state,
         loading: true,
       };
+    case "shutdown":
+      return {
+        user: {},
+        child: {},
+        sleep: {},
+        feeding: {},
+        diaper: {},
+        loading: false,
+      };
     default:
       return state;
   }
