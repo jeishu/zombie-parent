@@ -35,8 +35,12 @@ function App() {
           <Route component={Home} path="/" exact>
             {isLoggedIn ? <Home /> : <LoginPage />}
           </Route>
-          <Route component={Log} path="/log" exact></Route>
-          <Route component={Profile} path="/profile" exact></Route>
+          <Route component={Log} path="/log" exact>
+          {isLoggedIn ? <Log /> : <LoginPage />}
+          </Route>
+          <Route component={Profile} path="/profile" exact>
+          {isLoggedIn ? <Profile /> : <LoginPage />}
+          </Route>
         </Switch>
       </StoreProvider>
     </Router>

@@ -8,4 +8,4 @@ function shareCodeGenerator() {
     return code;
 }
 
-export  { shareCodeGenerator };
+export default shareCodeGenerator;

@@ -11,6 +11,16 @@ const childSchema = new Schema({
     type: Date,
     default: moment(),
   },
+  shareCode: {
+    code: {
+      type: String,
+      default: "plsdonthackchildren"
+    },
+    codeTimeStamp: {
+      type: Date,
+      default: moment(),
+    }
+  }
 });
 
 const Child = mongoose.model("Child", childSchema);
