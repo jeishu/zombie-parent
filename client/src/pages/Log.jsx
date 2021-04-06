@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Hierarchy from "../components/Hierarchy";
 import LogBtn from "../components/LogBtn";
+import SetTime from "../components/SetTime";
 import API from "../utils/API";
 import "./log.scss";
 
@@ -22,25 +23,30 @@ export default function Log() {
   });
   const [child, setChild] = useState({
     _id: "6064d1b34c03365638292265",
-    name: "Lil Testy"
+    name: "Lil Testy",
   });
-
-  // useEffect(() => {
-  //   API.(id)
-  //     .then(res => setBook(res.data))
-  //     .catch(err => console.log(err));
-  // }, [])
+  const [showHide, setShowHide] = useState("none");
 
   const updateButtons = (choice, name, key) => {
-    const lastDir = dir[dir.length - 1];
+    const lastDir = dir[dir.length - 1].name;
+    // console.log(lastDir.name);
 
     if (choice === "Add Now" && lastDir === "Pee") {
-      handleDiaperSubmit({ pee: true });
+      handleDiaperAddNowSubmit({ pee: true });
     } else if (choice === "Add Now" && lastDir === "Poo") {
-      handleDiaperSubmit({ poo: true });
+      handleDiaperAddNowSubmit({ poo: true });
     } else if (choice === "Add Now" && lastDir === "Both") {
-      handleDiaperSubmit({ pee: true, poo: true });
+      handleDiaperAddNowSubmit({ pee: true, poo: true });
+    } else if (choice === "Set Time" && "Pee") {
+      setShowHide("block");
+      // handleDiaperSetTimeSubmit(contents)
     }
+
+    // } else if (choice === "Start" && lastDir === "Left") {
+    //   handleEatSubmit({})
+    // } else if (choice === "Start" && lastDir === "Right") {
+    //   handleEatSubmit({})
+    // } else if (choice === "Start" && lastDir === "Bottle")
 
     addDir(choice, name, key);
 
@@ -48,57 +54,125 @@ export default function Log() {
       case "Default":
       case "Add Now":
       case "End Time":
-      case "Set Time":
+      // case "Set Time":
+      case "Stop Time":
         setBtns("Diaper", "Eat", "Nap", "Diaper", "Eat", "Nap");
-        setDir([{name: "Log", btn: "Default", key: 0}]);
+        setDir([{ name: "Log", btn: "Default", key: 0 }]);
         break;
       case "Diaper":
-        setBtns("Pee", "Poo", "Both", "now/set", "now/set", "now/set");
+        setBtns(
+          "Pee",
+          "Poo",
+          "Both",
+          "now/set",
+          "now/set",
+          "now/set"
+        );
         break;
       case "Eat":
-        setBtns("Nurse", "Bottle", "Cancel", "Nurse", "Bottle", "Default");
+        setBtns(
+          "Nurse",
+          "Bottle",
+          "Cancel",
+          "Nurse",
+          "Bottle",
+          "Default");
         break;
       case "Nap":
-        setBtns("Start", "End", "Add Time", "Start Time", "End Time", "Add Time");
+        setBtns(
+          "Start",
+          "End",
+          "Add Time",
+          "Start Time",
+          "End Time",
+          "Add Time"
+        );
         break;
       case "Nurse":
-        setBtns("Left", "Right", "Cancel", "Feed", "Feed", "Default");
+        setBtns(
+          "Left",
+          "Right",
+          "Add Time",
+          "Feed",
+          "Feed",
+          "Add Nurse"
+        );
         break;
       case "Feed":
-        setBtns("Start", "Stop", "Switch", "Start Time", "End Time", "Nurse");
+        setBtns(
+          "Start",
+          "Stop",
+          "Switch",
+          "Start Time",
+          "End Time",
+          "Nurse"
+        );
         break;
       case "Bottle":
-        setBtns("Oz", "Add Now", "Add Time", "Oz", "Add Now", "Add Time");
+        setBtns(
+          "Start",
+          "Stop/Oz",
+          "Add Time",
+          "Start Time",
+          "Stop Time",
+          "Add Bottle"
+        );
         break;
       case "now/set":
-        setBtns("Add Now", "Set Time", "Cancel", "Add Now", "Set Time", "Default");
+        setBtns(
+          "Add Now",
+          "Set Time",
+          "Cancel",
+          "Add Now",
+          "Set Time",
+          "Default"
+        );
         break;
       case "Add Time":
-        setBtns("Start Time", "End Time", "Cancel", "Start Time", "End Time", "Default");
+        setBtns(
+          "Start Time",
+          "End Time",
+          "Cancel",
+          "Start Time",
+          "End Time",
+          "Default"
+        );
+        break;
+      case "Add Nurse":
+        setBtns(
+          "Start Left",
+          "Start Right",
+          "Stop",
+          "Start Left",
+          "Start Right",
+          "End Time"
+        );
+        break;
+      case "Add Bottle":
+        setBtns(
+          "Oz",
+          "Start Time",
+          "Stop Time",
+          "Oz",
+          "Start Time",
+          "Stop Time"
+        );
         break;
       default:
-        // setBtns("Diaper", "Eat", "Nap", "Diaper", "Eat", "Nap");
-        // setDir(dir => ["Log>"]);
         console.log("This action does not update the buttons");
         break;
     }
   };
 
   const dirTree = async (clickedDir) => {
-    // console.log(clickedDir)
     let tempDir = dir;
-    // console.log("before");
     console.log(tempDir);
     let slicedDir = tempDir.slice(0, clickedDir.key);
-    // console.log(clickedDir.key);
-    // console.log("after");
-    // console.log(slicedDir);
     setDir(slicedDir);
   };
 
   const addDir = (btnChoice, btnName, btnKey) => {
     let dirLengthLessOne = dir.length - 1;
-    console.log(btnKey)
 
     if (btnName === "Switch") {
       setDir(dir.filter((e) => e.key !== dirLengthLessOne));
@@ -107,11 +181,12 @@ export default function Log() {
       btnName !== "Start" &&
       btnName !== "Oz" &&
       btnName !== "Start Time" &&
+      btnName !== "Set Time" &&
       btnName !== dir[dirLengthLessOne].name
     ) {
       setDir((dir) => [
         ...dir,
-        { name: btnName, btn: btnChoice, key: btnKey + 1},
+        { name: btnName, btn: btnChoice, key: btnKey + 1 },
       ]);
     }
   };
@@ -122,45 +197,90 @@ export default function Log() {
     setBtn3({ name: name3, btn: button3 });
   };
 
-  function handleDiaperSubmit(contents) {
+  function handleDiaperAddNowSubmit(contents) {
+    console.log("you logged a new diaper.");
+    console.log(contents);
     let actionData = {
-      diaperContent: contents,
-      name: user.name,
-      child: child._id
+      name: "diaper",
+      endedByUser: true,
+      lastUpdatedBy: { _id: user._id },
+      child: { _id: child._id },
+      diaperContents: contents,
     };
-    API.createAction(actionData)// .then(res => loadBooks())
+    API.createAction(actionData) // .then(res => loadBooks())
       .catch((err) => console.log(err));
   }
 
-  function handleEatSubmit(contents) {
+  function handleDiaperSetTimeSubmit(contents, event) {
+    console.log("you logged a new diaper.");
+    console.log(contents);
+    event.preventDefault();
+    setShowHide("none");
     let actionData = {
-
+      name: "diaper",
+      endedByUser: true,
+      lastUpdatedBy: { _id: user._id },
+      child: { _id: child._id },
+      diaperContents: contents,
     };
-    API.saveAction(actionData)
-    .catch((err) => console.log(err))
+    API.createAction(actionData) // .then(res => loadBooks())
+      .catch((err) => console.log(err));
   }
+
+  // function handleEatSubmit(contents) {
+  //   let actionData = {
+  //     name: user.name,
+  //     beginTime: "",
+  //     endTime: "",
+  //     lastUpdatedBy: { _id: user._id },
+  //     child: { _id: child._id },
+  //     foodOz: null,
+  //     whichBreast: {
+  //       left: false,
+  //       right: false,
+  //     },
+  //     endedByUser: true,
+  //   };
+  //   API.saveAction(actionData)
+  //   .catch((err) => console.log(err));
+  // }
+
+  // function handleNapSubmit(contents) {
+  //   let actionData = {
+  //     name: user.name,
+  //     beginTime: "",
+  //     endTime: "",
+  //     lastUpdatedBy: { _id: user._id },
+  //     child: { _id: child._id },
+  //     endedByUser: true,
+  //   };
+  //   API.saveAction(actionData)
+  //   .catch((err) => console.log(err));
+  // }
 
   return (
     <main className="page">
-      <h1>Log Page</h1>
       <main className="log-main">
         <Hierarchy dir={dir} dirTree={dirTree} updateButtons={updateButtons} />
         <LogBtn
           buttonContent={btn1.name}
-          btnAction={() => updateButtons(btn1.btn, btn1.name, dir[dir.length -1].key)}
+          btnAction={() =>
+            updateButtons(btn1.btn, btn1.name, dir[dir.length - 1].key)
+          }
         />{" "}
-        {/* <br /> */}
         <LogBtn
           buttonContent={btn2.name}
-          btnAction={() => updateButtons(btn2.btn, btn2.name, dir[dir.length -1].key)}
+          btnAction={() =>
+            updateButtons(btn2.btn, btn2.name, dir[dir.length - 1].key)
+          }
         />{" "}
-        {/* <br /> */}
         <LogBtn
           buttonContent={btn3.name}
-          btnAction={() => updateButtons(btn3.btn, btn3.name, dir[dir.length -1].key)}
+          btnAction={() =>
+            updateButtons(btn3.btn, btn3.name, dir[dir.length - 1].key)
+          }
         />{" "}
-        {/* <br /> */}
-        {/* <LogBtn buttonContent="Back" /> <br /> */}
+        <SetTime handleSubmit={handleDiaperSetTimeSubmit} showHide={showHide} />
       </main>
     </main>
   );
