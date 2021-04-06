@@ -38,14 +38,13 @@ function App() {
             {isLoggedIn ? <Home /> : <LoginPage />}
           </Route>
           <Route component={Log} path="/log" exact>
-          {isLoggedIn ? <Log /> : <LoginPage />}
+            {isLoggedIn ? <Log /> : <LoginPage />}
           </Route>
           <Route component={Profile} path="/profile" exact>
-          {isLoggedIn ? <Profile /> : <LoginPage />}
+            {isLoggedIn ? <Profile /> : <LoginPage />}
           </Route>
         </Switch>
       </StoreProvider>
-      
     </Router>
   );
 }
