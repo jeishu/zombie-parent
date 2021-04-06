@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import Login from "../Sessions/Login"
 
 
 const BoxContainer = styled.div`
@@ -72,6 +73,7 @@ export default function AccountBox(props){
             <HeadContainer>
                 <HeaderText>Hello there!</HeaderText>
                 <SmallText>Let's get you signed in!</SmallText>
+                <Login />
             </HeadContainer>
         </TopContainer>
     </BoxContainer>

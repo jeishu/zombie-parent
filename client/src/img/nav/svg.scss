@@ -3,13 +3,13 @@
 .svg-icons {
     width: 30px;
     height: auto;
-    color: $non-active-color;
+    fill: $non-active-color;
 
     @media (min-width: 768px){
-        width: 50px;
+        width: 30px;
     }
 }
 
-.active {
-    fill: $active-color !important;
+.active > .svg-icons {
+    fill: $active-color;
 }

@@ -13,17 +13,20 @@ const actionSchema = new Schema({
   },
   endTime: {
     type: Date,
-    default: moment(),
+    // default: moment(),
   },
   lastUpdatedBy: { type: Schema.Types.ObjectId, ref: "User" },
   child: { type: Schema.Types.ObjectId, ref: "Child" },
   foodOz: {
     type: Number,
   },
-  whichBreast: {
+  sleepDuration: { type: Number },
+  nurse: {
     left: { type: Boolean },
+    leftSeconds: { type: Number },
     right: { type: Boolean },
-   },
+    rightSeconds: { type: Number },
+  },
   diaperContents: {
     pee: { type: Boolean },
     poo: { type: Boolean },
@@ -33,6 +36,13 @@ const actionSchema = new Schema({
     default: false,
   },
 });
+
+actionSchema.methods.setSleep = function () {  
+  this.sleepDuration = moment
+    .duration(beginTime.diff(endTime))
+    .seconds();
+  return this.sleepDuration;
+};
 
 const Action = mongoose.model("Action", actionSchema);
 

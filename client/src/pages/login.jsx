@@ -1,10 +1,13 @@
 import React from "react";
 import AccountBox from "../components/accountBox";
 
-export default function Login() {
+
+
+export default function LoginPage() {
   return (
+    <>
     <AccountBox />
-    
+    </>
   );
 }
 

@@ -5,13 +5,21 @@ import Time from "../Time/index";
 import Home from "../../img/nav/Home";
 import Log from "../../img/nav/Log";
 import Profile from "../../img/nav/Profile.jsx";
+import Signout from "../../img/nav/Signout";
+import Fire from "../../Fire";
 
 function Nav() {
   const location = useLocation();
 
+  const signOut = () => {
+    Fire.auth().signOut();
+    //add something that clears user/action/child data
+  };
+
   return (
     <header>
       <Time />
+      <h1 className="zombie-parent">Zombie Parent</h1>
       <nav>
         <div className="nav-container">
           <NavLink
@@ -21,20 +29,23 @@ function Nav() {
           >
             <Home />
           </NavLink>
+
           <NavLink
             to="/log"
             className={location.pathname === "/log" ? "active" : ""}
           >
             <Log />
           </NavLink>
+
           <NavLink
             to="/profile"
             className={location.pathname === "/profile" ? "active" : ""}
           >
             <Profile />
           </NavLink>
+          <a href="#" onClick={signOut}><Signout/></a>
+          
         </div>
-
       </nav>
       {/* <div>
         Icons made by{" "}
