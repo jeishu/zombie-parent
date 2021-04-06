@@ -55,7 +55,7 @@ export default {
   deleteChild: function (id) {
     return axios.delete("/api/children/" + id);
   },
-  checkChildCode: function(id, userData) {
-    return axios.get("/api/children/checkcode/" + id, userData);
+  checkChildCode: function(code, userData) {
+    return axios.get("/api/children/checkcode/" + code, userData);
   }
 };

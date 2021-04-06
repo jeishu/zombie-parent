@@ -12,7 +12,7 @@ router
   .delete(childrenController.remove);
 
 router
-  .route("/checkcode/:id")
+  .route("/checkcode/:code")
   .get(childrenController.checkCode);
 
 module.exports = router;
