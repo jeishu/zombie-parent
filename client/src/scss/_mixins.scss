@@ -45,7 +45,7 @@
 
 // Flickering effects with outerglow flicker
 @mixin flicker-effect {
-    animation: animate 5s linear infinite;
+    animation: animate 5s linear alternate;
 }
 @keyframes animate {
     0%, 18%, 20%, 50.1%, 60%, 65.1%, 80%, 90.1%, 92%  {

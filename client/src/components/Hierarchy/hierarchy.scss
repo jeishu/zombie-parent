@@ -1,26 +1,45 @@
 @use "../../scss/mixins" as *;
+@use "../../scss/colors" as *;
+
+.log-main {
+    background: rgba( 7, 7, 7, 0.15 );
+    backdrop-filter: blur( 4.0px );
+    -webkit-backdrop-filter: blur( 4.0px );
+    height: 100vh;
+    border-radius: 10px;
+    background-color: $section-color;
+}
 
 .log-order {
-    padding: 1rem 0  0;
+    // padding: 1rem 0  0;
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: flex-start;
     width: 100%;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    background: rgba( 7, 7, 7, 0.15 );
+    backdrop-filter: blur( 4.0px );
+    -webkit-backdrop-filter: blur( 4.0px );
 }
 
 .hierarchy {
     color: white;
+    width: 100px;
     list-style-type: none;
     display: flex;
     flex-direction: row;
-    font-size: 1.3rem;
+    font-size: 1rem;
     text-transform: uppercase;
-    background-color: black;
+    background-color: $section-color;
     padding: 10px;
-    
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-left: gray 1px solid;
+    cursor: pointer;
+
     .hierarchy-name {
-        @include animate-underline-left;
-        cursor: pointer;
+        text-align: center;
     }
     svg {
         width: 10px;
