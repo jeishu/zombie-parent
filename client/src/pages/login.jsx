@@ -1,13 +1,14 @@
 import React from "react";
+import AccountBox from "../components/accountBox";
 
 export default function Login() {
   return (
-    <main>
-      <h1>Login Page</h1>
+    <AccountBox />
     
-    </main>
   );
 }
 
 
 // when on this page, hide nav bar
+
+
