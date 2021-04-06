@@ -14,7 +14,9 @@
     display: flex;
     flex-direction: row;
     font-size: 1.3rem;
-    text-transform: lowercase;
+    text-transform: uppercase;
+    background-color: black;
+    padding: 10px;
     
     .hierarchy-name {
         @include animate-underline-left;
