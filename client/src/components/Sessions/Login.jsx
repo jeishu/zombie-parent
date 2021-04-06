@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Fire from "../../Fire";
 import API from "../../utils/API";
 import { useStoreContext } from "../../utils/GlobalState";
+import "./login.scss";
 
 
 const Login = () => {
