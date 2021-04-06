@@ -15,7 +15,7 @@ const userSchema = new Schema({
   // },
   uid: { 
     type: String,
-    required: true, 
+    required: true,
     unique: true,
   },
   joinDate: {
@@ -30,10 +30,10 @@ const userSchema = new Schema({
   activeChild: [{ type: Schema.Types.ObjectId, ref: "Child" }],
   lastViewedChild: { type: Schema.Types.ObjectId, ref: "Child"},
   careOptions: {
-    showBottle: { type: Boolean, required: true, default: true },
-    showNurse: { type: Boolean, required: true, default: true },
-    showNap: { type: Boolean, required: true, default: true },
-    showDiaper: { type: Boolean, required: true, default: true },
+    showBottle: { type: Boolean, default: true },
+    showNurse: { type: Boolean, default: true },
+    showNap: { type: Boolean, default: true },
+    showDiaper: { type: Boolean, default: true },
   },
   statsView: {
     lastView: { type: String },

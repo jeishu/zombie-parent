@@ -12,8 +12,8 @@ function googleSignin() {
       var token = result.credential.accessToken;
       var user = result.user;
 
-      console.log(token);
-      console.log(user);
+      // console.log(token);
+      // console.log(user);
     })
     .catch(function (error) {
       var errorCode = error.code;
