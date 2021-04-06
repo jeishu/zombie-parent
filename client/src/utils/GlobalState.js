@@ -1,7 +1,7 @@
 import React, { createContext, useReducer, useContext } from "react";
 
 const StoreContext = createContext({
-  user: {},
+  // user: {},
   child: {},
   sleep: {},
   feeding: {},
@@ -12,12 +12,12 @@ const { Provider } = StoreContext;
 
 function reducer(state, action) {
   switch (action.type) {
-    case "setUser":
-      return {
-        ...state,
-        user: action.user,
-        loading: false,
-      };
+    // case "setUser":
+    //   return {
+    //     ...state,
+    //     user: action.user,
+    //     loading: false,
+    //   };
     case "setChild":
       return {
         ...state,
@@ -49,7 +49,7 @@ function reducer(state, action) {
       };
     case "shutdown":
       return {
-        user: {},
+        // user: {},
         child: {},
         sleep: {},
         feeding: {},

@@ -19,37 +19,31 @@ import API from "./utils/API";
 function App() {
   // Set default log state to false
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const { state, dispatch } = useStoreContext();
+  const [ user, setUser] = useState();
 
-  // function startUp(user) {
-  //   API.getUserByUid(user.uid)
-  //   .then((dbModel) => {
-  //     dispatch({
-  //       type: "setUser",
-  //       user: dbModel,
-  //     })
-  //       .then(console.log(state, dbModel))
-  //       .catch((error) => {
-  //         console.error(error);
-  //       });
-  //   })
-  //   .catch((error) => {
-  //     console.error(error);
-  //   });
-  // }
+  function startUp(user) {
+    API.getUserByUid(user.uid)
+    .then((dbModel) => {
+      setUser(dbModel)
+        .then(console.log(user, dbModel))
+        .catch((error) => {
+          console.error(error);
+        });
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+  }
 
-  // function shutDown() {
-  //   dispatch({ type: "shutdown" });
-  // }
+  function shutDown() {
+    setUser({});
+  }
 
   // If user is logged in, return user, else set log status to false
   Fire.auth().onAuthStateChanged((user) => {
     return user
-      ? /*(*/ setIsLoggedIn(true) /*,  startUp(user)) */
-      : // (
-        setIsLoggedIn(false);
-    // ,
-    // shutDown());
+      ? ( setIsLoggedIn(true) ,  startUp(user))
+      : (setIsLoggedIn(false), shutDown());
   });
 
   console.log("logged in?", isLoggedIn);
