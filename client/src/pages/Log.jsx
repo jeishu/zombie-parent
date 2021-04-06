@@ -11,7 +11,7 @@ export default function Log() {
   const [btn2, setBtn2] = useState({ name: "Eat", btn: "Eat" });
   const [btn3, setBtn3] = useState({ name: "Nap", btn: "Nap" });
   const [dir, setDir] = useState([{ name: "Log", btn: "Default", key: 0 }]);
-  const [state, setState] = useStoreContext();
+  const [state, dispatch] = useStoreContext();
   const [user, setUser] = useState({
     _id: "6064d1b34c03365638292266",
     name: "Mama Testy",

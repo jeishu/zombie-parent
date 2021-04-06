@@ -11,7 +11,8 @@ import Log from "./pages/Log";
 import LoginPage from "./pages/login";
 import Profile from "./pages/Profile";
 import Nav from "./components/Nav";
-import { useStoreContext, StoreProvider } from "./utils/GlobalState";
+import { StoreProvider } from "./utils/GlobalState";
+import { useStoreContext } from "./utils/GlobalState";
 import styled from "styled-components";
 import { AccountBox } from "./components/accountBox";
 import API from "./utils/API";
@@ -19,7 +20,7 @@ import API from "./utils/API";
 function App() {
   // Set default log state to false
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  // const [state, dispatch] = useStoreContext();
+  const { state, dispatch } = useStoreContext();
 
   // function startUp(user) {
   //   API.getUserByUid(user.uid)
@@ -45,12 +46,11 @@ function App() {
   // If user is logged in, return user, else set log status to false
   Fire.auth().onAuthStateChanged((user) => {
     return user
-      ? /*(*/setIsLoggedIn(true)/*,  startUp(user)) */
-      :
-      // (
-        setIsLoggedIn(false)
-        // , 
-      // shutDown());
+      ? /*(*/ setIsLoggedIn(true) /*,  startUp(user)) */
+      : // (
+        setIsLoggedIn(false);
+    // ,
+    // shutDown());
   });
 
   console.log("logged in?", isLoggedIn);
