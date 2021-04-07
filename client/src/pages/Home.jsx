@@ -1,6 +1,5 @@
 import React from "react";
-import Timeline from "../components/Timeline/index.jsx";
-// import Stopwatch from "../components/StopWatch/index";
+import TimeData from "../components/Timeline/index";
 // import { makeStyles } from "@material-ui/core/styles";
 // import { Grid, Paper } from "@material-ui/core";
 // import PieChart from "../components/PieChart/PieChart";
@@ -28,10 +27,11 @@ export default function Home() {
 
   return (
     <main>
-      <h1></h1>
-      <Timeline />
-     
-      {/* <Grid container spacing={6} className={classes.grid}>
+      <TimeData />
+    </main>
+  );
+}
+{/* <Grid container spacing={6} className={classes.grid}>
         <Grid item xs={6} md={6} lg={4}>
           <Paper className={classes.paper}>This is for the timer aspect of the Zombie Parent App.</Paper>
         </Grid>
@@ -47,6 +47,3 @@ export default function Home() {
           <Paper className={classes.paper}>Visual representation of the day.</Paper>
         </Grid>
       </Grid> */}
-    </main>
-  );
-}

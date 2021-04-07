@@ -1,0 +1,8 @@
+@use "../../scss/colors" as *;
+
+.timeline {
+    background-color: $section-color;
+    border-radius: 10px;
+    border: 1px $section-color solid;
+    margin-top: 3rem;
+}

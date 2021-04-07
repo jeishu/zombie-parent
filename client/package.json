@@ -5,10 +5,12 @@
   "proxy": "http://localhost:3001/",
   "dependencies": {
     "@material-ui/core": "^4.11.3",
+    "@material-ui/lab": "^4.0.0-alpha.57",
     "axios": "^0.18.0",
     "framer-motion": "^4.1.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-material-timeline": "^4.0.1",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.3",
     "styled-components": "^5.2.3"

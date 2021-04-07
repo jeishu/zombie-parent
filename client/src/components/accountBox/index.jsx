@@ -29,7 +29,6 @@ function googleSignin() {
     });
 }
 
-
 const BoxContainer = styled.div`
     width: 600px;
     min-height: 550px;
@@ -124,7 +123,6 @@ const expandingTransition = {
     stiffness: 30,
 };
 
-
 export default function AccountBox(props){
 
     const [isExpanded, setExpanded] = useState(false);
@@ -152,8 +150,6 @@ export default function AccountBox(props){
     };
 
     const contextValue = { switchToSignup, switchToSignin};
-
-
 
     return (
         <AccountContext.Provider value={contextValue}>
@@ -185,6 +181,8 @@ export default function AccountBox(props){
                     {active === "signup" && <SignupForm />}
                 </InnerContainer>
             </BoxContainer>
+            <button onClick={googleSignin}>Google Signin</button> 
+
         </AccountContext.Provider>
     );
 }

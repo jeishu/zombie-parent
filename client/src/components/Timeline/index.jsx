@@ -1,94 +1,73 @@
-import React, { useEffect, useState } from 'react';
-import { Bar } from '@reactchartjs/react-chart.js'
-import "./timeline.scss";
+import React from 'react';
+import "./index.scss";
 import API from "../../utils/API";
-import { Timeline } from '@material-ui/lab';
-// import {TimelineItem} from '@material-ui/lab';
-// import {TimelineSeparator} from '@material-ui/lab';
-// import {TimelineConnector} from '@material-ui/lab';
-// import {TimelineContent} from '@material-ui/lab';
-// import {TimelineDot} from '@material-ui/lab';
+import Timeline from '@material-ui/lab/Timeline';
+import TimelineItem from '@material-ui/lab/TimelineItem';
+import TimelineSeparator from '@material-ui/lab/TimelineSeparator';
+import TimelineConnector from '@material-ui/lab/TimelineConnector';
+import TimelineContent from '@material-ui/lab/TimelineContent';
+import TimelineDot from '@material-ui/lab/TimelineDot';
+import TimelineOppositeContent from '@material-ui/lab/TimelineOppositeContent';
+import Typography from '@material-ui/core/Typography';
 
-// const data = {
-//     labels: ["Diapers", "Feeding", "Napping"],
-//     datasets: [
-//         {
-//             label: 'Actions',
-//             data: [24, 24, 24],
-//             backgroundColor: [
-//                 'rgba(255, 99, 132, 0.2)',
-//                 'rgba(54, 162, 235, 0.2)',
-//                 'rgba(255, 206, 86, 0.2)'
-//             ],
-//             borderColor: [
-//                 'rgba(255, 99, 132, 1)',
-//                 'rgba(54, 162, 235, 1)',
-//                 'rgba(255, 206, 86, 1)'
-//             ],
-//             borderWidth: 1,
-//             barThickness: 10
-//         },
-//     ],
-// }
-
-// const options = {
-//     scales: {
-//         yAxes: [
-//             {
-//                 type: "time",
-//                 time: {
-//                     unit: "hour",
-//                     displayFormat: {
-//                         hour: "HH"
-//                     }
-//                 },
-//                 ticks: {
-//                     min: "12AM",
-//                     max: "11:59PM"
-//                 },
-//             },
-//         ],
-//     },
-// }
-
-const TimelineData = () => {
-
-    // useEffect(() => {
-    //     API.getActionsLastDay. 
-    // }, [])
-
+const TimeData = () => {
     return (
-        <>
         <div className="timeline">
-            <h1>Timeline</h1>
-            <Timeline>
-            </Timeline>
-            {/* <Timeline>
-                <TimelineItem>
-                    <TimelineSeparator>
-                        <TimelineDot />
-                        <TimelineConnector />
-                    </TimelineSeparator>
-                    <TimelineContent>Eat</TimelineContent>
-                </TimelineItem>
-                <TimelineItem>
-                    <TimelineSeparator>
-                        <TimelineDot />
-                        <TimelineConnector />
-                    </TimelineSeparator>
-                    <TimelineContent>Code</TimelineContent>
-                </TimelineItem>
-                <TimelineItem>
-                    <TimelineSeparator>
-                        <TimelineDot />
-                    </TimelineSeparator>
-                    <TimelineContent>Sleep</TimelineContent>
-                </TimelineItem>
-            </Timeline> */}
-            {/* <Bar data={data} options={options} /> */}
+            <React.Fragment>
+                <Timeline>
+                    <TimelineItem>
+                        <TimelineOppositeContent>
+                            <Typography color="textSecondary">09:30 am</Typography>
+                        </TimelineOppositeContent>
+                        <TimelineSeparator>
+                            <TimelineDot />
+                            <TimelineConnector />
+                        </TimelineSeparator>
+                        <TimelineContent>
+                            <Typography>Eat</Typography>
+                        </TimelineContent>
+                    </TimelineItem>
+                    <TimelineItem>
+                        <TimelineOppositeContent>
+                            <Typography color="textSecondary">10:00 am</Typography>
+                        </TimelineOppositeContent>
+                        <TimelineSeparator>
+                            <TimelineDot />
+                            <TimelineConnector />
+                        </TimelineSeparator>
+                        <TimelineContent>
+                            <Typography>Code</Typography>
+                        </TimelineContent>
+                    </TimelineItem>
+                    <TimelineItem>
+                        <TimelineOppositeContent>
+                            <Typography color="textSecondary">12:00 am</Typography>
+                        </TimelineOppositeContent>
+                        <TimelineSeparator>
+                            <TimelineDot />
+                            <TimelineConnector />
+                        </TimelineSeparator>
+                        <TimelineContent>
+                            <Typography>Sleep</Typography>
+                        </TimelineContent>
+                    </TimelineItem>
+                    <TimelineItem>
+                        <TimelineOppositeContent>
+                            <Typography color="textSecondary">9:00 am</Typography>
+                        </TimelineOppositeContent>
+                        <TimelineSeparator>
+                            <TimelineDot />
+                            <TimelineConnector />
+                        </TimelineSeparator>
+                        <TimelineContent>
+                            <Typography>Repeat</Typography>
+                        </TimelineContent>
+                    </TimelineItem>
+                </Timeline>
+            </React.Fragment>
         </div>
-        </>
+
     )
 }
 
-export default TimelineData;
+export default TimeData;
