@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import "./index.scss";
 import API from "../../utils/API";
 import Timeline from '@material-ui/lab/Timeline';
@@ -11,9 +11,15 @@ import TimelineOppositeContent from '@material-ui/lab/TimelineOppositeContent';
 import Typography from '@material-ui/core/Typography';
 
 const TimeData = () => {
+    // const [actions, setActions] = useState();
+    // useEffect(() => {
+    //     API.getActionsLastDay.then(res => {
+
+    //     })
+    // }, [])
     return (
         <div className="timeline">
-            <React.Fragment>
+            <>
                 <Timeline>
                     <TimelineItem>
                         <TimelineOppositeContent>
@@ -27,44 +33,8 @@ const TimeData = () => {
                             <Typography>Eat</Typography>
                         </TimelineContent>
                     </TimelineItem>
-                    <TimelineItem>
-                        <TimelineOppositeContent>
-                            <Typography color="textSecondary">10:00 am</Typography>
-                        </TimelineOppositeContent>
-                        <TimelineSeparator>
-                            <TimelineDot />
-                            <TimelineConnector />
-                        </TimelineSeparator>
-                        <TimelineContent>
-                            <Typography>Code</Typography>
-                        </TimelineContent>
-                    </TimelineItem>
-                    <TimelineItem>
-                        <TimelineOppositeContent>
-                            <Typography color="textSecondary">12:00 am</Typography>
-                        </TimelineOppositeContent>
-                        <TimelineSeparator>
-                            <TimelineDot />
-                            <TimelineConnector />
-                        </TimelineSeparator>
-                        <TimelineContent>
-                            <Typography>Sleep</Typography>
-                        </TimelineContent>
-                    </TimelineItem>
-                    <TimelineItem>
-                        <TimelineOppositeContent>
-                            <Typography color="textSecondary">9:00 am</Typography>
-                        </TimelineOppositeContent>
-                        <TimelineSeparator>
-                            <TimelineDot />
-                            <TimelineConnector />
-                        </TimelineSeparator>
-                        <TimelineContent>
-                            <Typography>Repeat</Typography>
-                        </TimelineContent>
-                    </TimelineItem>
                 </Timeline>
-            </React.Fragment>
+            </>
         </div>
 
     )
