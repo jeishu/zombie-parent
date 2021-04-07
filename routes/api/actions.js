@@ -27,4 +27,8 @@ router
   .route("/lastweek/:id/:name")
   .get(actionsController.findActionsLastWeekByName);
 
+router
+  .route("/unfinished/:id")
+  .get(actionsController.findUnfinishedByChildId);
+
 module.exports = router;

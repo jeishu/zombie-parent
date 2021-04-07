@@ -25,6 +25,9 @@ export default {
   getActionsLastWeekByName: function (childId, name) {
     return axios.get("/api/actions/lastweek/" + childId + "/" + name);
   },
+  getUnfinished: function(childId) {
+    return axios.get("/api/unfinished/" + childId);
+  },
   createUser: function (userData) {
     return axios.post("/api/users", userData);
   },
@@ -51,5 +54,8 @@ export default {
   },
   deleteChild: function (id) {
     return axios.delete("/api/children/" + id);
+  },
+  checkChildCode: function(code, userData) {
+    return axios.get("/api/children/checkcode/" + code, userData);
   }
 };
