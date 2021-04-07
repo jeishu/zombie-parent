@@ -13,7 +13,7 @@ const actionSchema = new Schema({
   },
   endTime: {
     type: Date,
-    // default: moment(),
+    default: moment(),
   },
   lastUpdatedBy: { type: Schema.Types.ObjectId, ref: "User" },
   child: { type: Schema.Types.ObjectId, ref: "Child" },

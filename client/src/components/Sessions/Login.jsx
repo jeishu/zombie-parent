@@ -5,7 +5,6 @@ import Fire from "../../Fire";
 // import initialLogin from "../../utils/initialLogin";
 import "./login.scss";
 
-
 const Login = () => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
@@ -19,8 +18,7 @@ const Login = () => {
       .signInWithEmailAndPassword(email, password)
       // populate user
       // .then((userCredential) => {
-        
-      
+
       // })
       .catch((error) => {
         console.error("Incorrect username or password");
@@ -51,6 +49,27 @@ const Login = () => {
     //     ${email} password: ${password}`);
   };
 
+  var provider = new Fire.auth.GoogleAuthProvider();
+
+  function googleSignin() {
+    Fire.auth()
+      .signInWithPopup(provider)
+      .then(function (result) {
+        var token = result.credential.accessToken;
+        var user = result.user;
+
+        // console.log(token);
+        // console.log(user);
+      })
+      .catch(function (error) {
+        var errorCode = error.code;
+        var errorMessage = error.message;
+
+        console.log(error.code);
+        console.log(error.message);
+      });
+  }
+
   return (
     <div>
       <form>
@@ -72,6 +91,7 @@ const Login = () => {
         <button type="submit" onClick={signup}>
           Sign Up
         </button>
+        <button onClick={googleSignin}>Google Signin</button>
       </form>
     </div>
   );

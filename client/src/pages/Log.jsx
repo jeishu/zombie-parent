@@ -39,9 +39,8 @@ export default function Log() {
       handleDiaperAddNowSubmit({ poo: true });
     } else if (choice === "Add Now" && lastDir === "Both") {
       handleDiaperAddNowSubmit({ pee: true, poo: true });
-    } else if (choice === "Set Time" && "Pee") {
+    } else if (choice === "Set Time") {
       setShowHide("block");
-      // handleDiaperSetTimeSubmit(contents)
     }
 
     // } else if (choice === "Start" && lastDir === "Left") {
@@ -62,103 +61,34 @@ export default function Log() {
         setDir([{ name: "Log", btn: "Default", key: 0 }]);
         break;
       case "Diaper":
-        setBtns(
-          "Pee",
-          "Poo",
-          "Both",
-          "now/set",
-          "now/set",
-          "now/set"
-        );
+        setBtns("Pee", "Poo", "Both", "now/set", "now/set", "now/set");
         break;
       case "Eat":
-        setBtns(
-          "Nurse",
-          "Bottle",
-          "Cancel",
-          "Nurse",
-          "Bottle",
-          "Default");
+        setBtns("Nurse", "Bottle", "Cancel", "Nurse", "Bottle", "Default");
         break;
       case "Nap":
-        setBtns(
-          "Start",
-          "End",
-          "Add Time",
-          "Start Time",
-          "End Time",
-          "Add Time"
-        );
+        setBtns("Start", "End", "Add Time","Start Time", "End Time", "Add Time");
         break;
       case "Nurse":
-        setBtns(
-          "Left",
-          "Right",
-          "Add Time",
-          "Feed",
-          "Feed",
-          "Add Nurse"
-        );
+        setBtns("Left", "Right", "Add Time", "Feed", "Feed", "Add Nurse");
         break;
       case "Feed":
-        setBtns(
-          "Start",
-          "Stop",
-          "Switch",
-          "Start Time",
-          "End Time",
-          "Nurse"
-        );
+        setBtns("Start", "Stop", "Switch", "Start Time", "End Time", "Nurse");
         break;
       case "Bottle":
-        setBtns(
-          "Start",
-          "Stop/Oz",
-          "Add Time",
-          "Start Time",
-          "Stop Time",
-          "Add Bottle"
-        );
+        setBtns("Start", "Stop/Oz", "Add Time", "Start Time", "Stop Time", "Add Bottle");
         break;
       case "now/set":
-        setBtns(
-          "Add Now",
-          "Set Time",
-          "Cancel",
-          "Add Now",
-          "Set Time",
-          "Default"
-        );
+        setBtns( "Add Now", "Set Time", "Cancel", "Add Now", "Set Time", "Default");
         break;
       case "Add Time":
-        setBtns(
-          "Start Time",
-          "End Time",
-          "Cancel",
-          "Start Time",
-          "End Time",
-          "Default"
-        );
+        setBtns( "Start Time", "End Time", "Cancel", "Start Time", "End Time", "Default");
         break;
       case "Add Nurse":
-        setBtns(
-          "Start Left",
-          "Start Right",
-          "Stop",
-          "Start Left",
-          "Start Right",
-          "End Time"
-        );
+        setBtns( "Start Left", "Start Right", "Stop", "Start Left", "Start Right", "End Time");
         break;
       case "Add Bottle":
-        setBtns(
-          "Oz",
-          "Start Time",
-          "Stop Time",
-          "Oz",
-          "Start Time",
-          "Stop Time"
-        );
+        setBtns( "Oz", "Start Time", "Stop Time", "Oz", "Start Time", "Stop Time");
         break;
       default:
         console.log("This action does not update the buttons");
@@ -193,6 +123,20 @@ export default function Log() {
     }
   };
 
+  function setTimeSubmit(event, time) {
+    event.preventDefault();
+    const lastDir = dir[dir.length - 1].name;
+    setShowHide("none");
+    updateButtons("Default", "Log", lastDir.key);
+    if (lastDir === "Pee") {
+      handleDiaperSetTimeSubmit({ pee: true }, time);
+    } else if (lastDir === "Poo") {
+      handleDiaperSetTimeSubmit({ poo: true }, time);
+    } else if (lastDir === "Both") {
+      handleDiaperSetTimeSubmit({ pee: true, poo: true }, time);
+    }
+  }
+
   const setBtns = (name1, name2, name3, button1, button2, button3) => {
     setBtn1({ name: name1, btn: button1 });
     setBtn2({ name: name2, btn: button2 });
@@ -200,7 +144,7 @@ export default function Log() {
   };
 
   function handleDiaperAddNowSubmit(contents) {
-    console.log("you logged a new diaper.");
+    console.log("addNowDiaper");
     console.log(contents);
     let actionData = {
       name: "diaper",
@@ -213,13 +157,13 @@ export default function Log() {
       .catch((err) => console.log(err));
   }
 
-  function handleDiaperSetTimeSubmit(contents, event) {
-    console.log("you logged a new diaper.");
+  function handleDiaperSetTimeSubmit(contents, time) {
+    console.log("setTimeDiaper");
     console.log(contents);
-    event.preventDefault();
-    setShowHide("none");
     let actionData = {
       name: "diaper",
+      beginTime: time,
+      endTime: time,
       endedByUser: true,
       lastUpdatedBy: { _id: user._id },
       child: { _id: child._id },
@@ -282,7 +226,7 @@ export default function Log() {
             updateButtons(btn3.btn, btn3.name, dir[dir.length - 1].key)
           }
         />{" "}
-        <SetTime handleSubmit={handleDiaperSetTimeSubmit} showHide={showHide} />
+        <SetTime setTimeSubmit={setTimeSubmit} showHide={showHide} />
       </main>
     </main>
   );
