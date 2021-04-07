@@ -7,6 +7,7 @@ import { LoginForm } from "./loginForm";
 import { SignupForm } from "./signupForm"
 import { AccountContext } from "./accountContext"
 import { motion } from "framer-motion";
+import Login from "../Sessions/Login";
 
 var provider = new Fire.auth.GoogleAuthProvider();
 
@@ -158,6 +159,7 @@ export default function AccountBox(props){
     return (
         <AccountContext.Provider value={contextValue}>
             <BoxContainer>
+                
                 <TopContainer>
                     <BackDrop
                         initial={false}
@@ -179,10 +181,12 @@ export default function AccountBox(props){
                                 <SmallText>Please sign-up to continue.</SmallText>
                             </HeaderContainer>
                         )}
+                        
                 </TopContainer>
                 <InnerContainer>
                     {active === "signin" && <LoginForm />}
                     {active === "signup" && <SignupForm />}
+                    <button onClick={googleSignin}>Google Signin</button>
                 </InnerContainer>
             </BoxContainer>
         </AccountContext.Provider>
