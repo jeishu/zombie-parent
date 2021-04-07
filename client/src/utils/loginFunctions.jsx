@@ -1,21 +1,19 @@
-// import React, { useState } from "react"; 
-import { useStoreContext } from "../../utils/GlobalState";
 import API from "./API";
 
-const [state, dispatch] = useStoreContext();
+// const [state, dispatch] = useStoreContext();
 
-const initUser = (userCredential) => {
+const initUser = (userCredential, dispatch) => {
   let user = userCredential.user;
   API.getUserByUid(user.uid)
     .then((result) => {
       if (!result.data) {
         API.createUser({ uid: user.uid, email: user.email })
           .then((result) => {
-            setUser(result.data);
+            setUser(result.data, dispatch);
           })
           .catch((error) => console.error(error));
       } else {
-        setUser(result.data);
+        setUser(result.data, dispatch);
       }
     })
     .catch((error) => {
@@ -23,20 +21,20 @@ const initUser = (userCredential) => {
     });
 };
 
-const setUser = (user) => {
+const setUser = (user, state, dispatch) => {
   dispatch({
     type: "setUser",
     user,
   })
     .then(() => {
-      loginChecklist();
+      loginChecklist(state, dispatch);
     })
     .catch((error) => {
       console.error(error);
     });
 };
 
-function loginChecklist() {
+function loginChecklist(state, dispatch) {
   API.getChild(state.user.lastViewedChild)
     .then((childResult) => {
       if (!childResult) {
@@ -67,4 +65,4 @@ function loginChecklist() {
     });
 }
 
-export default { initUser, loginChecklist, setUser };
+export { initUser, loginChecklist, setUser };
