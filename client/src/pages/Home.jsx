@@ -1,5 +1,5 @@
 import React from "react";
-import Timeline from "../components/Timeline/index";
+import Timeline from "../components/Timeline/index.jsx";
 // import Stopwatch from "../components/StopWatch/index";
 // import { makeStyles } from "@material-ui/core/styles";
 // import { Grid, Paper } from "@material-ui/core";
@@ -23,7 +23,6 @@ import Timeline from "../components/Timeline/index";
 //   }
 // }));
 
-
 export default function Home() {
   // const classes = useStyles();
 
@@ -31,6 +30,7 @@ export default function Home() {
     <main>
       <h1></h1>
       <Timeline />
+     
       {/* <Grid container spacing={6} className={classes.grid}>
         <Grid item xs={6} md={6} lg={4}>
           <Paper className={classes.paper}>This is for the timer aspect of the Zombie Parent App.</Paper>
