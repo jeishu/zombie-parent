@@ -5,6 +5,7 @@ import SetTime from "../components/SetTime";
 import API from "../utils/API";
 import { useStoreContext } from "../utils/GlobalState";
 import "./log.scss";
+import moment from "moment";
 
 export default function Log() {
   const [btn1, setBtn1] = useState({ name: "Diaper", btn: "Diaper" });
@@ -51,9 +52,9 @@ export default function Log() {
       setShowHide("block");
       setSubmitAction("Diaper");
     } else if (choice === "Start Feed" && lastDir === "Left") {
-      handleEatSubmit("Start", "", {left: true, right: false}, null, false);
+      handleEatSubmit("Start", "", {left: true, right: false}, null);
     } else if (choice === "Start Feed" && lastDir === "Right") {
-      handleEatSubmit("Start", "", {left: false, right: true}, null, false);
+      handleEatSubmit("Start", "", {left: false, right: true}, null);
     } else if (choice === "Stop Feed" && lastDir === "Left") {
 
     } else if (choice === "Stop Feed" && lastDir === "Right") {
@@ -189,8 +190,11 @@ export default function Log() {
       .catch((err) => console.log(err));
   }
 
-  function handleEatSubmit(timeStart, timeStop, method, oz, ended) {
+  function handleEatSubmit(timeStart, timeStop, method, oz) {
     let actionData;
+    dispatch({ 
+      type: "loading"
+    });
     if (timeStart === "Start") {
       actionData = {
         name: user.name,
@@ -202,11 +206,40 @@ export default function Log() {
         whichBreast: {
           method,
         },
-        endedByUser: ended,
       };
+      API.createAction(actionData)
+        .then((result) => {
+          // console.log(result.data);
+          dispatch({
+            type: "setFeeding",
+            feeding: result.data,
+          });
+        })
+        .catch((err) => {
+          dispatch({ name: "endLoading" }), console.log(err);
+        });
+    } else if (timeStart === "End") {
+      dispatch({ type: "loading" });
+      actionData = {
+        ...state.feeding,
+        endTime: moment(),
+        endedByUser: true,
+      };
+      API.updateAction(state.feeding._id, actionData)
+        .then((result) => {
+          console.log(result.data);
+          dispatch({
+            type: "setFeeding",
+            feeding: {},
+          });
+        })
+        .catch((err) => {
+          console.error(err);
+          dispatch({ name: "endLoading" });
+        });
     }
 
-    API.createAction(actionData).catch((err) => console.log(err));
+    
   }
 
   // function handleNapSubmit(contents) {
