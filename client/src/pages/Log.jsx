@@ -51,10 +51,11 @@ export default function Log() {
       setShowHide("block");
       setSubmitAction("Diaper");
     } else if (choice === "Start Feed" && lastDir === "Left") {
+      handleEatSubmit("Start", "", {left: true, right: false}, null);
       // setShowHide("Block");
-      handleEatSubmit("Start", "", {left: true, right: false}, null)
       // setSubmitAction("Start");
     } else if (choice === "Start Feed" && lastDir === "Right") {
+      handleEatSubmit("Start", "", {left: false, right: true}, null);
       // setShowHide("Block");
       // setSubmitAction("Start");
     } else if (choice === "Stop Feed" && lastDir === "Left") {
