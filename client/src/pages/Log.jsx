@@ -216,7 +216,8 @@ export default function Log() {
           });
         })
         .catch((err) => {
-          dispatch({ name: "endLoading" }), console.log(err);
+          dispatch({ name: "endLoading" });
+          console.log(err);
         });
     } else if (timeStart === "End") {
       dispatch({ type: "loading" });
