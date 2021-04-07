@@ -1,5 +1,39 @@
 import API from "./API";
 
+// const [state, dispatch] = useStoreContext();
+
+const initUser = (userCredential, dispatch) => {
+  let user = userCredential.user;
+  API.getUserByUid(user.uid)
+    .then((result) => {
+      if (!result.data) {
+        API.createUser({ uid: user.uid, email: user.email })
+          .then((result) => {
+            setUser(result.data, dispatch);
+          })
+          .catch((error) => console.error(error));
+      } else {
+        setUser(result.data, dispatch);
+      }
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+};
+
+const setUser = (user, state, dispatch) => {
+  dispatch({
+    type: "setUser",
+    user,
+  })
+    .then(() => {
+      loginChecklist(state, dispatch);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+};
+
 function loginChecklist(state, dispatch) {
   API.getChild(state.user.lastViewedChild)
     .then((childResult) => {
@@ -31,4 +65,4 @@ function loginChecklist(state, dispatch) {
     });
 }
 
-export default loginChecklist;
+export { initUser, loginChecklist, setUser };
