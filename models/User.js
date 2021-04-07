@@ -15,7 +15,7 @@ const userSchema = new Schema({
   // },
   uid: { 
     type: String,
-    required: true,
+    required: true, 
     unique: true,
   },
   joinDate: {

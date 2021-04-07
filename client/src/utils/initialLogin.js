@@ -1,6 +1,6 @@
 import API from "./API";
 
-function initialLogin(userCredential, state, dispatch) {
+function initialLogin(userCredential, dispatch) {
     let user = userCredential.user;
     API.createUser({
       uid: user.uid,
