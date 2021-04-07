@@ -17,26 +17,53 @@ const TimeData = () => {
 
     //     })
     // }, [])
+
+    const arr = [
+        {
+            actions: "Eating",
+            time: "9:30 AM"
+        },
+        {
+            actions: "Napping",
+            time: "10:00 AM"
+        },
+        {
+            actions: "Diaper",
+            time: "10:30 AM"
+        },
+        {
+            actions: "Eating",
+            time: "11:00 AM"
+        },
+        {
+            actions: "Napping",
+            time: "11:30 AM"
+        },
+        {
+            actions: "Eating",
+            time: "12:30 PM"
+        },
+    ]
+    
     return (
-        <div className="timeline">
-            <>
-                <Timeline>
+        <Timeline>
+            {arr.map(activities => {
+                return (
                     <TimelineItem>
                         <TimelineOppositeContent>
-                            <Typography color="textSecondary">09:30 am</Typography>
+                            <Typography color="textSecondary">{activities.time}</Typography>
                         </TimelineOppositeContent>
                         <TimelineSeparator>
                             <TimelineDot />
                             <TimelineConnector />
                         </TimelineSeparator>
                         <TimelineContent>
-                            <Typography>Eat</Typography>
+                            <Typography>{activities.actions}</Typography>
                         </TimelineContent>
                     </TimelineItem>
-                </Timeline>
-            </>
-        </div>
-
+                )
+            })}
+        </Timeline>
     )
 }
 

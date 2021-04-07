@@ -8,6 +8,7 @@
     height: 100vh;
     border-radius: 10px;
     background-color: $section-color;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
 }
 
 .log-order {
@@ -25,18 +26,23 @@
 
 .hierarchy {
     color: white;
-    width: 100px;
+    width: 130px;
     list-style-type: none;
     display: flex;
     flex-direction: row;
-    font-size: 1rem;
+    font-size: .8rem;
     text-transform: uppercase;
     background-color: $section-color;
     padding: 10px;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
-    border-left: gray 1px solid;
+    border-right: gray 1px solid;
     cursor: pointer;
+    @media (min-width: 768px){
+        font-size: 1.1rem;
+        width: 140px;
+        overflow: hidden;
+    }
 
     .hierarchy-name {
         text-align: center;

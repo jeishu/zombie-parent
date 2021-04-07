@@ -1,8 +1,36 @@
 @use "../../scss/colors" as *;
+@use "../../scss/fonts" as *;
 
 .timeline {
     background-color: $section-color;
     border-radius: 10px;
     border: 1px $section-color solid;
     margin-top: 3rem;
+    padding: 1rem;
+    background: rgba( 38, 70, 83, 0.25 );
+    backdrop-filter: blur( 2.5px );
+    -webkit-backdrop-filter: blur( 2.5px );
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
 }
+// ====== Material UI Classes ======
+
+// The Dot
+.MuiTimelineDot-root {
+    margin-bottom: 0 !important;
+    margin-top: 0 !important;
+}
+
+// PTags
+.MuiTypography-root {
+    font-family: $zp-font !important;
+    color: $non-active-color;
+}
+.MuiTypography-body1 {
+    text-transform: uppercase;
+    margin: 0 !important;
+}
+
+// Left side Info
+.MuiTypography-colorTextSecondary {
+    color: $non-active-color !important;
+}   

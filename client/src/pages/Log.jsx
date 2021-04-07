@@ -4,7 +4,7 @@ import LogBtn from "../components/LogBtn";
 import SetTime from "../components/SetTime";
 import API from "../utils/API";
 import { useStoreContext } from "../utils/GlobalState";
-import "./log.scss";
+import "./Log.scss";
 
 export default function Log() {
   const [btn1, setBtn1] = useState({ name: "Diaper", btn: "Diaper" });

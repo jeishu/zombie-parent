@@ -185,8 +185,6 @@ export default function AccountBox(props){
                     <button onClick={googleSignin}>Google Signin</button>
                 </InnerContainer>
             </BoxContainer>
-            <button onClick={googleSignin}>Google Signin</button> 
-
         </AccountContext.Provider>
     );
 }
