@@ -12,6 +12,7 @@ export default function Log() {
   const [btn3, setBtn3] = useState({ name: "Nap", btn: "Nap" });
   const [dir, setDir] = useState([{ name: "Log", btn: "Default", key: 0 }]);
   const [state, dispatch] = useStoreContext();
+  const [submitAction, setSubmitAction] = useState("None");
   const [user, setUser] = useState({
     _id: "6064d1b34c03365638292266",
     name: "Mama Testy",
@@ -29,25 +30,40 @@ export default function Log() {
   });
   const [showHide, setShowHide] = useState("none");
 
+  // useEffect(() => {
+  //   dispatch();
+  // }, []);
+
   const updateButtons = (choice, name, key) => {
     const lastDir = dir[dir.length - 1].name;
     // console.log(lastDir.name);
 
     if (choice === "Add Now" && lastDir === "Pee") {
       handleDiaperAddNowSubmit({ pee: true });
+      setSubmitAction("Diaper");
     } else if (choice === "Add Now" && lastDir === "Poo") {
       handleDiaperAddNowSubmit({ poo: true });
+      setSubmitAction("Diaper");
     } else if (choice === "Add Now" && lastDir === "Both") {
       handleDiaperAddNowSubmit({ pee: true, poo: true });
+      setSubmitAction("Diaper");
     } else if (choice === "Set Time") {
       setShowHide("block");
+      setSubmitAction("Diaper");
+    } else if (choice === "Start Feed" && lastDir === "Left") {
+      // setShowHide("Block");
+      handleEatSubmit("Start", "", {left: true, right: false}, null)
+      // setSubmitAction("Start");
+    } else if (choice === "Start Feed" && lastDir === "Right") {
+      // setShowHide("Block");
+      // setSubmitAction("Start");
+    } else if (choice === "Stop Feed" && lastDir === "Left") {
+      // setShowHide("Block");
+      // setSubmitAction("Start");
+    } else if (choice === "Stop Feed" && lastDir === "Right") {
+      // setShowHide("Block");
+      // setSubmitAction("Start");
     }
-
-    // } else if (choice === "Start" && lastDir === "Left") {
-    //   handleEatSubmit({})
-    // } else if (choice === "Start" && lastDir === "Right") {
-    //   handleEatSubmit({})
-    // } else if (choice === "Start" && lastDir === "Bottle")
 
     addDir(choice, name, key);
 
@@ -59,6 +75,7 @@ export default function Log() {
       case "Stop Time":
         setBtns("Diaper", "Eat", "Nap", "Diaper", "Eat", "Nap");
         setDir([{ name: "Log", btn: "Default", key: 0 }]);
+        setShowHide("none")
         break;
       case "Diaper":
         setBtns("Pee", "Poo", "Both", "now/set", "now/set", "now/set");
@@ -73,7 +90,7 @@ export default function Log() {
         setBtns("Left", "Right", "Add Time", "Feed", "Feed", "Add Nurse");
         break;
       case "Feed":
-        setBtns("Start", "Stop", "Switch", "Start Time", "End Time", "Nurse");
+        setBtns("Start", "Stop", "Switch", "Start Feed", "End Feed", "Nurse");
         break;
       case "Bottle":
         setBtns("Start", "Stop/Oz", "Add Time", "Start Time", "Stop Time", "Add Bottle");
@@ -114,6 +131,8 @@ export default function Log() {
       btnName !== "Oz" &&
       btnName !== "Start Time" &&
       btnName !== "Set Time" &&
+      btnName !== "Start Left" &&
+      btnName !== "Start Right" &&
       btnName !== dir[dirLengthLessOne].name
     ) {
       setDir((dir) => [
@@ -123,10 +142,18 @@ export default function Log() {
     }
   };
 
+  const setBtns = (name1, name2, name3, button1, button2, button3) => {
+    setBtn1({ name: name1, btn: button1 });
+    setBtn2({ name: name2, btn: button2 });
+    setBtn3({ name: name3, btn: button3 });
+  };
+
   function setTimeSubmit(event, time) {
     event.preventDefault();
     const lastDir = dir[dir.length - 1].name;
-    setShowHide("none");
+    // if (submitAction != "Diaper") {
+    //   setShowHide("none");
+    // }
     updateButtons("Default", "Log", lastDir.key);
     if (lastDir === "Pee") {
       handleDiaperSetTimeSubmit({ pee: true }, time);
@@ -134,14 +161,8 @@ export default function Log() {
       handleDiaperSetTimeSubmit({ poo: true }, time);
     } else if (lastDir === "Both") {
       handleDiaperSetTimeSubmit({ pee: true, poo: true }, time);
-    }
+    } 
   }
-
-  const setBtns = (name1, name2, name3, button1, button2, button3) => {
-    setBtn1({ name: name1, btn: button1 });
-    setBtn2({ name: name2, btn: button2 });
-    setBtn3({ name: name3, btn: button3 });
-  };
 
   function handleDiaperAddNowSubmit(contents) {
     console.log("addNowDiaper");
@@ -173,23 +194,25 @@ export default function Log() {
       .catch((err) => console.log(err));
   }
 
-  // function handleEatSubmit(contents) {
-  //   let actionData = {
-  //     name: user.name,
-  //     beginTime: "",
-  //     endTime: "",
-  //     lastUpdatedBy: { _id: user._id },
-  //     child: { _id: child._id },
-  //     foodOz: null,
-  //     whichBreast: {
-  //       left: false,
-  //       right: false,
-  //     },
-  //     endedByUser: true,
-  //   };
-  //   API.saveAction(actionData)
-  //   .catch((err) => console.log(err));
-  // }
+  function handleEatSubmit(timeStart, timeStop, method, oz) {
+    let actionData;
+    if (timeStart === "Start") {
+      actionData = {
+        name: user.name,
+        // beginTime: timeStart,
+        endTime: "",
+        lastUpdatedBy: { _id: user._id },
+        child: { _id: child._id },
+        foodOz: oz,
+        whichBreast: {
+          method,
+        },
+        endedByUser: true,
+      };
+    }
+
+    API.createAction(actionData).catch((err) => console.log(err));
+  }
 
   // function handleNapSubmit(contents) {
   //   let actionData = {
