@@ -1,6 +1,42 @@
+// import React, { useState } from "react"; 
+import { useStoreContext } from "../../utils/GlobalState";
 import API from "./API";
 
-function loginChecklist(state, dispatch) {
+const [state, dispatch] = useStoreContext();
+
+const initUser = (userCredential) => {
+  let user = userCredential.user;
+  API.getUserByUid(user.uid)
+    .then((result) => {
+      if (!result.data) {
+        API.createUser({ uid: user.uid, email: user.email })
+          .then((result) => {
+            setUser(result.data);
+          })
+          .catch((error) => console.error(error));
+      } else {
+        setUser(result.data);
+      }
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+};
+
+const setUser = (user) => {
+  dispatch({
+    type: "setUser",
+    user,
+  })
+    .then(() => {
+      loginChecklist();
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+};
+
+function loginChecklist() {
   API.getChild(state.user.lastViewedChild)
     .then((childResult) => {
       if (!childResult) {
@@ -31,4 +67,4 @@ function loginChecklist(state, dispatch) {
     });
 }
 
-export default loginChecklist;
+export default { initUser, loginChecklist, setUser };

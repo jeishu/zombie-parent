@@ -4,7 +4,7 @@ import API from "../../utils/API";
 import { useStoreContext } from "../../utils/GlobalState";
 import initialLogin from "../../utils/initialLogin";
 import "./login.scss";
-import loginChecklist from "../../utils/loginChecklist";
+import loginChecklist from "../../utils/loginFunctions";
 
 const Login = () => {
   const [email, setEmail] = useState();
