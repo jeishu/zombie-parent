@@ -51,19 +51,13 @@ export default function Log() {
       setShowHide("block");
       setSubmitAction("Diaper");
     } else if (choice === "Start Feed" && lastDir === "Left") {
-      handleEatSubmit("Start", "", {left: true, right: false}, null);
-      // setShowHide("Block");
-      // setSubmitAction("Start");
+      handleEatSubmit("Start", "", {left: true, right: false}, null, false);
     } else if (choice === "Start Feed" && lastDir === "Right") {
-      handleEatSubmit("Start", "", {left: false, right: true}, null);
-      // setShowHide("Block");
-      // setSubmitAction("Start");
+      handleEatSubmit("Start", "", {left: false, right: true}, null, false);
     } else if (choice === "Stop Feed" && lastDir === "Left") {
-      // setShowHide("Block");
-      // setSubmitAction("Start");
+
     } else if (choice === "Stop Feed" && lastDir === "Right") {
-      // setShowHide("Block");
-      // setSubmitAction("Start");
+
     }
 
     addDir(choice, name, key);
@@ -195,7 +189,7 @@ export default function Log() {
       .catch((err) => console.log(err));
   }
 
-  function handleEatSubmit(timeStart, timeStop, method, oz) {
+  function handleEatSubmit(timeStart, timeStop, method, oz, ended) {
     let actionData;
     if (timeStart === "Start") {
       actionData = {
@@ -208,7 +202,7 @@ export default function Log() {
         whichBreast: {
           method,
         },
-        endedByUser: true,
+        endedByUser: ended,
       };
     }
 
