@@ -18,12 +18,11 @@ import { AccountBox } from "./components/accountBox";
 function App() {
   // Set default log state to false
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [user, setUser] = useState();
 
   // If user is logged in, return user, else set log status to false
   Fire.auth().onAuthStateChanged((user) => {
     return user
-      ? setIsLoggedIn(true) /* , setUser({ uid: user.uid } )*/
+      ? setIsLoggedIn(true)
       : setIsLoggedIn(false);
   });
 
