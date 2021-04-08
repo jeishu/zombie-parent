@@ -14,7 +14,7 @@ export default function Profile() {
 
   // create function that takes in name and birthdate.
 
-  function handleCreateChild() {
+  function handleCreateChild(res) {
     dispatch({
       type: "loading",
     });

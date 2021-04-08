@@ -30,9 +30,10 @@ main {
 }
 
 .page {
-    padding: 2rem 0 0 0;
-    height: 600px;
+    // padding: 2rem 0 0 0;
+    height: 100%;
     @media (min-width: 768px) {
         padding: 0rem 2rem 2rem;
+        height: 600px;
     }
 }
