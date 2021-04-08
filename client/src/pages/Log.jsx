@@ -31,43 +31,14 @@ export default function Log() {
   });
   const [showHide, setShowHide] = useState("none");
 
-  // useEffect(() => {
-  //   dispatch();
-  // }, []);
-
   const updateButtons = (choice, name, key) => {
-    const lastDir = dir[dir.length - 1].name;
-    // console.log(lastDir.name);
-
-    if (choice === "Add Now" && lastDir === "Pee") {
-      handleDiaperAddNowSubmit({ pee: true });
-      setSubmitAction("Diaper");
-    } else if (choice === "Add Now" && lastDir === "Poo") {
-      handleDiaperAddNowSubmit({ poo: true });
-      setSubmitAction("Diaper");
-    } else if (choice === "Add Now" && lastDir === "Both") {
-      handleDiaperAddNowSubmit({ pee: true, poo: true });
-      setSubmitAction("Diaper");
-    } else if (choice === "Set Time") {
-      setShowHide("block");
-      setSubmitAction("Diaper");
-    } else if (choice === "Start Feed" && lastDir === "Left") {
-      handleEatSubmit("Start", "", {left: true, right: false}, null);
-    } else if (choice === "Start Feed" && lastDir === "Right") {
-      handleEatSubmit("Start", "", {left: false, right: true}, null);
-    } else if (choice === "Stop Feed" && lastDir === "Left") {
-
-    } else if (choice === "Stop Feed" && lastDir === "Right") {
-
-    }
-
+    whichActions(choice);
     addDir(choice, name, key);
 
     switch (choice) {
       case "Default":
       case "Add Now":
       case "End Time":
-      // case "Set Time":
       case "Stop Time":
         setBtns("Diaper", "Eat", "Nap", "Diaper", "Eat", "Nap");
         setDir([{ name: "Log", btn: "Default", key: 0 }]);
@@ -86,7 +57,7 @@ export default function Log() {
         setBtns("Left", "Right", "Add Time", "Feed", "Feed", "Add Nurse");
         break;
       case "Feed":
-        setBtns("Start", "Stop", "Switch", "Start Feed", "End Feed", "Nurse");
+        setBtns("Start", "Stop", "Switch", "Start Feed", "Stop Feed", "Nurse");
         break;
       case "Bottle":
         setBtns("Start", "Stop/Oz", "Add Time", "Start Time", "Stop Time", "Add Bottle");
@@ -106,6 +77,34 @@ export default function Log() {
       default:
         console.log("This action does not update the buttons");
         break;
+    }
+  };
+
+  const whichActions = (choice) => {
+    const lastDir = dir[dir.length - 1].name;
+
+    if (choice === "Add Now" && lastDir === "Pee") {
+      handleDiaperAddNowSubmit({ pee: true });
+      setSubmitAction("Diaper");
+    } else if (choice === "Add Now" && lastDir === "Poo") {
+      handleDiaperAddNowSubmit({ poo: true });
+      setSubmitAction("Diaper");
+    } else if (choice === "Add Now" && lastDir === "Both") {
+      handleDiaperAddNowSubmit({ pee: true, poo: true });
+      setSubmitAction("Diaper");
+    } else if (choice === "Set Time") {
+      setShowHide("block");
+      setSubmitAction("Diaper");
+    } else if (choice === "Start Feed" && lastDir === "Left") {
+      handleEatSubmit("Start", { left: true, right: false }, "nurse", null);
+    } else if (choice === "Start Feed" && lastDir === "Right") {
+      handleEatSubmit("Start", { left: false, right: true }, "nurse", null);
+    } else if (choice === "Start" && lastDir === "Bottle") {
+      handleEatSubmit("Start", { left: false, right: false }, "bottle", null);
+    } else if (choice === "Stop Feed" && lastDir === "Left") {
+      handleEatSubmit("Stop", { left: true, right: false }, "nurse", null);
+    } else if (choice === "Stop Feed" && lastDir === "Right") {
+      handleEatSubmit("Stop", { left: false, right: true }, "nurse", null);
     }
   };
 
@@ -129,6 +128,7 @@ export default function Log() {
       btnName !== "Set Time" &&
       btnName !== "Start Left" &&
       btnName !== "Start Right" &&
+      btnName !== "Stop" &&
       btnName !== dir[dirLengthLessOne].name
     ) {
       setDir((dir) => [
@@ -190,26 +190,23 @@ export default function Log() {
       .catch((err) => console.log(err));
   }
 
-  function handleEatSubmit(timeStart, timeStop, method, oz) {
+  function handleEatSubmit(timeStart, method, actionName, oz) {
     let actionData;
     dispatch({ 
       type: "loading"
     });
     if (timeStart === "Start") {
       actionData = {
-        name: user.name,
+        name: actionName,
         // beginTime: timeStart,
         endTime: "",
         lastUpdatedBy: { _id: user._id },
         child: { _id: child._id },
         foodOz: oz,
-        whichBreast: {
-          method,
-        },
+        nurse: method,
       };
       API.createAction(actionData)
         .then((result) => {
-          // console.log(result.data);
           dispatch({
             type: "setFeeding",
             feeding: result.data,
@@ -219,7 +216,7 @@ export default function Log() {
           dispatch({ name: "endLoading" });
           console.log(err);
         });
-    } else if (timeStart === "End") {
+    } else if (timeStart === "Stop") {
       dispatch({ type: "loading" });
       actionData = {
         ...state.feeding,
@@ -239,22 +236,20 @@ export default function Log() {
           dispatch({ name: "endLoading" });
         });
     }
-
-    
   }
 
-  // function handleNapSubmit(contents) {
-  //   let actionData = {
-  //     name: user.name,
-  //     beginTime: "",
-  //     endTime: "",
-  //     lastUpdatedBy: { _id: user._id },
-  //     child: { _id: child._id },
-  //     endedByUser: true,
-  //   };
-  //   API.saveAction(actionData)
-  //   .catch((err) => console.log(err));
-  // }
+  function handleNapSubmit(contents) {
+    let actionData = {
+      name: user.name,
+      beginTime: "",
+      endTime: "",
+      lastUpdatedBy: { _id: user._id },
+      child: { _id: child._id },
+      endedByUser: true,
+    };
+    API.saveAction(actionData)
+    .catch((err) => console.log(err));
+  }
 
   return (
     <main className="page">
