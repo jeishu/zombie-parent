@@ -1,16 +1,13 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import Login from "../Sessions/Login";
 import Fire from "../../Fire";
 import "./index.scss";
 import { LoginForm } from "./loginForm";
 import { SignupForm } from "./signupForm";
 import { AccountContext } from "./accountContext";
 import { motion } from "framer-motion";
-import Login from "../Sessions/Login";
 import { useStoreContext } from "../../utils/GlobalState";
 import { initUser } from "../../utils/loginFunctions";
-// import LoginForm from "../"
 
 var provider = new Fire.auth.GoogleAuthProvider();
 
