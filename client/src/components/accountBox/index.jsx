@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-// import Login from "../Sessions/Login";
+import Login from "../Sessions/Login";
 import Fire from "../../Fire";
 import "./index.scss";
 import { LoginForm } from "./loginForm";

@@ -3,13 +3,6 @@
 $height: auto;
 $transition: 0.3s ease-out all;
 
-// .log-main {
-//     background: rgba( 7, 7, 7, 0.15 );
-//     backdrop-filter: blur( 4.0px );
-//     -webkit-backdrop-filter: blur( 4.0px );
-//     height: 100vh;
-// }
-
 .log-container {
     display: flex;
     flex-direction: column;
@@ -21,7 +14,7 @@ $transition: 0.3s ease-out all;
 .log-buttons {
     cursor: pointer;
     width: 100%;
-    max-width: 300px;
+    max-width: 350px;
     height: $height;
     padding: 0.5rem;
     font-size: 2rem;
@@ -32,7 +25,7 @@ $transition: 0.3s ease-out all;
     text-decoration: none;
     box-shadow: 0 0 0 1px inset rgba($white, 0.3);
     position: relative;
-    margin: 10px 0;
+    margin: 20px 0;
 
     &.white:hover > p {color: $white;}
 

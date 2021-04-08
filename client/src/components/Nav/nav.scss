@@ -33,6 +33,7 @@ header {
   text-transform: uppercase;
   width: 100%;
   outline: none;
+  color: $active-color;
   @include flicker-effect;
 
   @media (min-width: 768px) {
@@ -67,5 +68,4 @@ nav {
       }
     }
   }
-  
 }

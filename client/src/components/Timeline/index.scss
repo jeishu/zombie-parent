@@ -1,0 +1,57 @@
+@use "../../scss/colors" as *;
+@use "../../scss/fonts" as *;
+
+.timeline {
+    display: flex;
+    flex-direction: column;
+    width: auto;
+    margin-top: 1rem;
+    width: 300px;
+
+    @media (min-width: 1024px){
+        flex-direction: row;
+        height: 600px;
+        width: 100%;
+    }
+
+    ul {
+        border: 1px solid rgba( 255, 255, 255, 0.18 );
+        background-color: $section-color;
+        border-radius: 10px;
+        padding: 1rem;
+        margin: 1rem 0 1rem;
+        backdrop-filter: blur( 2.5px );
+        -webkit-backdrop-filter: blur( 2.5px );
+        width: 100%;
+        h1 {
+            text-align: center;
+            color: $non-active-color;
+        }
+
+        @media (min-width: 1024px){
+            margin: 0 1rem 0;
+        }
+    }
+}
+// ====== Material UI Classes ======
+
+// The Dot
+.MuiTimelineDot-root {
+    margin-bottom: 0 !important;
+    margin-top: 0 !important;
+}
+
+// PTags
+.MuiTypography-root {
+    font-family: $zp-font !important;
+    color: $non-active-color;
+}
+.MuiTypography-body1 {
+    text-transform: uppercase;
+    margin: 0 !important;
+}
+
+// Left side Info
+.MuiTypography-colorTextSecondary {
+    color: $non-active-color !important;
+}   
