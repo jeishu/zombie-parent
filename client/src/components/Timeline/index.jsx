@@ -9,61 +9,90 @@ import TimelineContent from '@material-ui/lab/TimelineContent';
 import TimelineDot from '@material-ui/lab/TimelineDot';
 import TimelineOppositeContent from '@material-ui/lab/TimelineOppositeContent';
 import Typography from '@material-ui/core/Typography';
+import moment from "moment";
 
 const TimeData = () => {
-    // const [actions, setActions] = useState();
-    // useEffect(() => {
-    //     API.getActionsLastDay.then(res => {
+    const [diaper, setDiaper] = useState({name: []});
+    const [feeding, setFeeding] = useState({name: []});
+    const [sleep, setSleep] = useState({name: []});
 
-    //     })
-    // }, [])
+    useEffect(() => {
+        API.getActionsLastDayByName("606e47ca5394d53a2ce4c0d3", "diaper").then(res => {
+            setDiaper({
+                name: res.data.reverse()
+            })
+        });
+        API.getActionsLastDayByName("606e47ca5394d53a2ce4c0d3", "sleep").then(res => {
+            setSleep({
+                name: res.data.reverse()
+            })
+        });
+        API.getActionsLastDayByName("606e47ca5394d53a2ce4c0d3", "bottle").then(bottleRes => {
+            API.getActionsLastDayByName("606e47ca5394d53a2ce4c0d3", "nurse").then(nurseRes => {
+                setFeeding({
+                    name: bottleRes.data.reverse().concat(nurseRes.data.reverse())
+                })
+            })
+        });
+    }, [])
 
-    const arr = [
-        {
-            actions: "Eating",
-            time: "9:30 AM"
-        },
-        {
-            actions: "Napping",
-            time: "10:00 AM"
-        },
-        {
-            actions: "Diaper",
-            time: "10:30 AM"
-        },
-        {
-            actions: "Eating",
-            time: "11:00 AM"
-        },
-        {
-            actions: "Napping",
-            time: "11:30 AM"
-        },
-        {
-            actions: "Eating",
-            time: "12:30 PM"
-        },
-    ]
-    
     return (
+        <>
         <Timeline>
-            {arr.map(activities => {
+            {diaper.name.map(action => {
                 return (
                     <TimelineItem>
                         <TimelineOppositeContent>
-                            <Typography color="textSecondary">{activities.time}</Typography>
+                            <Typography color="textSecondary">{action.name}</Typography>
                         </TimelineOppositeContent>
                         <TimelineSeparator>
                             <TimelineDot />
                             <TimelineConnector />
                         </TimelineSeparator>
                         <TimelineContent>
-                            <Typography>{activities.actions}</Typography>
+                            <Typography>{moment(action.endTime).format("hh mm a")}</Typography>
                         </TimelineContent>
                     </TimelineItem>
                 )
             })}
         </Timeline>
+        <Timeline>
+            {feeding.name.map(action => {
+                return (
+                    <TimelineItem>
+                        <TimelineOppositeContent>
+                            <Typography color="textSecondary">{action.name}</Typography>
+                        </TimelineOppositeContent>
+                        <TimelineSeparator>
+                            <TimelineDot />
+                            <TimelineConnector />
+                        </TimelineSeparator>
+                        <TimelineContent>
+                            <Typography>{moment(action.endTime).format("hh mm a")}</Typography>
+                        </TimelineContent>
+                    </TimelineItem>
+                )
+            })}
+        </Timeline>
+        <Timeline>
+            {sleep.name.map(action => {
+                return (
+                    <TimelineItem>
+                        <TimelineOppositeContent>
+                            <Typography color="textSecondary">{action.name}</Typography>
+                        </TimelineOppositeContent>
+                        <TimelineSeparator>
+                            <TimelineDot />
+                            <TimelineConnector />
+                        </TimelineSeparator>
+                        <TimelineContent>
+                            <Typography>{moment(action.endTime).format("hh mm a")}</Typography>
+                        </TimelineContent>
+                    </TimelineItem>
+                )
+            })}
+        </Timeline>
+        </>
     )
 }
 

@@ -14,6 +14,7 @@ export default {
     return axios.delete("/api/actions/" + id);
   },
   getActionsLastDay: function(childId) {
+    // console.log(childId._id);
     return axios.get("/api/actions/lastday/" + childId);
   },
   getActionsLastDayByName: function (childId, name) {
