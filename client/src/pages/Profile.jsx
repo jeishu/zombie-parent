@@ -112,8 +112,8 @@ export default function Profile() {
         {state.loading === false
           ? state.user.child.map((child) => {
               return (
-                <li key={child} style={{ listStyleType: "none" }}>
-                  {child}
+                <li key={child._id} style={{ listStyleType: "none" }}>
+                  {child.name}
                 </li>
               );
             })

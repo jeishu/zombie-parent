@@ -26,6 +26,7 @@ let initUser = (userCredential, dispatch) => {
             .then((childData) => {
               dispatch({ type: "setChild", child: childData.data });
           });
+          // API.getUnfinished
         }
       }
     })
