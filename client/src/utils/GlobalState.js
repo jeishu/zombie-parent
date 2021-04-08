@@ -47,6 +47,11 @@ function reducer(state, action) {
         ...state,
         loading: true,
       };
+    case "endLoading":  //for error routes only
+      return {
+        ...state,
+        loading: false,
+      };
     case "shutdown":
       return {
         user: {},
