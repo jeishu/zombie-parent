@@ -12,31 +12,50 @@ export default function Profile() {
   const [state, dispatch] = useStoreContext();
   const children = jsonData.children;
 
-  // create function that takes in name and birthdate. 
+  // create function that takes in name and birthdate.
 
   function handleCreateChild() {
-    let childData;
     dispatch({
-      type: "loading"
+      type: "loading",
+    });
+    let childData = {
+      name: nameValue,
+      birthDate: moment(dobValue),
+    };
+    API.createChild(childData).then((childReturn) => {
+      dispatch({
+        type: "setChild",
+        child: childReturn.data,
+      })
+      .then(() => {
+        API.updateUser({
+          ...state.user,
+          child: [...state.user.child, childReturn.data._id],
+          activeChild: [...state.user.child, childReturn.data._id],
+          lastViewedChild: res.data._id,
+        })
+        .then((userReturn) => {
+          dispatch({
+            type: "setUser",
+            user: userReturn.data
+          }).then(() => {
+            dobValue = "";
+            nameValue = "";
+          })
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
     });
 
-    API.createUser(state.user)
-    .then((result) => {
-      dispatch({
-        type: "createChild",
-        // forgot what you had said
-      });
-    })
+    
 
-    let newUser = { ...state.user, 
-      child: [...state.user.child, res.data._id], 
-      activeChild: [...state.user.child, res.data._id], 
-      lastViewedChild: res.data._id }
+    
   }
-
-
-
-
 
   return (
     <main className="page">
