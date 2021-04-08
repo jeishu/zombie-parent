@@ -1,6 +1,5 @@
 import React from "react";
 import "./hierarchy.scss";
-import RightArrow from "../../img/misc/rightArrow";
 
 const Hierarchy = (props) => {
   return (
@@ -17,7 +16,6 @@ const Hierarchy = (props) => {
             }
           >
             <span className="hierarchy-name"> {dir.name} </span>
-            <RightArrow />
           </li>
         );
       })}

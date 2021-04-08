@@ -6,6 +6,7 @@ import API from "../utils/API";
 import { useStoreContext } from "../utils/GlobalState";
 import "./log.scss";
 import moment from "moment";
+import SetOz from "../components/SetOz";
 
 export default function Log() {
   const [btn1, setBtn1] = useState({ name: "Diaper", btn: "Diaper" });
@@ -30,6 +31,7 @@ export default function Log() {
     name: "Lil Testy",
   });
   const [showHide, setShowHide] = useState("none");
+  const [showOz, setShowOz] = useState("none");
 
   const updateButtons = (choice, name, key) => {
     whichActions(choice);
@@ -40,6 +42,7 @@ export default function Log() {
       case "Add Now":
       case "End Time":
       case "Stop Time":
+      case "Stop Bottle":
         setBtns("Diaper", "Eat", "Nap", "Diaper", "Eat", "Nap");
         setDir([{ name: "Log", btn: "Default", key: 0 }]);
         setShowHide("none")
@@ -60,7 +63,7 @@ export default function Log() {
         setBtns("Start", "Stop", "Switch", "Start Feed", "Stop Feed", "Nurse");
         break;
       case "Bottle":
-        setBtns("Start", "Stop/Oz", "Add Time", "Start Time", "Stop Time", "Add Bottle");
+        setBtns("Start", "Stop/Oz", "Add Time", "Start Bottle", "Stop Bottle", "Add Bottle");
         break;
       case "now/set":
         setBtns( "Add Now", "Set Time", "Cancel", "Add Now", "Set Time", "Default");
@@ -99,12 +102,15 @@ export default function Log() {
       handleEatSubmit("Start", { left: true, right: false }, "nurse", null);
     } else if (choice === "Start Feed" && lastDir === "Right") {
       handleEatSubmit("Start", { left: false, right: true }, "nurse", null);
-    } else if (choice === "Start" && lastDir === "Bottle") {
+    } else if (choice === "Start Bottle" && lastDir === "Bottle") {
       handleEatSubmit("Start", { left: false, right: false }, "bottle", null);
     } else if (choice === "Stop Feed" && lastDir === "Left") {
       handleEatSubmit("Stop", { left: true, right: false }, "nurse", null);
     } else if (choice === "Stop Feed" && lastDir === "Right") {
       handleEatSubmit("Stop", { left: false, right: true }, "nurse", null);
+    } else if (choice === "Stop Bottle" && lastDir === "Bottle") {
+      setShowOz("block");
+      // handleEatSubmit("Stop", { left: false, right: false }, "bottle", "oz");
     }
   };
 
@@ -191,6 +197,7 @@ export default function Log() {
   }
 
   function handleEatSubmit(timeStart, method, actionName, oz) {
+    setShowOz("none");
     let actionData;
     dispatch({ 
       type: "loading"
@@ -229,6 +236,7 @@ export default function Log() {
           dispatch({
             type: "setFeeding",
             feeding: {},
+            foodOz: oz
           });
         })
         .catch((err) => {
@@ -274,6 +282,7 @@ export default function Log() {
           }
         />{" "}
         <SetTime setTimeSubmit={setTimeSubmit} showHide={showHide} />
+        <SetOz handleEatSubmit={handleEatSubmit} showOz={showOz}/>
       </main>
     </main>
   );

@@ -125,64 +125,68 @@ const expandingTransition = {
   stiffness: 30,
 };
 
-export default function AccountBox(props) {
-  const [isExpanded, setExpanded] = useState(false);
-  const [active, setActive] = useState("signin");
 
-  const playExpandingAnimation = () => {
-    setExpanded(true);
-    setTimeout(() => {
-      setExpanded(false);
-    }, expandingTransition.duration * 1000 - 1500);
-  };
+export default function AccountBox(props){
 
-  const switchToSignup = () => {
-    playExpandingAnimation();
-    setTimeout(() => {
-      setActive("signup");
-    }, 400);
-  };
+    const [isExpanded, setExpanded] = useState(false);
+    const [active, setActive] = useState("signin");
 
-  const switchToSignin = () => {
-    playExpandingAnimation();
-    setTimeout(() => {
-      setActive("signin");
-    }, 400);
-  };
+    const playExpandingAnimation = () => {
+        setExpanded(true);
+        setTimeout(() => {
+            setExpanded(false);
+        }, expandingTransition.duration * 1000 - 1500);
+    };
 
-  const contextValue = { switchToSignup, switchToSignin };
+    const switchToSignup = () => {
+        playExpandingAnimation();
+        setTimeout(() => {
+            setActive("signup");
+        }, 400);
+    };
 
-  return (
-    <AccountContext.Provider value={contextValue}>
-      <BoxContainer>
-        <TopContainer>
-          <BackDrop
-            initial={false}
-            animate={isExpanded ? "expanded" : "collapsed"}
-            variants={backdropVariants}
-            transition={expandingTransition}
-          />
-          {active === "signin" && (
-            <HeaderContainer>
-              <HeaderText>Welcome</HeaderText>
-              <HeaderText>Back!</HeaderText>
-              <SmallText>Please sign-in to continue.</SmallText>
-            </HeaderContainer>
-          )}
-          {active === "signup" && (
-            <HeaderContainer>
-              <HeaderText>Create</HeaderText>
-              <HeaderText>Account</HeaderText>
-              <SmallText>Please sign-up to continue.</SmallText>
-            </HeaderContainer>
-          )}
-        </TopContainer>
-        <InnerContainer>
-          {active === "signin" && <LoginForm />}
-          {active === "signup" && <SignupForm />}
-          <button onClick={googleSignin}>Google Signin</button>
-        </InnerContainer>
-      </BoxContainer>
-    </AccountContext.Provider>
-  );
+    const switchToSignin = () => {
+        playExpandingAnimation();
+        setTimeout(() => {
+            setActive("signin");
+        }, 400);
+    };
+
+    const contextValue = { switchToSignup, switchToSignin};
+
+
+
+    return (
+        <AccountContext.Provider value={contextValue}>
+            <BoxContainer>
+                <TopContainer>
+                    <BackDrop
+                        initial={false}
+                        animate={isExpanded ? "expanded" : "collapsed"}
+                        variants={backdropVariants}
+                        transition={expandingTransition}
+                        />
+                        {active === "signin" && (
+                            <HeaderContainer>
+                                <HeaderText>Welcome</HeaderText>
+                                <HeaderText>Back!</HeaderText>
+                                <SmallText>Please sign-in to continue.</SmallText>
+                            </HeaderContainer>
+                        )}
+                        {active === "signup" && (
+                            <HeaderContainer>
+                                <HeaderText>Create</HeaderText>
+                                <HeaderText>Account</HeaderText>
+                                <SmallText>Please sign-up to continue.</SmallText>
+                            </HeaderContainer>
+                        )} 
+                </TopContainer>
+                <InnerContainer>
+                    {active === "signin" && <LoginForm />}
+                    {active === "signup" && <SignupForm />}
+                    <button onClick={googleSignin}>Google Signin</button>
+                </InnerContainer>
+            </BoxContainer>
+        </AccountContext.Provider>
+    );
 }
