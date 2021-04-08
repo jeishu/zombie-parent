@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-// import Login from "../Sessions/Login";
+import Login from "../Sessions/Login";
 import Fire from "../../Fire";
 import "./index.scss";
 import { LoginForm } from "./loginForm";
 import { SignupForm } from "./signupForm"
 import { AccountContext } from "./accountContext"
 import { motion } from "framer-motion";
-import Login from "../Sessions/Login";
+// import Login from "../Sessions/Login";
 // import LoginForm from "../"
 
 var provider = new Fire.auth.GoogleAuthProvider();
@@ -27,7 +27,6 @@ function googleSignin() {
       console.log(error.message);
     });
 }
-
 
 const BoxContainer = styled.div`
     width: 600px;
@@ -123,7 +122,6 @@ const expandingTransition = {
     stiffness: 30,
 };
 
-
 export default function AccountBox(props){
 
     const [isExpanded, setExpanded] = useState(false);
@@ -151,8 +149,6 @@ export default function AccountBox(props){
     };
 
     const contextValue = { switchToSignup, switchToSignin};
-
-
 
     return (
         <AccountContext.Provider value={contextValue}>

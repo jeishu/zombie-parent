@@ -1,7 +1,7 @@
 import React from "react";
 import AccountBox from "../components/accountBox";
-import Login from "../components/Sessions/Login";
-import Fire from "../Fire";
+// import Login from "../components/Sessions/Login";
+// import Fire from "../Fire";
 
 
 export default function LoginPage() {

@@ -12,8 +12,7 @@ import LoginPage from "./pages/login";
 import Profile from "./pages/Profile";
 import Nav from "./components/Nav";
 import { StoreProvider } from "./utils/GlobalState";
-import styled from "styled-components";
-import { AccountBox } from "./components/accountBox";
+
 
 function App() {
   // Set default log state to false
