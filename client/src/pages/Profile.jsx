@@ -66,8 +66,6 @@ export default function Profile() {
     <main className="page">
       <h2>{state.loading === false ? state.user.email : "...loading"}</h2>
 
-      {/* add and see children */}
-      {/* https://github.com/wojtekmaj/react-date-picker */}
       <div>
         <form action="">
           <label htmlFor="childsName">What is the childs name?</label> <br />
@@ -78,16 +76,6 @@ export default function Profile() {
           <br />
           <label htmlFor="dobCalendar">What is the childs birthday?</label>{" "}
           <br />
-          {/* <DatePicker
-            onChange={(e) => setDobValue(e.target.value)}
-            value={dobValue}
-            id="aaaa"
-            dayPlaceholder="dd"
-            monthPlaceholder="mm"
-            yearPlaceholder="yyyy"
-            calendarIcon={null}
-            clearIcon={null}
-          />{" "} */}
           <label htmlFor="start">Start date:</label>
           <input
             type="date"
@@ -121,18 +109,6 @@ export default function Profile() {
       </ul>
 
       <button onClick={() => console.log(state)}>State</button>
-      {/* <div>
-        <h2>children</h2>
-        <ul>
-          
-
-          {!state.loading && state?.user.child ? state.user.child.map((child) => {
-            return <li key={child.name} style={{ listStyleType: "none" }}>{child.name}</li>;
-          }) : "add a child to see a list"}
-        </ul>
-        
-      </div> */}
-      {/* <div><h2>{state.loading === false ? state.child.name : "...loading"}</h2></div> */}
     </main>
   );
 }

@@ -8,7 +8,7 @@ let initUser = (userCredential, dispatch) => {
       // console.log("Joey request:" + JSON.stringify(existingUser.data));
       if (!existingUser.data) {
         console.log("user not found, creating new user");
-        API.createUser({ uid: user.uid, email: user.email, child: [], activeChild: [], lastViewedChild: "" })
+        API.createUser({ uid: user.uid, email: user.email })
           .then((newUserResult) => {
             dispatch({
               type: "setUser",
