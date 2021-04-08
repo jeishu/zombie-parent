@@ -67,8 +67,19 @@ const actionSeed = [
     name: "nurse",
     beginTime: moment().subtract(90, "minutes"),
     endTime: moment().subtract(80, "minutes"),
-    whichBreast: {
+    nurse: {
       left: true,
+      leftSeconds: 200,
+    },
+    endedByUser: true,
+  },
+  {
+    name: "nurse",
+    beginTime: moment().subtract(90, "minutes"),
+    endTime: moment().subtract(80, "minutes"),
+    nurse: {
+      right: true,
+      rightSeconds: 200,
     },
     endedByUser: true,
   },
