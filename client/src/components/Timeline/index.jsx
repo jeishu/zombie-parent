@@ -12,9 +12,9 @@ import Typography from '@material-ui/core/Typography';
 import moment from "moment";
 
 const TimeData = () => {
-    const [diaper, setDiaper] = useState({name: []});
-    const [feeding, setFeeding] = useState({name: []});
-    const [sleep, setSleep] = useState({name: []});
+    const [diaper, setDiaper] = useState({ name: [] });
+    const [feeding, setFeeding] = useState({ name: [] });
+    const [sleep, setSleep] = useState({ name: [] });
 
     useEffect(() => {
         API.getActionsLastDayByName("606e47ca5394d53a2ce4c0d3", "diaper").then(res => {
@@ -37,62 +37,65 @@ const TimeData = () => {
     }, [])
 
     return (
-        <>
-        <Timeline>
-            {diaper.name.map(action => {
-                return (
-                    <TimelineItem>
-                        <TimelineOppositeContent>
-                            <Typography color="textSecondary">{action.name}</Typography>
-                        </TimelineOppositeContent>
-                        <TimelineSeparator>
-                            <TimelineDot />
-                            <TimelineConnector />
-                        </TimelineSeparator>
-                        <TimelineContent>
-                            <Typography>{moment(action.endTime).format("hh mm a")}</Typography>
-                        </TimelineContent>
-                    </TimelineItem>
-                )
-            })}
-        </Timeline>
-        <Timeline>
-            {feeding.name.map(action => {
-                return (
-                    <TimelineItem>
-                        <TimelineOppositeContent>
-                            <Typography color="textSecondary">{action.name}</Typography>
-                        </TimelineOppositeContent>
-                        <TimelineSeparator>
-                            <TimelineDot />
-                            <TimelineConnector />
-                        </TimelineSeparator>
-                        <TimelineContent>
-                            <Typography>{moment(action.endTime).format("hh mm a")}</Typography>
-                        </TimelineContent>
-                    </TimelineItem>
-                )
-            })}
-        </Timeline>
-        <Timeline>
-            {sleep.name.map(action => {
-                return (
-                    <TimelineItem>
-                        <TimelineOppositeContent>
-                            <Typography color="textSecondary">{action.name}</Typography>
-                        </TimelineOppositeContent>
-                        <TimelineSeparator>
-                            <TimelineDot />
-                            <TimelineConnector />
-                        </TimelineSeparator>
-                        <TimelineContent>
-                            <Typography>{moment(action.endTime).format("hh mm a")}</Typography>
-                        </TimelineContent>
-                    </TimelineItem>
-                )
-            })}
-        </Timeline>
-        </>
+        <React.Fragment>
+            <Timeline>
+                <h1>Diaper</h1>
+                {diaper.name.map(action => {
+                    return (
+                        <TimelineItem>
+                            <TimelineOppositeContent>
+                                <Typography color="textSecondary">{action.name}</Typography>
+                            </TimelineOppositeContent>
+                            <TimelineSeparator>
+                                <TimelineDot />
+                                <TimelineConnector />
+                            </TimelineSeparator>
+                            <TimelineContent>
+                                <Typography>{moment(action.endTime).format("hh mm a")}</Typography>
+                            </TimelineContent>
+                        </TimelineItem>
+                    )
+                })}
+            </Timeline>
+            <Timeline>
+                <h1>Feeding</h1>
+                {feeding.name.map(action => {
+                    return (
+                        <TimelineItem>
+                            <TimelineOppositeContent>
+                                <Typography color="textSecondary">{action.name}</Typography>
+                            </TimelineOppositeContent>
+                            <TimelineSeparator>
+                                <TimelineDot />
+                                <TimelineConnector />
+                            </TimelineSeparator>
+                            <TimelineContent>
+                                <Typography>{moment(action.endTime).format("hh mm a")}</Typography>
+                            </TimelineContent>
+                        </TimelineItem>
+                    )
+                })}
+            </Timeline>
+            <Timeline>
+                <h1>Sleep</h1>
+                {sleep.name.map(action => {
+                    return (
+                        <TimelineItem>
+                            <TimelineOppositeContent>
+                                <Typography color="textSecondary">{action.name}</Typography>
+                            </TimelineOppositeContent>
+                            <TimelineSeparator>
+                                <TimelineDot />
+                                <TimelineConnector />
+                            </TimelineSeparator>
+                            <TimelineContent>
+                                <Typography>{moment(action.endTime).format("hh mm a")}</Typography>
+                            </TimelineContent>
+                        </TimelineItem>
+                    )
+                })}
+            </Timeline>
+        </React.Fragment>
     )
 }
 

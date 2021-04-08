@@ -2,15 +2,36 @@
 @use "../../scss/fonts" as *;
 
 .timeline {
-    background-color: $section-color;
-    border-radius: 10px;
-    border: 1px $section-color solid;
-    margin-top: 3rem;
-    padding: 1rem;
-    background: rgba( 38, 70, 83, 0.25 );
-    backdrop-filter: blur( 2.5px );
-    -webkit-backdrop-filter: blur( 2.5px );
-    border: 1px solid rgba( 255, 255, 255, 0.18 );
+    display: flex;
+    flex-direction: column;
+    width: auto;
+    margin-top: 1rem;
+    width: 300px;
+
+    @media (min-width: 1024px){
+        flex-direction: row;
+        height: 600px;
+        width: 100%;
+    }
+
+    ul {
+        border: 1px solid rgba( 255, 255, 255, 0.18 );
+        background-color: $section-color;
+        border-radius: 10px;
+        padding: 1rem;
+        margin: 1rem 0 1rem;
+        backdrop-filter: blur( 2.5px );
+        -webkit-backdrop-filter: blur( 2.5px );
+        width: 100%;
+        h1 {
+            text-align: center;
+            color: $non-active-color;
+        }
+
+        @media (min-width: 1024px){
+            margin: 0 1rem 0;
+        }
+    }
 }
 // ====== Material UI Classes ======
 

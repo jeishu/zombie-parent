@@ -1,6 +1,5 @@
 import React from "react";
 import "./hierarchy.scss";
-// import RightArrow from "../../img/misc/rightArrow";
 
 const Hierarchy = (props) => {
   return (
@@ -14,7 +13,6 @@ const Hierarchy = (props) => {
               onClick={() => props.dirTree(dir).then(() => props.updateButtons(dir.btn, dir.name, dir.key - 1))}
             >
               <span className="hierarchy-name"> {dir.name} </span>
-                {/* <RightArrow /> */}
             </li>
           </>
         );
