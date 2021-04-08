@@ -23,12 +23,10 @@ export function SignupForm(props) {
           <Marginer direction="vertical" margin={10} />
           <SubmitButton type="submit">Signup</SubmitButton>
           <Marginer direction="vertical" margin="1em" />
-          <MutedLink href="#">
-            Already have an account?
+          <MutedLink href="#">Already have an account?</MutedLink>
             <BoldLink href="#" onClick={switchToSignin}>
               Sign in
             </BoldLink>
-          </MutedLink>
         </BoxContainer>
       );
 }
