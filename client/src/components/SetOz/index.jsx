@@ -11,7 +11,7 @@ const SetOz = (props) => {
         required
       />
       <input
-        id="oz"
+        id="ozSubmit"
         style={{ display: props.showOz }}
         type="submit"
         onClick={(e) => {

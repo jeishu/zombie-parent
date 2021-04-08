@@ -1,21 +1,34 @@
 import React, { useState } from "react";
+import { useStoreContext } from "../utils/GlobalState";
+import API from "../utils/API";
+import "./log.scss"; // styling
+import moment from "moment"; // for logging time
+
+//components
+import SetOz from "../components/SetOz";
+import SetTime from "../components/SetTime";
 import Hierarchy from "../components/Hierarchy";
 import LogBtn from "../components/LogBtn";
-import SetTime from "../components/SetTime";
-import API from "../utils/API";
-import { useStoreContext } from "../utils/GlobalState";
-import "./log.scss";
-import moment from "moment";
-import SetOz from "../components/SetOz";
+import SetNap from "../components/SetNap";
 
 export default function Log() {
+  // allows dynamically renered buttons and directory
   const [btn1, setBtn1] = useState({ name: "Diaper", btn: "Diaper" });
   const [btn2, setBtn2] = useState({ name: "Eat", btn: "Eat" });
   const [btn3, setBtn3] = useState({ name: "Nap", btn: "Nap" });
   const [dir, setDir] = useState([{ name: "Log", btn: "Default", key: 0 }]);
+
   const [state, dispatch] = useStoreContext();
-  const [submitAction, setSubmitAction] = useState("None");
-  const [user, setUser] = useState({
+
+  // const [submitAction, setSubmitAction] = useState("None");
+
+  // allows dynamicly accessable buttons
+  const [showHide, setShowHide] = useState("none");
+  const [showOz, setShowOz] = useState("none");
+  const [showNap, setShowNap] = useState("none");
+
+  const user = {
+    // temp data for user
     _id: "6064d1b34c03365638292266",
     name: "Mama Testy",
     activeChild: [{ _id: "6064d1b34c03365638292265" }],
@@ -25,26 +38,26 @@ export default function Log() {
       showNap: true,
       showDiaper: true,
     },
-  });
-  const [child, setChild] = useState({
+  };
+  const child = {
+    // temp data for child
     _id: "6064d1b34c03365638292265",
     name: "Lil Testy",
-  });
-  const [showHide, setShowHide] = useState("none");
-  const [showOz, setShowOz] = useState("none");
+  };
 
   const updateButtons = (choice, name, key) => {
-    whichActions(choice);
-    addDir(choice, name, key);
+    // main button update function
+    whichActions(choice); // when buttons lead to actions, this is where that is decided
+    addDir(choice, name, key); // updates hierarchy array
 
-    switch (choice) {
-      case "Default":
+    switch (choice) { // updates what renders on buttons, and what their next action is called
+      case "Default": // catch everything that leads back to default view
       case "Add Now":
       case "End Time":
       case "Stop Time":
       case "Stop Bottle":
         setBtns("Diaper", "Eat", "Nap", "Diaper", "Eat", "Nap");
-        setDir([{ name: "Log", btn: "Default", key: 0 }]);
+        setDir([{ name: "Log", btn: "Default", key: 0 }]); // everytime we return to default, reset the hierarchy
         setShowHide("none")
         break;
       case "Diaper":
@@ -54,7 +67,7 @@ export default function Log() {
         setBtns("Nurse", "Bottle", "Cancel", "Nurse", "Bottle", "Default");
         break;
       case "Nap":
-        setBtns("Start", "End", "Add Time", "Start Time", "End Time", "Add Time");
+        setBtns("Start", "End", "Add Time", "Start Time", "End Time", "Add Nap");
         break;
       case "Nurse":
         setBtns("Left", "Right", "Add Time", "Feed", "Feed", "Add Nurse");
@@ -68,9 +81,9 @@ export default function Log() {
       case "now/set":
         setBtns( "Add Now", "Set Time", "Cancel", "Add Now", "Set Time", "Default");
         break;
-      case "Add Time":
-        setBtns( "Start Time", "End Time", "Cancel", "Start Time", "End Time", "Default");
-        break;
+      // case "Add Nap":
+      //   setBtns( "Start Time", "End Time", "Cancel", "Start Nap", "End Nap", "Default");
+      //   break;
       case "Add Nurse":
         setBtns( "Start Left", "Start Right", "Stop", "Start Left", "Start Right", "End Time");
         break;
@@ -78,26 +91,27 @@ export default function Log() {
         setBtns( "Oz", "Start Time", "Stop Time", "Oz", "Start Time", "Stop Time");
         break;
       default:
-        console.log("This action does not update the buttons");
+        console.log("This action does not update the buttons"); // remove this from final build
         break;
     }
   };
 
   const whichActions = (choice) => {
-    const lastDir = dir[dir.length - 1].name;
+    // when buttons need to call funtions this triggers the functions
+    const lastDir = dir[dir.length - 1].name; // find the last item in the directory array
 
     if (choice === "Add Now" && lastDir === "Pee") {
       handleDiaperAddNowSubmit({ pee: true });
-      setSubmitAction("Diaper");
+      // setSubmitAction("Diaper");
     } else if (choice === "Add Now" && lastDir === "Poo") {
       handleDiaperAddNowSubmit({ poo: true });
-      setSubmitAction("Diaper");
+      // setSubmitAction("Diaper");
     } else if (choice === "Add Now" && lastDir === "Both") {
       handleDiaperAddNowSubmit({ pee: true, poo: true });
-      setSubmitAction("Diaper");
+      // setSubmitAction("Diaper");
     } else if (choice === "Set Time") {
       setShowHide("block");
-      setSubmitAction("Diaper");
+      // setSubmitAction("Diaper");
     } else if (choice === "Start Feed" && lastDir === "Left") {
       handleEatSubmit("Start", { left: true, right: false }, "nurse", null);
     } else if (choice === "Start Feed" && lastDir === "Right") {
@@ -114,22 +128,28 @@ export default function Log() {
       handleNapSubmit("Start");
     } else if (choice === "End Time" && lastDir === "Nap") {
       handleNapSubmit("Stop");
+    } else if (choice === "Add Nap") {
+      setShowNap("block");
     }
   };
 
+  // sets the hierarchy back when the user clicks an item in the array
   const dirTree = async (clickedDir) => {
     let tempDir = dir;
-    console.log(tempDir);
+    // console.log(tempDir);
     let slicedDir = tempDir.slice(0, clickedDir.key);
     setDir(slicedDir);
   };
 
+  // adds to the hierarchy when the user clicks a button
   const addDir = (btnChoice, btnName, btnKey) => {
-    let dirLengthLessOne = dir.length - 1;
+    let dirLengthLessOne = dir.length - 1; // key of last item in array
 
     if (btnName === "Switch") {
+      // backs the user up when switching nursing sides
       setDir(dir.filter((e) => e.key !== dirLengthLessOne));
     } else if (
+      // lists buttons that should not be added to hierarchy
       btnName !== "Switch" &&
       btnName !== "Start" &&
       btnName !== "Oz" &&
@@ -138,24 +158,27 @@ export default function Log() {
       btnName !== "Start Left" &&
       btnName !== "Start Right" &&
       btnName !== "Stop" &&
+      btnChoice !== "Add Nap" &&
       btnName !== dir[dirLengthLessOne].name
     ) {
       setDir((dir) => [
         ...dir,
         { name: btnName, btn: btnChoice, key: btnKey + 1 },
-      ]);
+      ]); // sets new item in hierarchy and makes key === to its position in the array
     }
   };
 
+  // sets the buttons name and actions
   const setBtns = (name1, name2, name3, button1, button2, button3) => {
     setBtn1({ name: name1, btn: button1 });
     setBtn2({ name: name2, btn: button2 });
     setBtn3({ name: name3, btn: button3 });
   };
 
+  // when loggin time this chooses what function to run and adds the proper values
   function setTimeSubmit(event, time) {
     event.preventDefault();
-    const lastDir = dir[dir.length - 1].name;
+    const lastDir = dir[dir.length - 1].name; // find the last item in the directory array
     // if (submitAction != "Diaper") {
     //   setShowHide("none");
     // }
@@ -166,12 +189,11 @@ export default function Log() {
       handleDiaperSetTimeSubmit({ poo: true }, time);
     } else if (lastDir === "Both") {
       handleDiaperSetTimeSubmit({ pee: true, poo: true }, time);
-    } 
+    }
   }
 
+  // adds diapers to database when add time is now
   function handleDiaperAddNowSubmit(contents) {
-    console.log("addNowDiaper");
-    console.log(contents);
     let actionData = {
       name: "diaper",
       endedByUser: true,
@@ -179,13 +201,13 @@ export default function Log() {
       child: { _id: child._id },
       diaperContents: contents,
     };
-    API.createAction(actionData) // .then(res => loadBooks())
-      .catch((err) => console.log(err));
+    API.createAction(actionData).catch((err) => console.log(err));
   }
 
+  // adds diapers to database when logging past diapers
   function handleDiaperSetTimeSubmit(contents, time) {
-    console.log("setTimeDiaper");
-    console.log(contents);
+    // console.log("setTimeDiaper");
+    // console.log(contents);
     let actionData = {
       name: "diaper",
       beginTime: time,
@@ -199,12 +221,13 @@ export default function Log() {
       .catch((err) => console.log(err));
   }
 
+  // adds feeding to database when add time is now
   function handleEatSubmit(timeStart, method, actionName, oz) {
     setShowOz("none");
     let actionData;
-    console.log(oz);
-    dispatch({ 
-      type: "loading"
+    // console.log(oz);
+    dispatch({
+      type: "loading",
     });
     if (timeStart === "Start") {
       actionData = {
@@ -237,7 +260,7 @@ export default function Log() {
       };
       API.updateAction(state.feeding._id, actionData)
         .then((result) => {
-          console.log(result.data);
+          // console.log(result.data);
           dispatch({
             type: "setFeeding",
             feeding: {},
@@ -250,6 +273,7 @@ export default function Log() {
     }
   }
 
+  // adds naps to database when add time is now
   function handleNapSubmit(timeStart) {
     let actionData;
     if (timeStart === "Start") {
@@ -281,7 +305,7 @@ export default function Log() {
       };
       API.updateAction(state.sleep._id, actionData)
         .then((result) => {
-          console.log(result.data);
+          // console.log(result.data);
           dispatch({
             type: "setSleep",
             sleep: {},
@@ -317,7 +341,8 @@ export default function Log() {
           }
         />{" "}
         <SetTime setTimeSubmit={setTimeSubmit} showHide={showHide} />
-        <SetOz handleEatSubmit={handleEatSubmit} showOz={showOz}/>
+        <SetOz handleEatSubmit={handleEatSubmit} showOz={showOz} />
+        <SetNap handleNapSubmit={handleNapSubmit} showNap={showNap} />
       </main>
     </main>
   );

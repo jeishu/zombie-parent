@@ -17,18 +17,18 @@ const TimeData = () => {
     const [sleep, setSleep] = useState({ name: [] });
 
     useEffect(() => {
-        API.getActionsLastDayByName("606e47ca5394d53a2ce4c0d3", "diaper").then(res => {
+        API.getActionsLastDayByName("606e76158b0f207cd492903f", "diaper").then(res => {
             setDiaper({
                 name: res.data.reverse()
             })
         });
-        API.getActionsLastDayByName("606e47ca5394d53a2ce4c0d3", "sleep").then(res => {
+        API.getActionsLastDayByName("606e76158b0f207cd492903f", "sleep").then(res => {
             setSleep({
                 name: res.data.reverse()
             })
         });
-        API.getActionsLastDayByName("606e47ca5394d53a2ce4c0d3", "bottle").then(bottleRes => {
-            API.getActionsLastDayByName("606e47ca5394d53a2ce4c0d3", "nurse").then(nurseRes => {
+        API.getActionsLastDayByName("606e76158b0f207cd492903f", "bottle").then(bottleRes => {
+            API.getActionsLastDayByName("606e76158b0f207cd492903f", "nurse").then(nurseRes => {
                 setFeeding({
                     name: bottleRes.data.reverse().concat(nurseRes.data.reverse())
                 })
