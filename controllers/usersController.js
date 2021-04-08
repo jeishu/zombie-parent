@@ -8,7 +8,7 @@ module.exports = {
       .catch((err) => res.status(422).json(err));
   },
   findByUid: function (req, res) {
-    db.User.find({ uid: req.params.id })
+    db.User.findOne({ uid: req.params.id })
       .populate("child")
       .exec(function (err, actions) {
         // console.log(JSON.stringify(actions, null, 2));
