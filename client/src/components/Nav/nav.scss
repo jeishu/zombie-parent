@@ -67,5 +67,15 @@ nav {
         margin: 1rem 0;
       }
     }
+    
+    .signoutBtn {
+      background-color: transparent;
+      outline: none;
+      border: none;
+      cursor: pointer;
+      @media (min-width: 768px) {
+        margin: 1rem 0;
+      }
+    }
   }
 }

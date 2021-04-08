@@ -59,14 +59,14 @@ export default function Profile() {
 
   return (
     <main className="page">
-      <h1>Profile Page</h1>
-      <h2>{state ? "username" : `${JSON.stringify(state)}`}</h2>
+      <h1 className="profile-h1">Profile Page</h1>
+      <h2 className="profile-h2">{state ? "username" : `${JSON.stringify(state)}`}</h2>
 
       {/* add and see children */}
       {/* https://github.com/wojtekmaj/react-date-picker */}
       <div>
         <form action="">
-          <label htmlFor="childsName">What is the childs name?</label> <br />
+          <label className="profile-label" htmlFor="childsName">What is the childs name?</label> <br />
           <input value={nameValue} onChange={(e)=> nameOnChange(e.target.value)} /><br />
           <label htmlFor="dobCalendar">What is the childs birthday?</label>{" "}
           <br />
