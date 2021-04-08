@@ -1,17 +1,47 @@
 import React, { useState } from "react";
 import jsonData from "../tempData.json";
 import DatePicker from "react-date-picker";
+import moment from "moment";
+import API from "../utils/API";
+import { useStoreContext } from "../utils/GlobalState";
+import "../pages/profile.scss";
 
 export default function Profile() {
   const [dobValue, dobOnChange] = useState(new Date());
   const [nameValue, nameOnChange] = useState();
-
+  const [state, dispatch] = useStoreContext();
   const children = jsonData.children;
+
+  // create function that takes in name and birthdate. 
+
+  function handleCreateChild() {
+    let childData;
+    dispatch({
+      type: "loading"
+    });
+
+    API.createUser(state.user)
+    .then((result) => {
+      dispatch({
+        type: "createChild",
+        // forgot what you had said
+      });
+    })
+
+    let newUser = { ...state.user, 
+      child: [...state.user.child, res.data._id], 
+      activeChild: [...state.user.child, res.data._id], 
+      lastViewedChild: res.data._id }
+  }
+
+
+
+
 
   return (
     <main className="page">
       <h1>Profile Page</h1>
-      <h1>{`${jsonData.user.firstName} ${jsonData.user.lastName}`}</h1>
+      <h2>{`${jsonData.user.firstName} ${jsonData.user.lastName}`}</h2>
 
       {/* add and see children */}
       {/* https://github.com/wojtekmaj/react-date-picker */}
