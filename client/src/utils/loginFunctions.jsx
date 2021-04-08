@@ -2,30 +2,35 @@ import API from "./API";
 
 // const [state, dispatch] = useStoreContext();
 
-const initUser = (userCredential, dispatch) => {
+const initUser = (userCredential, state, dispatch) => {
   let user = userCredential.user;
   API.getUserByUid(user.uid)
-    .then((result) => {
-      if (!result.data) {
+    .then((existingUser) => {
+      console.log(existingUser.data);
+      if (!existingUser.data) {
+        console.log("user not found, creating new user");
         API.createUser({ uid: user.uid, email: user.email })
-          .then((result) => {
-            setUser(result.data, dispatch);
+          .then((newUserResult) => {
+            setUserWrapper(newUserResult.data, state, dispatch);
           })
           .catch((error) => console.error(error));
       } else {
-        setUser(result.data, dispatch);
+        console.log("user found, updating state");
+        setUserWrapper(existingUser.data, state, dispatch);
       }
     })
     .catch((error) => {
       console.error(error);
     });
 };
-
-const setUser = (user, state, dispatch) => {
-  dispatch({
+const setUser = async (user, dispatch) => {
+  return dispatch({
     type: "setUser",
     user,
-  })
+  });
+};
+const setUserWrapper = (user, state, dispatch) => {
+  setUser(user, dispatch)
     .then(() => {
       loginChecklist(state, dispatch);
     })
@@ -35,10 +40,11 @@ const setUser = (user, state, dispatch) => {
 };
 
 function loginChecklist(state, dispatch) {
-  API.getChild(state.user.lastViewedChild)
+  if (state.user.lastViewedChild) {
+    API.getChild(state.user.lastViewedChild)
     .then((childResult) => {
       if (!childResult) {
-          console.log("no last viewed Result")
+        console.log("no last viewed Result");
       } else {
         console.log(JSON.stringify(childResult));
         dispatch({
@@ -46,14 +52,13 @@ function loginChecklist(state, dispatch) {
           child: childResult,
         })
           .then(
-              API.getUnfinished(childResult._id)
-              .then((actionsResult) => {
-                  console.log(actionsResult);
-                 //dispatch actions here
-                //  let actionArr = ["sleep", "feeding", "diaper"]
-                 
-                //  actionsResult.filter(item => item.name )
-              })
+            API.getUnfinished(childResult._id).then((actionsResult) => {
+              console.log(actionsResult);
+              //dispatch actions here
+              //  let actionArr = ["sleep", "feeding", "diaper"]
+
+              //  actionsResult.filter(item => item.name )
+            })
           ) // after this run other login get requests
           .catch((error) => {
             console.error(error);
@@ -63,6 +68,8 @@ function loginChecklist(state, dispatch) {
     .catch((error) => {
       console.log(error);
     });
+  }
+  
 }
 
 export { initUser, loginChecklist, setUser };

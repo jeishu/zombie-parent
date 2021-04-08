@@ -8,7 +8,7 @@ import "../pages/profile.scss";
 
 export default function Profile() {
   const [dobValue, dobOnChange] = useState(new Date());
-  const [nameValue, nameOnChange] = useState();
+  const [nameValue, nameOnChange] = useState("");
   const [state, dispatch] = useStoreContext();
   const children = jsonData.children;
 
@@ -32,7 +32,7 @@ export default function Profile() {
           ...state.user,
           child: [...state.user.child, childReturn.data._id],
           activeChild: [...state.user.child, childReturn.data._id],
-          lastViewedChild: res.data._id,
+          lastViewedChild: childReturn.data._id,
         })
         .then((userReturn) => {
           dispatch({
@@ -60,14 +60,14 @@ export default function Profile() {
   return (
     <main className="page">
       <h1>Profile Page</h1>
-      <h2>{`${jsonData.user.firstName} ${jsonData.user.lastName}`}</h2>
+      <h2>{state ? "username" : `${JSON.stringify(state)}`}</h2>
 
       {/* add and see children */}
       {/* https://github.com/wojtekmaj/react-date-picker */}
       <div>
         <form action="">
           <label htmlFor="childsName">What is the childs name?</label> <br />
-          <input value={nameValue} onChange={nameOnChange} /> <br />
+          <input value={nameValue} onChange={(e)=> nameOnChange(e.target.value)} /><br />
           <label htmlFor="dobCalendar">What is the childs birthday?</label>{" "}
           <br />
           <DatePicker
