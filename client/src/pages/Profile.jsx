@@ -14,7 +14,8 @@ export default function Profile() {
 
   // create function that takes in name and birthdate.
 
-  function handleCreateChild(res) {
+  function handleCreateChild(e) {
+    e.preventDefault();
     dispatch({
       type: "loading",
     });
@@ -27,7 +28,6 @@ export default function Profile() {
         type: "setChild",
         child: childReturn.data,
       })
-      .then(() => {
         API.updateUser({
           ...state.user,
           child: [...state.user.child, childReturn.data._id],
@@ -41,15 +41,12 @@ export default function Profile() {
           }).then(() => {
             dobValue = "";
             nameValue = "";
+            console.log(state.user.lastViewedChild);
           })
-        })
         .catch((error) => {
           console.error(error);
         });
       })
-      .catch((error) => {
-        console.error(error);
-      });
     });
 
     
@@ -71,7 +68,7 @@ export default function Profile() {
           <label htmlFor="dobCalendar">What is the childs birthday?</label>{" "}
           <br />
           <DatePicker
-            onChange={dobOnChange}
+            onChange={(e)=> dobOnChange(e.target.value)}
             value={dobValue}
             id="dobCalendar"
             dayPlaceholder="dd"
@@ -81,7 +78,7 @@ export default function Profile() {
             clearIcon={null}
           />{" "}
           <br />
-          <input type="submit" value="Add a new child" />
+          <input onClick={(e) => handleCreateChild(e)}   type="submit" value="Add a new child" />
         </form>
         <ul>
           {children.map((child) => {
