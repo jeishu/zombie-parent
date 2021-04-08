@@ -30,7 +30,6 @@ export const BoldLink = styled.a`
     font-weight: 500;
     text-decoration: none;
     margin: 0 4px;
-
 `;
 
 export const Input = styled.input`

@@ -54,7 +54,7 @@ export default function Log() {
         setBtns("Nurse", "Bottle", "Cancel", "Nurse", "Bottle", "Default");
         break;
       case "Nap":
-        setBtns("Start", "End", "Add Time","Start Time", "End Time", "Add Time");
+        setBtns("Start", "End", "Add Time", "Start Time", "End Time", "Add Time");
         break;
       case "Nurse":
         setBtns("Left", "Right", "Add Time", "Feed", "Feed", "Add Nurse");
@@ -110,7 +110,10 @@ export default function Log() {
       handleEatSubmit("Stop", { left: false, right: true }, "nurse", null);
     } else if (choice === "Stop Bottle" && lastDir === "Bottle") {
       setShowOz("block");
-      // handleEatSubmit("Stop", { left: false, right: false }, "bottle", "oz");
+    } else if (choice === "Start Time" && lastDir === "Nap") {
+      handleNapSubmit("Start");
+    } else if (choice === "End Time" && lastDir === "Nap") {
+      handleNapSubmit("Stop");
     }
   };
 
@@ -199,6 +202,7 @@ export default function Log() {
   function handleEatSubmit(timeStart, method, actionName, oz) {
     setShowOz("none");
     let actionData;
+    console.log(oz);
     dispatch({ 
       type: "loading"
     });
@@ -228,6 +232,7 @@ export default function Log() {
       actionData = {
         ...state.feeding,
         endTime: moment(),
+        foodOz: oz,
         endedByUser: true,
       };
       API.updateAction(state.feeding._id, actionData)
@@ -236,7 +241,6 @@ export default function Log() {
           dispatch({
             type: "setFeeding",
             feeding: {},
-            foodOz: oz
           });
         })
         .catch((err) => {
@@ -246,17 +250,48 @@ export default function Log() {
     }
   }
 
-  function handleNapSubmit(contents) {
-    let actionData = {
-      name: user.name,
-      beginTime: "",
-      endTime: "",
-      lastUpdatedBy: { _id: user._id },
-      child: { _id: child._id },
-      endedByUser: true,
-    };
-    API.saveAction(actionData)
-    .catch((err) => console.log(err));
+  function handleNapSubmit(timeStart) {
+    let actionData;
+    if (timeStart === "Start") {
+      actionData = {
+        name: "nap",
+        // beginTime: "",
+        endTime: "",
+        lastUpdatedBy: { _id: user._id },
+        child: { _id: child._id },
+        endedByUser: false,
+      };
+      API.createAction(actionData)
+        .then((result) => {
+          dispatch({
+            type: "setSleep",
+            sleep: result.data,
+          });
+        })
+        .catch((err) => {
+          dispatch({ name: "endLoading" });
+          console.log(err);
+        });
+    } else if (timeStart === "Stop") {
+      dispatch({ type: "loading" });
+      actionData = {
+        ...state.sleep,
+        endTime: moment(),
+        endedByUser: true,
+      };
+      API.updateAction(state.sleep._id, actionData)
+        .then((result) => {
+          console.log(result.data);
+          dispatch({
+            type: "setSleep",
+            sleep: {},
+          });
+        })
+        .catch((err) => {
+          console.error(err);
+          dispatch({ name: "endLoading" });
+        });
+    }
   }
 
   return (
