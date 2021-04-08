@@ -7,7 +7,7 @@ import { SignupForm } from "./signupForm";
 import { AccountContext } from "./accountContext";
 import { motion } from "framer-motion";
 import { useStoreContext } from "../../utils/GlobalState";
-import { initUser } from "../../utils/loginFunctions";
+import { initUser, loginChecklist, setUser } from "../../utils/loginFunctions";
 
 var provider = new Fire.auth.GoogleAuthProvider();
 
@@ -115,7 +115,9 @@ export default function AccountBox(props) {
     Fire.auth()
       .signInWithPopup(provider)
       .then((userCredential) => {
-        initUser(userCredential, state, dispatch);
+        initUser(userCredential, dispatch).then((user) => {
+          setUser(user).then(loginChecklist(state, dispatch));
+        });
       })
       .catch((error) => {
         console.error(error);
