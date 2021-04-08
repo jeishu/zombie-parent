@@ -22,9 +22,6 @@ function googleSignin() {
       console.log(user);
     })
     .catch(function (error) {
-      var errorCode = error.code;
-      var errorMessage = error.message;
-
       console.log(error.code);
       console.log(error.message);
     });
@@ -159,7 +156,6 @@ export default function AccountBox(props){
     return (
         <AccountContext.Provider value={contextValue}>
             <BoxContainer>
-                
                 <TopContainer>
                     <BackDrop
                         initial={false}
@@ -180,8 +176,7 @@ export default function AccountBox(props){
                                 <HeaderText>Account</HeaderText>
                                 <SmallText>Please sign-up to continue.</SmallText>
                             </HeaderContainer>
-                        )}
-                        
+                        )} 
                 </TopContainer>
                 <InnerContainer>
                     {active === "signin" && <LoginForm />}
