@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import Fire from "../../Fire";
 import "./index.scss";
+import Login from "../Sessions/Login";
 import { LoginForm } from "./loginForm";
 import { SignupForm } from "./signupForm";
 import { AccountContext } from "./accountContext";
@@ -65,13 +66,17 @@ const HeaderText = styled.h2`
   font-family: "Rubik";
   font-weight: 600;
   line-height: 1.23;
-  color: #fff;
+  color: #ffffff;
+  text-shadow: 5px 5px 10px rgba(38, 70, 83, 0.4),
+               5px 5px 20px rgba(38, 70, 83, 0.4);
   z-index: 10;
   letter-spacing: 2px;
 `;
 
 const SmallText = styled.h5`
   color: #fff;
+  text-shadow: 5px 5px 10px #1a3038,
+               5px 5px 10px #1a3038;
   font-family: "Rubik";
   font-weight: 300;
   font-size: 15px;

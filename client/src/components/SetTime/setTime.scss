@@ -1,0 +1,26 @@
+@use "../../scss/colors" as *;
+@use "../../scss/fonts" as *;
+@use "../../scss/mixins" as *;
+
+.set-time-form {
+    display: flex;
+    flex-direction: row;
+    outline: none;
+
+    input[type=datetime-local] {
+        padding: .5rem;
+        border: none;
+        outline: none;
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+        background-color: rgb(255, 255, 255, 0.5);
+    }
+    input[type=submit].set-time-submit {
+        cursor: pointer;
+        padding: 0 .5rem;
+        text-transform: uppercase;
+        border: none;
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+    }
+}
