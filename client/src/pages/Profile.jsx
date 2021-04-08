@@ -85,7 +85,7 @@ export default function Profile() {
         </form>
         <ul>
           {children.map((child) => {
-            return <li style={{ listStyleType: "none" }}>{child.name}</li>;
+            return <li key={child.name} style={{ listStyleType: "none" }}>{child.name}</li>;
           })}
         </ul>
       </div>

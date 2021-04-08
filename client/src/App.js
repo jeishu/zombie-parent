@@ -13,7 +13,6 @@ import Profile from "./pages/Profile";
 import Nav from "./components/Nav";
 import { StoreProvider } from "./utils/GlobalState";
 
-
 function App() {
   // Set default log state to false
   const [isLoggedIn, setIsLoggedIn] = useState(false);
