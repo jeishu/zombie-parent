@@ -1,32 +1,15 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import Login from "../Sessions/Login";
 import Fire from "../../Fire";
 import "./index.scss";
 import { LoginForm } from "./loginForm";
 import { SignupForm } from "./signupForm";
 import { AccountContext } from "./accountContext";
 import { motion } from "framer-motion";
-// import Login from "../Sessions/Login";
-// import LoginForm from "../"
+import { useStoreContext } from "../../utils/GlobalState";
+import { initUser } from "../../utils/loginFunctions";
 
 var provider = new Fire.auth.GoogleAuthProvider();
-
-function googleSignin() {
-  Fire.auth()
-    .signInWithPopup(provider)
-    .then(function (result) {
-      var token = result.credential.accessToken;
-      var user = result.user;
-
-      console.log(token);
-      console.log(user);
-    })
-    .catch(function (error) {
-      console.log(error.code);
-      console.log(error.message);
-    });
-}
 
 const BoxContainer = styled.div`
   width: 600px;
@@ -125,65 +108,77 @@ const expandingTransition = {
   stiffness: 30,
 };
 
-export default function AccountBox(props){
+export default function AccountBox(props) {
+  const [state, dispatch] = useStoreContext();
 
-    const [isExpanded, setExpanded] = useState(false);
-    const [active, setActive] = useState("signin");
+  function googleSignin() {
+    Fire.auth()
+      .signInWithPopup(provider)
+      .then((userCredential) => {
+        initUser(userCredential, state, dispatch);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
 
-    const playExpandingAnimation = () => {
-        setExpanded(true);
-        setTimeout(() => {
-            setExpanded(false);
-        }, expandingTransition.duration * 1000 - 1500);
-    };
+  const [isExpanded, setExpanded] = useState(false);
+  const [active, setActive] = useState("signin");
 
-    const switchToSignup = () => {
-        playExpandingAnimation();
-        setTimeout(() => {
-            setActive("signup");
-        }, 400);
-    };
+  const playExpandingAnimation = () => {
+    setExpanded(true);
+    setTimeout(() => {
+      setExpanded(false);
+    }, expandingTransition.duration * 1000 - 1500);
+  };
 
-    const switchToSignin = () => {
-        playExpandingAnimation();
-        setTimeout(() => {
-            setActive("signin");
-        }, 400);
-    };
+  const switchToSignup = () => {
+    playExpandingAnimation();
+    setTimeout(() => {
+      setActive("signup");
+    }, 400);
+  };
 
-    const contextValue = { switchToSignup, switchToSignin};
+  const switchToSignin = () => {
+    playExpandingAnimation();
+    setTimeout(() => {
+      setActive("signin");
+    }, 400);
+  };
 
-    return (
-        <AccountContext.Provider value={contextValue}>
-            <BoxContainer>
-                <TopContainer>
-                    <BackDrop
-                        initial={false}
-                        animate={isExpanded ? "expanded" : "collapsed"}
-                        variants={backdropVariants}
-                        transition={expandingTransition}
-                        />
-                        {active === "signin" && (
-                            <HeaderContainer>
-                                <HeaderText>Welcome</HeaderText>
-                                <HeaderText>Back!</HeaderText>
-                                <SmallText>Please sign-in to continue.</SmallText>
-                            </HeaderContainer>
-                        )}
-                        {active === "signup" && (
-                            <HeaderContainer>
-                                <HeaderText>Create</HeaderText>
-                                <HeaderText>Account</HeaderText>
-                                <SmallText>Please sign-up to continue.</SmallText>
-                            </HeaderContainer>
-                        )} 
-                </TopContainer>
-                <InnerContainer>
-                    {active === "signin" && <LoginForm />}
-                    {active === "signup" && <SignupForm />}
-                    <button onClick={googleSignin}>Google Signin</button>
-                </InnerContainer>
-            </BoxContainer>
-        </AccountContext.Provider>
-    );
+  const contextValue = { switchToSignup, switchToSignin };
+
+  return (
+    <AccountContext.Provider value={contextValue}>
+      <BoxContainer>
+        <TopContainer>
+          <BackDrop
+            initial={false}
+            animate={isExpanded ? "expanded" : "collapsed"}
+            variants={backdropVariants}
+            transition={expandingTransition}
+          />
+          {active === "signin" && (
+            <HeaderContainer>
+              <HeaderText>Welcome</HeaderText>
+              <HeaderText>Back!</HeaderText>
+              <SmallText>Please sign-in to continue.</SmallText>
+            </HeaderContainer>
+          )}
+          {active === "signup" && (
+            <HeaderContainer>
+              <HeaderText>Create</HeaderText>
+              <HeaderText>Account</HeaderText>
+              <SmallText>Please sign-up to continue.</SmallText>
+            </HeaderContainer>
+          )}
+        </TopContainer>
+        <InnerContainer>
+          {active === "signin" && <LoginForm />}
+          {active === "signup" && <SignupForm />}
+          <button onClick={googleSignin}>Google Signin</button>
+        </InnerContainer>
+      </BoxContainer>
+    </AccountContext.Provider>
+  );
 }
