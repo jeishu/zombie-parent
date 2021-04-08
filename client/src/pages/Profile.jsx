@@ -50,7 +50,7 @@ export default function Profile() {
         lastViewedChild: childReturn.data._id,
       };
       console.log(JSON.stringify(updatedUser, null, 2));
-      API.updateUser(updatedUser).then((userReturn) => {
+      API.updateUser(state.user._id, updatedUser).then((userReturn) => {
         console.log("userReturn is" + JSON.stringify(userReturn));
         dispatch({
           type: "setUser",
@@ -108,17 +108,18 @@ export default function Profile() {
           />
         </form>
       </div>
-      <div>
+      {/* <div>
         <h2>children</h2>
         <ul>
           
 
-          {/* {!state.loading && state.user.child ? state.user.child.map((child) => {
+          {!state.loading && state?.user.child ? state.user.child.map((child) => {
             return <li key={child.name} style={{ listStyleType: "none" }}>{child.name}</li>;
-          }) : "add a child to see a list"} */}
+          }) : "add a child to see a list"}
         </ul>
         
-      </div>
+      </div> */}
+      {/* <div><h2>{state.loading === false ? state.child.name : "...loading"}</h2></div> */}
     </main>
   );
 }
