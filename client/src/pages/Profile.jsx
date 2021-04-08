@@ -25,7 +25,6 @@ export default function Profile() {
 
     initUser(userCredential, dispatch);
     // loginChecklist(state, dispatch);
-    
   }, []);
 
   function handleCreateChild(e) {
@@ -108,6 +107,20 @@ export default function Profile() {
           />
         </form>
       </div>
+
+      <ul>
+        {state.loading === false
+          ? state.user.child.map((child) => {
+              return (
+                <li key={child} style={{ listStyleType: "none" }}>
+                  {child}
+                </li>
+              );
+            })
+          : "loading"}
+      </ul>
+
+      <button onClick={() => console.log(state)}>State</button>
       {/* <div>
         <h2>children</h2>
         <ul>
