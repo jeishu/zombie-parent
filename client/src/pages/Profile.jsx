@@ -10,10 +10,11 @@ import { initUser, setUser, loginChecklist } from "../utils/loginFunctions";
 import { set } from "mongoose";
 
 export default function Profile() {
-  const [dobValue, dobOnChange] = useState(new Date());
-  const [nameValue, nameOnChange] = useState("");
+  const [dobValue, setDobValue] = useState(new Date());
+  const [nameValue, setNameValue] = useState("");
   const [state, dispatch] = useStoreContext();
   const children = jsonData.children;
+  const [userEmail, setUserEmail] = useState("email");
 
   // create function that takes in name and birthdate.
 
@@ -21,30 +22,10 @@ export default function Profile() {
     let Im = Fire.auth().currentUser;
     console.log(Im.uid);
     let userCredential = { user: { uid: Im.uid } };
-    
+
     initUser(userCredential, dispatch);
-    console.log(JSON.stringify(state, null, 2));
-
-
-    // initUser(userCredential).then((data) => {
-    //   console.log(data);
-    //   // setUser(data, dispatch)
-    // })
-    // let userData;
-    // let startup = async () => {
-    //   console.log("ping");
-    //   try {
-    //     userData = await initUser(userCredential);
-    //     // return userData;
-    //   } catch (err) {
-    //     console.error(err);
-    //   }
-    //   console.log("initUser userData = " + JSON.stringify(userData, null, 2));
-    //   return userData;
-    // };
+    // loginChecklist(state, dispatch);
     
-    // // setUser(userData, dispatch).then(loginChecklist(state, dispatch));
-    // startup();
   }, []);
 
   function handleCreateChild(e) {
@@ -75,8 +56,8 @@ export default function Profile() {
           type: "setUser",
           user: userReturn.data,
         });
-        dobOnChange("");
-        nameOnChange("");
+        setDobValue("");
+        setNameValue("");
         console.log(state.user.lastViewedChild);
       });
     });
@@ -84,8 +65,7 @@ export default function Profile() {
 
   return (
     <main className="page">
-      <h1>Profile Page</h1>
-      <h2>{state.user.uid ? "state.user": "username" }</h2>
+      <h2>{state.loading === false ? state.user.email : "...loading"}</h2>
 
       {/* add and see children */}
       {/* https://github.com/wojtekmaj/react-date-picker */}
@@ -94,13 +74,13 @@ export default function Profile() {
           <label htmlFor="childsName">What is the childs name?</label> <br />
           <input
             value={nameValue}
-            onChange={(e) => nameOnChange(e.target.value)}
+            onChange={(e) => setNameValue(e.target.value)}
           />
           <br />
           <label htmlFor="dobCalendar">What is the childs birthday?</label>{" "}
           <br />
           {/* <DatePicker
-            onChange={(e) => dobOnChange(e.target.value)}
+            onChange={(e) => setDobValue(e.target.value)}
             value={dobValue}
             id="aaaa"
             dayPlaceholder="dd"
@@ -115,7 +95,7 @@ export default function Profile() {
             id="dobCalendar"
             name="Date of Birth"
             value={dobValue}
-            onChange={(e) => dobOnChange(e.target.value)}
+            onChange={(e) => setDobValue(e.target.value)}
             // onClick={(e) => props.setTimeSubmit(e, document.getElementById("NAME_HERE").value)}
             // min="2018-01-01"
             // max="2018-12-31"
@@ -127,10 +107,18 @@ export default function Profile() {
             value="Add a new child"
           />
         </form>
-        <p> {JSON.stringify(state)} </p>
+      </div>
+      <div>
+        <h2>children</h2>
+        <ul>
+          
+
+          {/* {!state.loading && state.user.child ? state.user.child.map((child) => {
+            return <li key={child.name} style={{ listStyleType: "none" }}>{child.name}</li>;
+          }) : "add a child to see a list"} */}
+        </ul>
+        
       </div>
     </main>
   );
 }
-
-

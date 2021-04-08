@@ -21,6 +21,12 @@ let initUser = (userCredential, dispatch) => {
           "user found = " + JSON.stringify(existingUser.data, null, 2)
         );
         dispatch({ type: "setUser", user: existingUser.data });
+        if (existingUser.data.lastViewedChild) {
+          API.getChild(existingUser.data.lastViewedChild)
+            .then((childData) => {
+              dispatch({ type: "setChild", child: childData.data });
+          });
+        }
       }
     })
     .catch((error) => {
