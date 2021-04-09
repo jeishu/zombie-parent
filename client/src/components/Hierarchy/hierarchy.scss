@@ -5,10 +5,15 @@
     background: rgba( 7, 7, 7, 0.15 );
     backdrop-filter: blur( 4.0px );
     -webkit-backdrop-filter: blur( 4.0px );
-    height: 100vh;
-    border-radius: 10px;
+    height: 100%;
+        // border-radius: 10px;
     background-color: $section-color;
     border: 1px solid rgba( 255, 255, 255, 0.18 );
+    padding-bottom: 6rem;
+
+    @media (min-width: 768px) {
+        padding-bottom: 1rem;
+    }
 }
 
 .log-order {
