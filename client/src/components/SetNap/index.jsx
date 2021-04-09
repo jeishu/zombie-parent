@@ -23,6 +23,7 @@ const SetNap = (props) => {
         type="submit"
         onClick={(e) => {
           e.preventDefault();
+          props.returnToLog();
           props.handleNapSubmit(
             "Add",
             document.getElementById("startNap").value,

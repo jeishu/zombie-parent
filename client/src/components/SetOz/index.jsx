@@ -17,6 +17,7 @@ const SetOz = (props) => {
         type="submit"
         onClick={(e) => {
           e.preventDefault();
+          props.returnToLog();
           props.handleEatSubmit(
             "Stop",
             { left: false, right: false },
