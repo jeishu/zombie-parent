@@ -24,26 +24,19 @@ const TimeData = () => {
     // "606e47ca5394d53a2ce4c0d3", "diaper" ObjectId("606f7a611b9c8749e4bf9a9e") state.user.lastViewedChild
     
     useEffect(() => {
-        // let Im = Fire.auth().currentUser;
-        // console.log(Im.uid);
-        // let userCredential = { user: { uid: Im.uid } };
-
-        // initUser(userCredential, dispatch);
-        // loginChecklist(state, dispatch);
-
-        API.getActionsLastDayByName("606f7a611b9c8749e4bf9a9e", "diaper").then(res => {
+        API.getActionsLastDayByName("606e76158b0f207cd492903f", "diaper").then(res => {
             setDiaper({
                 name: res.data.reverse()
             })
             console.log(res.data)
         });
-        API.getActionsLastDayByName("606f7a611b9c8749e4bf9a9e", "sleep").then(res => {
+        API.getActionsLastDayByName("606e76158b0f207cd492903f", "sleep").then(res => {
             setSleep({
                 name: res.data.reverse()
             })
         });
-        API.getActionsLastDayByName("606f7a611b9c8749e4bf9a9e", "bottle").then(bottleRes => {
-            API.getActionsLastDayByName("606f7a611b9c8749e4bf9a9e", "nurse").then(nurseRes => {
+        API.getActionsLastDayByName("606e76158b0f207cd492903f", "bottle").then(bottleRes => {
+            API.getActionsLastDayByName("606e76158b0f207cd492903f", "nurse").then(nurseRes => {
                 setFeeding({
                     name: bottleRes.data.reverse().concat(nurseRes.data.reverse())
                 })

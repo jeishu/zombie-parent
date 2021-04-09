@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
 import jsonData from "../tempData.json";
-import DatePicker from "react-date-picker";
 import moment from "moment";
 import API from "../utils/API";
 import { useStoreContext } from "../utils/GlobalState";
 import "../pages/profile.scss";
 import Fire from "../Fire";
-import { initUser, setUser, loginChecklist } from "../utils/loginFunctions";
-import { set } from "mongoose";
+import { initUser } from "../utils/loginFunctions";
+// import { set } from "mongoose";
 
 export default function Profile() {
   const [dobValue, setDobValue] = useState(new Date());
@@ -24,7 +23,6 @@ export default function Profile() {
     let userCredential = { user: { uid: Im.uid } };
 
     initUser(userCredential, dispatch);
-    // loginChecklist(state, dispatch);
   }, []);
 
   function makeChildActive(childId) {
@@ -85,8 +83,10 @@ export default function Profile() {
             <label htmlFor="childsName">What is the childs name?</label>
             <input
               value={nameValue}
+              name="childsName"
               onChange={(e) => setNameValue(e.target.value)}
               className="profile-input"
+              required
             />
             <br />
             <label htmlFor="dobCalendar">What is the childs birthday?</label>{" "}
@@ -94,12 +94,10 @@ export default function Profile() {
               <input
                 type="date"
                 id="dobCalendar"
-                name="Date of Birth"
+                name="dobCalendar"
                 value={dobValue}
                 onChange={(e) => setDobValue(e.target.value)}
-              // onClick={(e) => props.setTimeSubmit(e, document.getElementById("NAME_HERE").value)}
-              // min="2018-01-01"
-              // max="2018-12-31"
+                required
               ></input>
               <input
                 onClick={(e) => handleCreateChild(e)}
