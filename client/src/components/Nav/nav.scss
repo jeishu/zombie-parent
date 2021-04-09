@@ -73,6 +73,9 @@ nav {
       outline: none;
       border: none;
       cursor: pointer;
+      margin-top: 0;
+      margin-bottom: 5px;
+      
       @media (min-width: 768px) {
         margin: 1rem 0;
       }

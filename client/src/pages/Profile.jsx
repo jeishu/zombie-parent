@@ -64,51 +64,57 @@ export default function Profile() {
 
   return (
     <main className="profile-page">
-      <h2 className="profile-h2">{state.loading === false ? state.user.email : "...loading"}</h2>
-      <div >
-        <form action="" className="profile-form">
-          <label htmlFor="childsName">What is the childs name?</label>
-          <input
-            value={nameValue}
-            onChange={(e) => setNameValue(e.target.value)}
-            className="profile-input"
-          />
-          <br />
-          <label htmlFor="dobCalendar">What is the childs birthday?</label>{" "}
-          <div className="profile-dob">
+      <h1 className="username">{state.loading === false ? state.user.email : "...loading"}</h1>
+      <div className="profile-container">
+        <div className="form-container">
+          <form action="" className="profile-form">
+            <h1 className="profile-h1">Add a Child</h1>
+            <label htmlFor="childsName">What is the childs name?</label>
             <input
-              type="date"
-              id="dobCalendar"
-              name="Date of Birth"
-              value={dobValue}
-              onChange={(e) => setDobValue(e.target.value)}
-            // onClick={(e) => props.setTimeSubmit(e, document.getElementById("NAME_HERE").value)}
-            // min="2018-01-01"
-            // max="2018-12-31"
-            ></input>
-            <input
-              onClick={(e) => handleCreateChild(e)}
-              type="submit"
-              value="Add"
+              value={nameValue}
+              onChange={(e) => setNameValue(e.target.value)}
+              className="profile-input"
             />
-          </div>
-        </form>
+            <br />
+            <label htmlFor="dobCalendar">What is the childs birthday?</label>{" "}
+            <div className="profile-dob">
+              <input
+                type="date"
+                id="dobCalendar"
+                name="Date of Birth"
+                value={dobValue}
+                onChange={(e) => setDobValue(e.target.value)}
+              // onClick={(e) => props.setTimeSubmit(e, document.getElementById("NAME_HERE").value)}
+              // min="2018-01-01"
+              // max="2018-12-31"
+              ></input>
+              <input
+                onClick={(e) => handleCreateChild(e)}
+                type="submit"
+                value="Add"
+              />
+            </div>
+          </form>
+        </div>
+
+        <br />
+
+        <div className="children-list">
+          <h1 className="profile-h1">Children List</h1>
+          <ul>
+            {state.loading === false
+              ? state.user.child.map((child) => {
+                return (
+                  <li key={child._id} style={{ listStyleType: "none" }}>
+                    {child.name}
+                  </li>
+                );
+              })
+              : "loading"}
+          </ul>
+        </div>
       </div>
-      <br />
-      <div className="children-list">
-        <h1>Children List</h1>
-        <ul>
-          {state.loading === false
-            ? state.user.child.map((child) => {
-              return (
-                <li key={child._id} style={{ listStyleType: "none" }}>
-                  {child.name}
-                </li>
-              );
-            })
-            : "loading"}
-        </ul>
-      </div>
+
 
       {/* <button onClick={() => console.log(state)}>State</button> */}
     </main>

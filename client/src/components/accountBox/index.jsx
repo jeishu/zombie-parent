@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import Fire from "../../Fire";
 import "./index.scss";
-import Login from "../Sessions/Login";
+import "../Sessions/Login";
 import { LoginForm } from "./loginForm";
 import { SignupForm } from "./signupForm";
 import { AccountContext } from "./accountContext";
