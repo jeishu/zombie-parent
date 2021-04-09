@@ -11,6 +11,9 @@ import TimelineOppositeContent from '@material-ui/lab/TimelineOppositeContent';
 import Typography from '@material-ui/core/Typography';
 import moment from "moment";
 import { useStoreContext } from "../../utils/GlobalState"
+import Fire from "../../Fire";
+import { initUser } from "../../utils/loginFunctions";
+
 
 const TimeData = () => {
     const [diaper, setDiaper] = useState({ name: [] });
@@ -18,22 +21,29 @@ const TimeData = () => {
     const [sleep, setSleep] = useState({ name: [] });
     const [state, dispatch] = useStoreContext();
 
-
-    // "606e47ca5394d53a2ce4c0d3", "diaper" ObjectId("606f7a611b9c8749e4bf9a9e")
+    // "606e47ca5394d53a2ce4c0d3", "diaper" ObjectId("606f7a611b9c8749e4bf9a9e") state.user.lastViewedChild
+    
     useEffect(() => {
-        API.getActionsLastDayByName(state.user.lastViewedChild, "diaper").then(res => {
+        // let Im = Fire.auth().currentUser;
+        // console.log(Im.uid);
+        // let userCredential = { user: { uid: Im.uid } };
+
+        // initUser(userCredential, dispatch);
+        // loginChecklist(state, dispatch);
+
+        API.getActionsLastDayByName("606f7a611b9c8749e4bf9a9e", "diaper").then(res => {
             setDiaper({
                 name: res.data.reverse()
             })
             console.log(res.data)
         });
-        API.getActionsLastDayByName(state.user.lastViewedChild, "sleep").then(res => {
+        API.getActionsLastDayByName("606f7a611b9c8749e4bf9a9e", "sleep").then(res => {
             setSleep({
                 name: res.data.reverse()
             })
         });
-        API.getActionsLastDayByName(state.user.lastViewedChild, "bottle").then(bottleRes => {
-            API.getActionsLastDayByName(state.user.lastViewedChild, "nurse").then(nurseRes => {
+        API.getActionsLastDayByName("606f7a611b9c8749e4bf9a9e", "bottle").then(bottleRes => {
+            API.getActionsLastDayByName("606f7a611b9c8749e4bf9a9e", "nurse").then(nurseRes => {
                 setFeeding({
                     name: bottleRes.data.reverse().concat(nurseRes.data.reverse())
                 })
