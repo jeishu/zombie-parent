@@ -26,6 +26,7 @@ let initUser = (userCredential, dispatch) => {
             .then((childData) => {
               dispatch({ type: "setChild", child: childData.data });
           });
+          console.log(existingUser.data.lastViewedChild);
           API.getUnfinished(existingUser.data.lastViewedChild)
             .then((actionsArray) => {     
               console.log("unfinished actions array is " + JSON.stringify(actionsArray, null, 2))        

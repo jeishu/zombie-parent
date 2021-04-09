@@ -12,16 +12,18 @@ const SetOz = (props) => {
         required
       />
       <input
-      className="set-Oz-submit"
-        id="oz"
+        id="ozSubmit"
         style={{ display: props.showOz }}
         type="submit"
         onClick={(e) => {
           e.preventDefault();
+          props.returnToLog();
           props.handleEatSubmit(
             "Stop",
             { left: false, right: false },
             "bottle",
+            "",
+            "",
             document.getElementById("oz").value
           );
         }}
