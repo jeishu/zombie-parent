@@ -21,6 +21,8 @@ const SetOz = (props) => {
             "Stop",
             { left: false, right: false },
             "bottle",
+            "",
+            "",
             document.getElementById("oz").value
           );
         }}

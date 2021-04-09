@@ -1,49 +1,49 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useStoreContext } from "../utils/GlobalState";
 import API from "../utils/API";
 import "./log.scss"; // styling
 import moment from "moment"; // for logging time
+import Fire from "../Fire";
+import { initUser } from "../utils/loginFunctions";
 
-//components
+// components
 import SetOz from "../components/SetOz";
-import SetTime from "../components/SetTime";
+import SetDiaper from "../components/SetDiaper";
 import Hierarchy from "../components/Hierarchy";
 import LogBtn from "../components/LogBtn";
 import SetNap from "../components/SetNap";
+import SetEat from "../components/SetEat";
 
 export default function Log() {
+  const [currentChild, setCurrentChild] = useState("Log");
+  
   // allows dynamically renered buttons and directory
   const [btn1, setBtn1] = useState({ name: "Diaper", btn: "Diaper" });
   const [btn2, setBtn2] = useState({ name: "Eat", btn: "Eat" });
   const [btn3, setBtn3] = useState({ name: "Nap", btn: "Nap" });
-  const [dir, setDir] = useState([{ name: "Log", btn: "Default", key: 0 }]);
+  const [dir, setDir] = useState([{ name: currentChild, btn: "Default", key: 0 }]);
 
   const [state, dispatch] = useStoreContext();
 
-  // const [submitAction, setSubmitAction] = useState("None");
-
   // allows dynamicly accessable buttons
-  const [showHide, setShowHide] = useState("none");
+  const [showDiaper, setShowDiaper] = useState("none");
   const [showOz, setShowOz] = useState("none");
   const [showNap, setShowNap] = useState("none");
+  const [showEat, setShowEat] = useState("none");
+  const [showAddOz, setShowAddOz] = useState("none");
 
-  const user = {
-    // temp data for user
-    _id: "6064d1b34c03365638292266",
-    name: "Mama Testy",
-    activeChild: [{ _id: "6064d1b34c03365638292265" }],
-    careOptions: {
-      showBottle: true,
-      showNurse: true,
-      showNap: true,
-      showDiaper: true,
-    },
-  };
-  const child = {
-    // temp data for child
-    _id: "6064d1b34c03365638292265",
-    name: "Lil Testy",
-  };
+  const [addEatMethod, setAddEatMethod] = useState({});
+  const [addEatAction, setAddEatAction] = useState("");
+
+  useEffect(() => {
+    let Im = Fire.auth().currentUser;
+    console.log(Im.uid);
+    let userCredential = { user: { uid: Im.uid } };
+
+    initUser(userCredential, dispatch).then( // fix this at some point
+      state.loading === false ? setCurrentChild(state.child.name) : "Log" 
+    );
+  }, []);
 
   const updateButtons = (choice, name, key) => {
     // main button update function
@@ -55,40 +55,34 @@ export default function Log() {
       case "Add Now":
       case "End Time":
       case "Stop Time":
-      case "Stop Bottle":
+      case "Stop Feed":
         setBtns("Diaper", "Eat", "Nap", "Diaper", "Eat", "Nap");
-        setDir([{ name: "Log", btn: "Default", key: 0 }]); // everytime we return to default, reset the hierarchy
-        setShowHide("none")
+        setDir([{ name: currentChild, btn: "Default", key: 0 }]); // everytime we return to default, reset the hierarchy
+        setShowDiaper("none")
         break;
       case "Diaper":
         setBtns("Pee", "Poo", "Both", "now/set", "now/set", "now/set");
         break;
       case "Eat":
-        setBtns("Nurse", "Bottle", "Cancel", "Nurse", "Bottle", "Default");
+        setBtns("Nurse", "Bottle", "Add Time", "Nurse", "Bottle", "Add Eat");
         break;
       case "Nap":
         setBtns("Start", "End", "Add Time", "Start Time", "End Time", "Add Nap");
         break;
       case "Nurse":
-        setBtns("Left", "Right", "Add Time", "Feed", "Feed", "Add Nurse");
+        setBtns("Left", "Right", "Cancel", "Feed", "Feed", "Default");
         break;
       case "Feed":
         setBtns("Start", "Stop", "Switch", "Start Feed", "Stop Feed", "Nurse");
         break;
       case "Bottle":
-        setBtns("Start", "Stop/Oz", "Add Time", "Start Bottle", "Stop Bottle", "Add Bottle");
+        setBtns("Start", "Stop/Oz", "Cancel", "Start Bottle", "Stop Bottle", "Default");
         break;
       case "now/set":
         setBtns( "Add Now", "Set Time", "Cancel", "Add Now", "Set Time", "Default");
         break;
-      // case "Add Nap":
-      //   setBtns( "Start Time", "End Time", "Cancel", "Start Nap", "End Nap", "Default");
-      //   break;
-      case "Add Nurse":
-        setBtns( "Start Left", "Start Right", "Stop", "Start Left", "Start Right", "End Time");
-        break;
-      case "Add Bottle":
-        setBtns( "Oz", "Start Time", "Stop Time", "Oz", "Start Time", "Stop Time");
+      case "Add Eat":
+        setBtns("Add Left", "Add Right", "Add Bottle", "Add Left", "Add Right", "Add Bottle")
         break;
       default:
         console.log("This action does not update the buttons"); // remove this from final build
@@ -102,26 +96,22 @@ export default function Log() {
 
     if (choice === "Add Now" && lastDir === "Pee") {
       handleDiaperAddNowSubmit({ pee: true });
-      // setSubmitAction("Diaper");
     } else if (choice === "Add Now" && lastDir === "Poo") {
       handleDiaperAddNowSubmit({ poo: true });
-      // setSubmitAction("Diaper");
     } else if (choice === "Add Now" && lastDir === "Both") {
       handleDiaperAddNowSubmit({ pee: true, poo: true });
-      // setSubmitAction("Diaper");
     } else if (choice === "Set Time") {
-      setShowHide("block");
-      // setSubmitAction("Diaper");
+      setShowDiaper("block");
     } else if (choice === "Start Feed" && lastDir === "Left") {
-      handleEatSubmit("Start", { left: true, right: false }, "nurse", null);
+      handleEatSubmit("Start", { left: true, right: false }, "nurse", "", "", null);
     } else if (choice === "Start Feed" && lastDir === "Right") {
-      handleEatSubmit("Start", { left: false, right: true }, "nurse", null);
+      handleEatSubmit("Start", { left: false, right: true }, "nurse", "", "", null);
     } else if (choice === "Start Bottle" && lastDir === "Bottle") {
-      handleEatSubmit("Start", { left: false, right: false }, "bottle", null);
+      handleEatSubmit("Start", { left: false, right: false }, "bottle", "", "", null);
     } else if (choice === "Stop Feed" && lastDir === "Left") {
-      handleEatSubmit("Stop", { left: true, right: false }, "nurse", null);
+      handleEatSubmit("Stop", { left: true, right: false }, "nurse", "", "", null);
     } else if (choice === "Stop Feed" && lastDir === "Right") {
-      handleEatSubmit("Stop", { left: false, right: true }, "nurse", null);
+      handleEatSubmit("Stop", { left: false, right: true }, "nurse", "", "", null);
     } else if (choice === "Stop Bottle" && lastDir === "Bottle") {
       setShowOz("block");
     } else if (choice === "Start Time" && lastDir === "Nap") {
@@ -130,13 +120,25 @@ export default function Log() {
       handleNapSubmit("Stop");
     } else if (choice === "Add Nap") {
       setShowNap("block");
+    } else if (choice === "Add Left") {
+      setShowEat("block");
+      setAddEatMethod({ left: true, right: false });
+      setAddEatAction("nurse");
+    } else if (choice === "Add Right") {
+      setShowEat("block");
+      setAddEatMethod({ left: false, right: true });
+      setAddEatAction("nurse");
+    } else if (choice === "Add Bottle") {
+      setShowAddOz("block");
+      setShowEat("block");
+      setAddEatMethod({ left: false, right: false });
+      setAddEatAction("bottle");
     }
   };
 
   // sets the hierarchy back when the user clicks an item in the array
   const dirTree = async (clickedDir) => {
     let tempDir = dir;
-    // console.log(tempDir);
     let slicedDir = tempDir.slice(0, clickedDir.key);
     setDir(slicedDir);
   };
@@ -175,14 +177,9 @@ export default function Log() {
     setBtn3({ name: name3, btn: button3 });
   };
 
-  // when loggin time this chooses what function to run and adds the proper values
-  function setTimeSubmit(event, time) {
-    event.preventDefault();
+  // when adding diaper time this chooses what function to run and adds the proper values
+  function setDiaperSubmit(time) {
     const lastDir = dir[dir.length - 1].name; // find the last item in the directory array
-    // if (submitAction != "Diaper") {
-    //   setShowHide("none");
-    // }
-    updateButtons("Default", "Log", lastDir.key);
     if (lastDir === "Pee") {
       handleDiaperSetTimeSubmit({ pee: true }, time);
     } else if (lastDir === "Poo") {
@@ -192,13 +189,18 @@ export default function Log() {
     }
   }
 
+  function returnToLog() {
+    const lastDir = dir[dir.length - 1].name;
+    updateButtons("Default", currentChild, lastDir.key);
+  }
+
   // adds diapers to database when add time is now
   function handleDiaperAddNowSubmit(contents) {
     let actionData = {
       name: "diaper",
       endedByUser: true,
-      lastUpdatedBy: { _id: user._id },
-      child: { _id: child._id },
+      lastUpdatedBy: { _id: state.user._id },
+      child: { _id: state.child._id },
       diaperContents: contents,
     };
     API.createAction(actionData).catch((err) => console.log(err));
@@ -206,15 +208,13 @@ export default function Log() {
 
   // adds diapers to database when logging past diapers
   function handleDiaperSetTimeSubmit(contents, time) {
-    // console.log("setTimeDiaper");
-    // console.log(contents);
     let actionData = {
       name: "diaper",
       beginTime: time,
       endTime: time,
       endedByUser: true,
-      lastUpdatedBy: { _id: user._id },
-      child: { _id: child._id },
+      lastUpdatedBy: { _id: state.user._id },
+      child: { _id: state.child._id },
       diaperContents: contents,
     };
     API.createAction(actionData) // .then(res => loadBooks())
@@ -222,20 +222,20 @@ export default function Log() {
   }
 
   // adds feeding to database when add time is now
-  function handleEatSubmit(timeStart, method, actionName, oz) {
+  function handleEatSubmit(whichSubmit, method, actionName, startEat, stopEat, oz) {
     setShowOz("none");
+    setShowAddOz("none");
+    setShowEat("none");
     let actionData;
-    // console.log(oz);
     dispatch({
       type: "loading",
     });
-    if (timeStart === "Start") {
+    if (whichSubmit === "Start") {
       actionData = {
         name: actionName,
-        // beginTime: timeStart,
         endTime: "",
-        lastUpdatedBy: { _id: user._id },
-        child: { _id: child._id },
+        lastUpdatedBy: { _id: state.user._id },
+        child: { _id: state.child._id },
         foodOz: oz,
         nurse: method,
       };
@@ -250,17 +250,17 @@ export default function Log() {
           dispatch({ name: "endLoading" });
           console.log(err);
         });
-    } else if (timeStart === "Stop") {
+    } else if (whichSubmit === "Stop") {
       dispatch({ type: "loading" });
       actionData = {
         ...state.feeding,
         endTime: moment(),
         foodOz: oz,
         endedByUser: true,
+        lastUpdatedBy: { _id: state.user._id },
       };
       API.updateAction(state.feeding._id, actionData)
         .then((result) => {
-          // console.log(result.data);
           dispatch({
             type: "setFeeding",
             feeding: {},
@@ -270,19 +270,33 @@ export default function Log() {
           console.error(err);
           dispatch({ name: "endLoading" });
         });
+    } else if (whichSubmit === "Add") {
+      actionData = {
+        name: actionName,
+        startTime: startEat,
+        endTime: stopEat,
+        lastUpdatedBy: { _id: state.user._id },
+        child: { _id: state.child._id },
+        foodOz: oz,
+        nurse: method,
+      };
+      API.createAction(actionData)
+        .catch((err) => {
+          console.log(err);
+        });
     }
   }
 
   // adds naps to database when add time is now
-  function handleNapSubmit(timeStart) {
+  function handleNapSubmit(whichSubmit, sleepStart, sleepEnd) {
+    setShowNap("none");
     let actionData;
-    if (timeStart === "Start") {
+    if (whichSubmit === "Start") {
       actionData = {
-        name: "nap",
-        // beginTime: "",
+        name: "sleep",
         endTime: "",
-        lastUpdatedBy: { _id: user._id },
-        child: { _id: child._id },
+        lastUpdatedBy: { _id: state.user._id },
+        child: { _id: state.child._id },
         endedByUser: false,
       };
       API.createAction(actionData)
@@ -296,16 +310,16 @@ export default function Log() {
           dispatch({ name: "endLoading" });
           console.log(err);
         });
-    } else if (timeStart === "Stop") {
+    } else if (whichSubmit === "Stop") {
       dispatch({ type: "loading" });
       actionData = {
         ...state.sleep,
         endTime: moment(),
         endedByUser: true,
+        lastUpdatedBy: { _id: state.user._id }
       };
       API.updateAction(state.sleep._id, actionData)
-        .then((result) => {
-          // console.log(result.data);
+        .then(() => {
           dispatch({
             type: "setSleep",
             sleep: {},
@@ -314,6 +328,19 @@ export default function Log() {
         .catch((err) => {
           console.error(err);
           dispatch({ name: "endLoading" });
+        });
+    } else if (whichSubmit === "Add") {
+      actionData = {
+        name: "sleep",
+        beginTime: sleepStart,
+        endTime: sleepEnd,
+        lastUpdatedBy: { _id: state.user._id },
+        child: { _id: state.child._id },
+        endedByUser: true,
+      };
+      API.createAction(actionData)
+        .catch((err) => {
+          console.log(err);
         });
     }
   }
@@ -340,9 +367,29 @@ export default function Log() {
             updateButtons(btn3.btn, btn3.name, dir[dir.length - 1].key)
           }
         />{" "}
-        <SetTime setTimeSubmit={setTimeSubmit} showHide={showHide} />
-        <SetOz handleEatSubmit={handleEatSubmit} showOz={showOz} />
-        <SetNap handleNapSubmit={handleNapSubmit} showNap={showNap} />
+        <SetDiaper
+          setDiaperSubmit={setDiaperSubmit}
+          showDiaper={showDiaper}
+          returnToLog={returnToLog}
+        />
+        <SetOz
+          handleEatSubmit={handleEatSubmit}
+          showOz={showOz}
+          returnToLog={returnToLog}
+        />
+        <SetNap
+          handleNapSubmit={handleNapSubmit}
+          showNap={showNap}
+          returnToLog={returnToLog}
+        />
+        <SetEat
+          handleEatSubmit={handleEatSubmit}
+          showEat={showEat}
+          showAddOz={showAddOz}
+          addEatMethod={addEatMethod}
+          addEatAction={addEatAction}
+          returnToLog={returnToLog}
+        />
       </main>
     </main>
   );

@@ -27,7 +27,7 @@ export default {
     return axios.get("/api/actions/lastweek/" + childId + "/" + name);
   },
   getUnfinished: function(childId) {
-    return axios.get("/api/unfinished/" + childId);
+    return axios.get("/api/actions/unfinished/" + childId);
   },
   createUser: function (userData) {
     return axios.post("/api/users", userData);

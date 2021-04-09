@@ -6,26 +6,27 @@ const SetNap = (props) => {
       <input
         type="datetime-local"
         id="startNap"
-        // style={{ display: props.showOz }}
+        style={{ display: props.showNap }}
         name="startNap"
         required
       />
       <input
         type="datetime-local"
         id="stopNap"
-        // style={{ display: props.showOz }}
+        style={{ display: props.showNap }}
         name="stopNap"
         required
       />
       <input
         id="nap"
-        style={{ display: props.showOz }}
+        style={{ display: props.showNap }}
         type="submit"
         onClick={(e) => {
           e.preventDefault();
           props.handleNapSubmit(
+            "Add",
             document.getElementById("startNap").value,
-            document.getElementById("endNap").value
+            document.getElementById("stopNap").value
           );
         }}
       />
