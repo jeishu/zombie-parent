@@ -9,6 +9,7 @@ import { AccountContext } from "./accountContext";
 import { motion } from "framer-motion";
 import { useStoreContext } from "../../utils/GlobalState";
 import { initUser, loginChecklist, setUser } from "../../utils/loginFunctions";
+import GoogleBtn from "../../img/misc/google";
 
 var provider = new Fire.auth.GoogleAuthProvider();
 
@@ -187,7 +188,7 @@ export default function AccountBox(props) {
         <InnerContainer>
           {active === "signin" && <LoginForm />}
           {active === "signup" && <SignupForm />}
-          <button onClick={googleSignin} className="googleSignBtn">Google Signin</button>
+          <button onClick={googleSignin} className="googleSignBtn"><GoogleBtn/><span>Sign in with Google</span></button>
         </InnerContainer>
       </BoxContainer>
     </AccountContext.Provider>

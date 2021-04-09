@@ -11,6 +11,16 @@ button{
 }
 
 .googleSignBtn {
-    color: white;
-    padding: 7px;
+    padding: .7rem;
+    background-color: white;
+    color: rgb(70, 70, 70);
+    
+    svg {
+        width: 20px;
+        height: auto;
+    }
+    span {
+        padding: 0 1rem;
+    }
 }
+
