@@ -18,7 +18,9 @@ Zombie Parent is an activity tracker under development. The goal is to give slee
 
 ## User-Story
 
-AS AN exhausted, brain-dead parent, I WANT to keep track of my child’s naps, SO THAT I can discover, share, and reinforce rhythms.
+AS A fatigued parent or child caretaker
+I WANT a simple tracking tool to help me find and reinforce infant bio-rhythms 
+SO THAT I can give child care that encourages consistent and predictable cycles of sleeping, feeding, and waste elimination.
 
 ## Features
 
