@@ -27,27 +27,108 @@ let initUser = (userCredential, dispatch) => {
               dispatch({ type: "setChild", child: childData.data });
           });
           console.log(existingUser.data.lastViewedChild);
-          API.getUnfinished(existingUser.data.lastViewedChild)
-            .then((actionsArray) => {     
-              console.log("unfinished actions array is " + JSON.stringify(actionsArray, null, 2))        
-              let sleepResult = actionsArray.filter(action => action.name === "sleep");
-              if (sleepResult.length > 0) {
-                dispatch({ type: "setSleep", sleep: sleepResult[0]})
-              };
+          // API.getUnfinished(existingUser.data.lastViewedChild)
+          //   .then((actionsArray) => {     
+          //     console.log("unfinished actions array is " + JSON.stringify(actionsArray, null, 2))        
+          //     let sleepResult = actionsArray.filter(action => action.name === "sleep");
+          //     if (sleepResult.length > 0) {
+          //       dispatch({ type: "setSleep", sleep: sleepResult[0]})
+          //     };
               
-              let nurseResult = actionsArray.filter(action => action.name === "nurse");
-              if (nurseResult.length > 0) {
-                dispatch({ type: "setFeeding", feeding: nurseResult[0]})
-              }
-              let bottleResult = actionsArray.filter(action => action.name === "bottle");
-              if (bottleResult.length > 0) {
-                dispatch({ type: "setFeeding", feeding: bottleResult[0]})
-              }
-              let diaperResult = actionsArray.filter(action => action.name === "diaper");
-              if (diaperResult.length > 0) {
-                dispatch({ type: "setDiaper", diaper: diaperResult[0]})
-              }
-            })
+          //     let nurseResult = actionsArray.filter(action => action.name === "nurse");
+          //     if (nurseResult.length > 0) {
+          //       dispatch({ type: "setFeeding", feeding: nurseResult[0]})
+          //     }
+          //     let bottleResult = actionsArray.filter(action => action.name === "bottle");
+          //     if (bottleResult.length > 0) {
+          //       dispatch({ type: "setFeeding", feeding: bottleResult[0]})
+          //     }
+          //     let diaperResult = actionsArray.filter(action => action.name === "diaper");
+          //     if (diaperResult.length > 0) {
+          //       dispatch({ type: "setDiaper", diaper: diaperResult[0]})
+          //     }
+          //   })
+        }
+      }
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+};
+
+let initUser2 = (userCredential, dispatch, setDiaper, setFeeding, setSleep) => {
+  let user = userCredential.user;
+  API.getUserByUid(user.uid)
+    .then((existingUser) => {
+      // console.log("Joey request:" + JSON.stringify(existingUser.data));
+      if (!existingUser.data) {
+        console.log("user not found, creating new user");
+        API.createUser({ uid: user.uid, email: user.email })
+          .then((newUserResult) => {
+            dispatch({
+              type: "setUser",
+              user: newUserResult.data,
+            });
+          })
+          .catch((error) => console.error(error));
+      } else {
+        console.log(
+          "user found = " + JSON.stringify(existingUser.data, null, 2)
+        );
+        dispatch({ type: "setUser", user: existingUser.data });
+        if (existingUser.data.lastViewedChild) {
+          API.getChild(existingUser.data.lastViewedChild)
+            .then((childData) => {
+              dispatch({ type: "setChild", child: childData.data });
+          });
+          API.getActionsLastDayByName(existingUser.data.lastViewedChild, "diaper").then(
+            (res) => {
+              setDiaper({
+                name: res.data.reverse(),
+              });
+              console.log(existingUser.data.lastViewedChild);
+              console.log(res);
+            }
+          );
+          API.getActionsLastDayByName(existingUser.data.lastViewedChild, "sleep").then(
+            (res) => {
+              setSleep({
+                name: res.data.reverse(),
+              });
+            }
+          );
+          API.getActionsLastDayByName(existingUser.data.lastViewedChild, "bottle").then(
+            (bottleRes) => {
+              API.getActionsLastDayByName(existingUser.data.lastViewedChild, "nurse").then(
+                (nurseRes) => {
+                  setFeeding({
+                    name: bottleRes.data.reverse().concat(nurseRes.data.reverse()),
+                  });
+                }
+              );
+            }
+          );
+          // API.getUnfinished(existingUser.data.lastViewedChild)
+          //   .then((actionsArray) => {     
+          //     console.log("unfinished actions array is " + JSON.stringify(actionsArray, null, 2))        
+          //     let sleepResult = actionsArray.filter(action => action.name === "sleep");
+          //     if (sleepResult.length > 0) {
+          //       dispatch({ type: "setSleep", sleep: sleepResult[0]})
+          //     };
+              
+          //     let nurseResult = actionsArray.filter(action => action.name === "nurse");
+          //     if (nurseResult.length > 0) {
+          //       dispatch({ type: "setFeeding", feeding: nurseResult[0]})
+          //     }
+          //     let bottleResult = actionsArray.filter(action => action.name === "bottle");
+          //     if (bottleResult.length > 0) {
+          //       dispatch({ type: "setFeeding", feeding: bottleResult[0]})
+          //     }
+          //     let diaperResult = actionsArray.filter(action => action.name === "diaper");
+          //     if (diaperResult.length > 0) {
+          //       dispatch({ type: "setDiaper", diaper: diaperResult[0]})
+          //     }
+          //   })
         }
       }
     })
@@ -101,4 +182,4 @@ function loginChecklist(state, dispatch) {
   }
 }
 
-export { initUser, setUser, loginChecklist };
+export { initUser, initUser2, setUser, loginChecklist };

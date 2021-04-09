@@ -80,7 +80,7 @@ export default function Profile() {
         <div className="form-container">
           <form action="" className="profile-form">
             <h1 className="profile-h1">Add a Child</h1>
-            <label htmlFor="childsName">What is the childs name?</label>
+            <label htmlFor="childsName">What is the child's name?</label>
             <input
               value={nameValue}
               name="childsName"
@@ -89,7 +89,7 @@ export default function Profile() {
               required
             />
             <br />
-            <label htmlFor="dobCalendar">What is the childs birthday?</label>{" "}
+            <label htmlFor="dobCalendar">What is the child's birthday?</label>{" "}
             <div className="profile-dob">
               <input
                 type="date"
@@ -126,9 +126,7 @@ export default function Profile() {
         </div>
       </div>
 
-      
-
-      <button onClick={() => console.log(state)}>State</button>
+      {/* <button onClick={() => console.log(state)}>State</button> */}
     </main>
   );
 }
