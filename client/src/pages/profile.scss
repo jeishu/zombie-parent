@@ -127,5 +127,8 @@
     text-transform: uppercase;
     letter-spacing: 2px;
     font-family: "Rubik";
-
+    cursor: pointer;
+    margin: .5rem;
+    @include animate-underline-left;
+    width: fit-content;
 }

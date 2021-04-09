@@ -1,0 +1,48 @@
+@use "../../scss/colors" as *;
+@use "../../scss/fonts" as *;
+@use "../../scss/mixins" as *;
+
+.set-nap-form {
+    display: flex;
+    flex-direction: column;
+    outline: none;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+    padding: .5rem;
+    border-radius: 5px;
+
+    .set-nap-label {
+        display: flex;
+        flex-direction: row;
+        label {
+            width: 50px;
+            font-family: "Rubik";
+            color: $non-active-color;
+            text-align: center;
+        }
+        input[type=datetime-local] {
+            padding: .5rem;
+            border: none;
+            outline: none;
+            border-radius: 5px;
+            background-color: rgb(255, 255, 255, 0.5);
+            margin-bottom: .5rem;
+        }
+        
+    }
+    input[type=submit].set-nap-submit {
+        cursor: pointer;
+        padding: .5rem;
+        text-transform: uppercase;
+        border: none;
+        border-radius: 5px;
+        font-family: "Rubik";
+        border-radius: 5px;
+        width: 100%;
+        transition: .2s ease-in-out;
+
+        &:hover {
+            background-color: rgba(201, 201, 201, 0.9);
+        }
+    }
+    
+}
