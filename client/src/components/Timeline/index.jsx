@@ -31,19 +31,19 @@ const TimeData = () => {
         // initUser(userCredential, dispatch);
         // loginChecklist(state, dispatch);
 
-        API.getActionsLastDayByName("606f7a611b9c8749e4bf9a9e", "diaper").then(res => {
+        API.getActionsLastDayByName(state.user.lastViewedChild, "diaper").then(res => {
             setDiaper({
                 name: res.data.reverse()
             })
             console.log(res.data)
         });
-        API.getActionsLastDayByName("606f7a611b9c8749e4bf9a9e", "sleep").then(res => {
+        API.getActionsLastDayByName(state.user.lastViewedChild, "sleep").then(res => {
             setSleep({
                 name: res.data.reverse()
             })
         });
-        API.getActionsLastDayByName("606f7a611b9c8749e4bf9a9e", "bottle").then(bottleRes => {
-            API.getActionsLastDayByName("606f7a611b9c8749e4bf9a9e", "nurse").then(nurseRes => {
+        API.getActionsLastDayByName(state.user.lastViewedChild, "bottle").then(bottleRes => {
+            API.getActionsLastDayByName(state.user.lastViewedChild, "nurse").then(nurseRes => {
                 setFeeding({
                     name: bottleRes.data.reverse().concat(nurseRes.data.reverse())
                 })
