@@ -65,7 +65,7 @@ const TimeData = () => {
         <h1>Diaper</h1>
         {diaper.name.map((action) => {
           return (
-            <TimelineItem>
+            <TimelineItem key={action._id}>
               <TimelineOppositeContent>
                 <Typography color="textSecondary">
                   {moment(action.endTime).format("dddd")}
@@ -88,7 +88,7 @@ const TimeData = () => {
         <h1>Feeding</h1>
         {feeding.name.map((action) => {
           return (
-            <TimelineItem>
+            <TimelineItem key={action._id}>
               <TimelineOppositeContent>
                 <Typography color="textSecondary">
                   {moment(action.endTime).format("dddd")}
@@ -111,7 +111,7 @@ const TimeData = () => {
         <h1>Sleep</h1>
         {sleep.name.map((action) => {
           return (
-            <TimelineItem>
+            <TimelineItem key={action._id}>
               <TimelineOppositeContent>
                 <Typography color="textSecondary">{moment(action.endTime).format("dddd")}</Typography>
               </TimelineOppositeContent>
