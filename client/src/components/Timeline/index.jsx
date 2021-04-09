@@ -89,7 +89,7 @@ const TimeData = () => {
           return (
             <TimelineItem>
               <TimelineOppositeContent>
-                <Typography color="textSecondary">{action.name}</Typography>
+                <Typography color="textSecondary">{moment(action.endTime).format("dddd")}</Typography>
               </TimelineOppositeContent>
               <TimelineSeparator>
                 <TimelineDot />
@@ -118,7 +118,7 @@ const TimeData = () => {
               </TimelineSeparator>
               <TimelineContent>
                 <Typography>
-                  {moment(action.endTime).format("hh mm a")}
+                  {moment(action.endTime).format("hh mm a, dddd")}
                 </Typography>
               </TimelineContent>
             </TimelineItem>

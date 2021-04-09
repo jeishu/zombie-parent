@@ -27,27 +27,27 @@ let initUser = (userCredential, dispatch) => {
               dispatch({ type: "setChild", child: childData.data });
           });
           console.log(existingUser.data.lastViewedChild);
-          API.getUnfinished(existingUser.data.lastViewedChild)
-            .then((actionsArray) => {     
-              console.log("unfinished actions array is " + JSON.stringify(actionsArray, null, 2))        
-              let sleepResult = actionsArray.filter(action => action.name === "sleep");
-              if (sleepResult.length > 0) {
-                dispatch({ type: "setSleep", sleep: sleepResult[0]})
-              };
+          // API.getUnfinished(existingUser.data.lastViewedChild)
+          //   .then((actionsArray) => {     
+          //     console.log("unfinished actions array is " + JSON.stringify(actionsArray, null, 2))        
+          //     let sleepResult = actionsArray.filter(action => action.name === "sleep");
+          //     if (sleepResult.length > 0) {
+          //       dispatch({ type: "setSleep", sleep: sleepResult[0]})
+          //     };
               
-              let nurseResult = actionsArray.filter(action => action.name === "nurse");
-              if (nurseResult.length > 0) {
-                dispatch({ type: "setFeeding", feeding: nurseResult[0]})
-              }
-              let bottleResult = actionsArray.filter(action => action.name === "bottle");
-              if (bottleResult.length > 0) {
-                dispatch({ type: "setFeeding", feeding: bottleResult[0]})
-              }
-              let diaperResult = actionsArray.filter(action => action.name === "diaper");
-              if (diaperResult.length > 0) {
-                dispatch({ type: "setDiaper", diaper: diaperResult[0]})
-              }
-            })
+          //     let nurseResult = actionsArray.filter(action => action.name === "nurse");
+          //     if (nurseResult.length > 0) {
+          //       dispatch({ type: "setFeeding", feeding: nurseResult[0]})
+          //     }
+          //     let bottleResult = actionsArray.filter(action => action.name === "bottle");
+          //     if (bottleResult.length > 0) {
+          //       dispatch({ type: "setFeeding", feeding: bottleResult[0]})
+          //     }
+          //     let diaperResult = actionsArray.filter(action => action.name === "diaper");
+          //     if (diaperResult.length > 0) {
+          //       dispatch({ type: "setDiaper", diaper: diaperResult[0]})
+          //     }
+          //   })
         }
       }
     })
@@ -108,27 +108,27 @@ let initUser2 = (userCredential, dispatch, setDiaper, setFeeding, setSleep) => {
               );
             }
           );
-          API.getUnfinished(existingUser.data.lastViewedChild)
-            .then((actionsArray) => {     
-              console.log("unfinished actions array is " + JSON.stringify(actionsArray, null, 2))        
-              let sleepResult = actionsArray.filter(action => action.name === "sleep");
-              if (sleepResult.length > 0) {
-                dispatch({ type: "setSleep", sleep: sleepResult[0]})
-              };
+          // API.getUnfinished(existingUser.data.lastViewedChild)
+          //   .then((actionsArray) => {     
+          //     console.log("unfinished actions array is " + JSON.stringify(actionsArray, null, 2))        
+          //     let sleepResult = actionsArray.filter(action => action.name === "sleep");
+          //     if (sleepResult.length > 0) {
+          //       dispatch({ type: "setSleep", sleep: sleepResult[0]})
+          //     };
               
-              let nurseResult = actionsArray.filter(action => action.name === "nurse");
-              if (nurseResult.length > 0) {
-                dispatch({ type: "setFeeding", feeding: nurseResult[0]})
-              }
-              let bottleResult = actionsArray.filter(action => action.name === "bottle");
-              if (bottleResult.length > 0) {
-                dispatch({ type: "setFeeding", feeding: bottleResult[0]})
-              }
-              let diaperResult = actionsArray.filter(action => action.name === "diaper");
-              if (diaperResult.length > 0) {
-                dispatch({ type: "setDiaper", diaper: diaperResult[0]})
-              }
-            })
+          //     let nurseResult = actionsArray.filter(action => action.name === "nurse");
+          //     if (nurseResult.length > 0) {
+          //       dispatch({ type: "setFeeding", feeding: nurseResult[0]})
+          //     }
+          //     let bottleResult = actionsArray.filter(action => action.name === "bottle");
+          //     if (bottleResult.length > 0) {
+          //       dispatch({ type: "setFeeding", feeding: bottleResult[0]})
+          //     }
+          //     let diaperResult = actionsArray.filter(action => action.name === "diaper");
+          //     if (diaperResult.length > 0) {
+          //       dispatch({ type: "setDiaper", diaper: diaperResult[0]})
+          //     }
+          //   })
         }
       }
     })
