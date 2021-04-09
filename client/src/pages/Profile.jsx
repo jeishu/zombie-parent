@@ -128,9 +128,7 @@ export default function Profile() {
         </div>
       </div>
 
-      
-
-      <button onClick={() => console.log(state)}>State</button>
+      {/* <button onClick={() => console.log(state)}>State</button> */}
     </main>
   );
 }
