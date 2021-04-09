@@ -118,7 +118,7 @@ export default function Profile() {
             {state.loading === false
               ? state.user.child.map((child) => {
                 return (
-                  <li key={child._id} style={{ listStyleType: "none" }}>
+                  <li key={child._id} style={{ listStyleType: "none" }} onClick={() => makeChildActive(child._id)}>
                     {child.name}
                   </li>
                 );
@@ -128,23 +128,9 @@ export default function Profile() {
         </div>
       </div>
 
-      <ul>
-        {state.loading === false
-          ? state.user.child.map((child) => {
-              return (
-                <li
-                  key={child._id}
-                  style={{ listStyleType: "none" }}
-                  onClick={() => makeChildActive(child._id)}
-                >
-                  {child.name}
-                </li>
-              );
-            })
-          : "loading"}
-      </ul>
+      
 
-      {/* <button onClick={() => console.log(state)}>State</button> */}
+      <button onClick={() => console.log(state)}>State</button>
     </main>
   );
 }
