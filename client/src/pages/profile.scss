@@ -1,28 +1,90 @@
-.profile-h1{
-    font-family: "Rubik";
-    font-size: 25px;
-    font-weight: 500;
-    font-style: italic;
-    letter-spacing: 1px;
-    color: white;
-    padding-bottom: 10px;
+@use "../scss/colors" as *;
+@use "../scss/fonts" as *;
+@use "../scss/mixins" as *;
+
+// .profile-h1{
+//     font-family: "Rubik";
+//     font-size: 25px;
+//     font-weight: 500;
+//     font-style: italic;
+//     letter-spacing: 1px;
+//     color: white;
+//     padding-bottom: 10px;
+// }
+
+.profile-page {
+    padding: 2rem 0;
+    background: rgba( 7, 7, 7, 0.15 );
+    backdrop-filter: blur( 4.0px );
+    -webkit-backdrop-filter: blur( 4.0px );
+    color: $non-active-color;
+    
+    @media (min-width: 768px) {
+        // padding: 0rem 2rem 2rem;
+        height: 600px;
+        border: 1px solid rgba( 255, 255, 255, 0.18 );
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+.profile-form {
+    // padding: 1rem;
+    display: flex;
+    flex-direction: column;
+
+    label {
+        font-family: "Rubik";
+    }
+    .profile-input {
+        margin: 0;
+        padding: .5rem;
+        border: none;
+        outline: none;
+        border-radius: 5px;
+        background-color: rgb(255, 255, 255, 0.5);
+    }
+    .profile-dob {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+
+        input[type=date] {
+            padding: 7.5px;
+            border: none;
+            outline: none;
+            border-top-left-radius: 5px;
+            border-bottom-left-radius: 5px;
+            background-color: rgb(255, 255, 255, 0.5);
+        }
+        input[type=submit] {
+            cursor: pointer;
+            padding: 10px;
+            text-transform: uppercase;
+            border: none;
+            outline: none;
+            border-top-right-radius: 5px;
+            border-bottom-right-radius: 5px;
+        }
+    }
 }
 
 .profile-h2{
     font-family: "Rubik";
-    font-size: 70px;
-    font-weight: 600;
+    font-size: 1rem;
+    font-weight: normal;
     color: #E9C46A;
     letter-spacing: 2px;
     padding-bottom: 25px;
 }
 
-.profile-label{
-    font-family: "Rubik";
-    color: white;
-    font-size: 23px;
-    letter-spacing: 1px;
-    font-weight: 400;
-    font-style: italic;
-    padding-bottom: 25px;
-}
+// .profile-label{
+//     font-family: "Rubik";
+//     color: white;
+//     font-size: 23px;
+//     letter-spacing: 1px;
+//     font-weight: 400;
+//     font-style: italic;
+//     padding-bottom: 25px;
+// }
