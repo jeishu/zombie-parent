@@ -28,8 +28,7 @@ const TimeData = () => {
     let userCredential = { user: { uid: Im.uid } };
 
     initUser2(userCredential, dispatch, setDiaper, setFeeding, setSleep);
-    
-    
+
     // .then(() => {
     //   API.getActionsLastDayByName(state.user.lastViewedChild, "diaper").then(
     //     (res) => {
@@ -68,7 +67,9 @@ const TimeData = () => {
           return (
             <TimelineItem>
               <TimelineOppositeContent>
-                <Typography color="textSecondary">{action.name}</Typography>
+                <Typography color="textSecondary">
+                  {moment(action.endTime).format("dddd")}
+                </Typography>
               </TimelineOppositeContent>
               <TimelineSeparator>
                 <TimelineDot />
@@ -89,7 +90,9 @@ const TimeData = () => {
           return (
             <TimelineItem>
               <TimelineOppositeContent>
-                <Typography color="textSecondary">{moment(action.endTime).format("dddd")}</Typography>
+                <Typography color="textSecondary">
+                  {moment(action.endTime).format("dddd")}
+                </Typography>
               </TimelineOppositeContent>
               <TimelineSeparator>
                 <TimelineDot />
@@ -110,7 +113,7 @@ const TimeData = () => {
           return (
             <TimelineItem>
               <TimelineOppositeContent>
-                <Typography color="textSecondary">{action.name}</Typography>
+                <Typography color="textSecondary">{moment(action.endTime).format("dddd")}</Typography>
               </TimelineOppositeContent>
               <TimelineSeparator>
                 <TimelineDot />
@@ -118,7 +121,7 @@ const TimeData = () => {
               </TimelineSeparator>
               <TimelineContent>
                 <Typography>
-                  {moment(action.endTime).format("hh mm a, dddd")}
+                  {moment(action.endTime).format("hh mm a")}
                 </Typography>
               </TimelineContent>
             </TimelineItem>
