@@ -13,17 +13,21 @@ import { initUser, loginChecklist, setUser } from "../../utils/loginFunctions";
 var provider = new Fire.auth.GoogleAuthProvider();
 
 const BoxContainer = styled.div`
-  width: 600px;
+  width: 100%;
   min-height: 550px;
+  height: 590px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  border-radius: 19px;
   background-color: #264653;
   box-shadow: 0 0 2px rgba(15, 15, 15, 0.28);
   position: relative;
   overflow: hidden;
-  margin-top: 50px;
+
+  @media (min-width:768px) {
+    width: 600px;
+    border-radius: 19px;
+  }
 `;
 
 const TopContainer = styled.div`
@@ -183,7 +187,7 @@ export default function AccountBox(props) {
         <InnerContainer>
           {active === "signin" && <LoginForm />}
           {active === "signup" && <SignupForm />}
-          <button onClick={googleSignin}>Google Signin</button>
+          <button onClick={googleSignin} className="googleSignBtn">Google Signin</button>
         </InnerContainer>
       </BoxContainer>
     </AccountContext.Provider>
