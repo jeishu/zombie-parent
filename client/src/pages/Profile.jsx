@@ -27,6 +27,19 @@ export default function Profile() {
     // loginChecklist(state, dispatch);
   }, []);
 
+  function makeChildActive(childId) {
+    const updatedUser = {
+      ...state.user,
+      lastViewedChild: childId,
+    };
+    API.updateUser(state.user._id, updatedUser).then((returnedUser) => {
+      dispatch({ type: "setUser", user: returnedUser.data });
+      API.getChild(returnedUser.data.lastViewedChild).then((returnedChild) => {
+        dispatch({ type: "setChild", child: returnedChild.data });
+      });
+    });
+  }
+
   function handleCreateChild(e) {
     // console.log(dobValue, nameValue);
     e.preventDefault();
@@ -105,7 +118,7 @@ export default function Profile() {
             {state.loading === false
               ? state.user.child.map((child) => {
                 return (
-                  <li key={child._id} style={{ listStyleType: "none" }}>
+                  <li key={child._id} style={{ listStyleType: "none" }} onClick={() => makeChildActive(child._id)}>
                     {child.name}
                   </li>
                 );
@@ -115,8 +128,9 @@ export default function Profile() {
         </div>
       </div>
 
+      
 
-      {/* <button onClick={() => console.log(state)}>State</button> */}
+      <button onClick={() => console.log(state)}>State</button>
     </main>
   );
 }
