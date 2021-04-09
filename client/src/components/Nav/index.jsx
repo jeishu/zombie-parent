@@ -43,7 +43,7 @@ function Nav() {
           >
             <Profile />
           </NavLink>
-          <a href="#" onClick={signOut}><Signout/></a>
+          <button onClick={signOut} className="signoutBtn"><Signout/></button>
           
         </div>
       </nav>

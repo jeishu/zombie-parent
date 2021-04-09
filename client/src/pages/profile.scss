@@ -1,28 +1,131 @@
-h1{
+@use "../scss/colors" as *;
+@use "../scss/fonts" as *;
+@use "../scss/mixins" as *;
+
+.profile-page {
+    padding: 2rem 0;
+    background: rgba( 7, 7, 7, 0.15 );
+    backdrop-filter: blur( 4.0px );
+    -webkit-backdrop-filter: blur( 4.0px );
+    color: $non-active-color;
+    height: 100vh;
+    overflow:hidden;
+    
+    @media (min-width: 768px) {
+        // padding: 0rem 2rem 2rem;
+        height: 600px;
+        border: 1px solid rgba( 255, 255, 255, 0.18 );
+        display: flex;
+        flex-direction: column;
+        border-radius: 15px;
+    }
+
+    .profile-container {
+        width: 100%;
+        height:100%;
+        padding: 2rem;
+        @media (min-width: 768px) {
+            display: flex;
+            flex-direction: row;
+            
+        }
+    }
+
+    .username {
+        font-family: "Rubik";
+        font-size: 1rem;
+        font-weight: normal;
+        color: #E9C46A;
+        letter-spacing: 2px;
+        padding-bottom: 1rem;
+        margin: 0 1rem 1rem;
+        text-transform: uppercase;
+        width: 100%;
+        text-align: center;
+        @media (min-width: 768px) {
+            border-bottom: 1px rgba( 255, 255, 255, 0.18 ) solid;
+        }
+    }
+
+    .children-list, .form-container {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        padding: 0;
+        @media (min-width: 768px) {
+            padding: 1rem;
+        }
+    }
+    .form-container {
+        @media (min-width: 768px) {
+            border-right: 1px rgba( 255, 255, 255, 0.18 ) solid;
+        }
+    }
+}
+
+.profile-h1 {
     font-family: "Rubik";
     font-size: 25px;
     font-weight: 500;
-    font-style: italic;
     letter-spacing: 1px;
     color: white;
-    padding-bottom: 10px;
+    text-align: left;
 }
 
-h2{
-    font-family: "Rubik";
-    font-size: 70px;
-    font-weight: 600;
-    color: #E9C46A;
+.profile-form {
+    // padding: 1rem;
+    display: flex;
+    flex-direction: column;
+
+    label {
+        font-family: "Rubik";
+    }
+    .profile-input {
+        margin: 0;
+        padding: .5rem;
+        border: none;
+        outline: none;
+        border-radius: 5px;
+        background-color: rgb(255, 255, 255, 0.5);
+    }
+    .profile-dob {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        border-bottom: 1px rgba( 255, 255, 255, 0.18 ) solid;
+        padding-bottom: 2rem;
+
+        @media (min-width: 768px) {
+            border-bottom: hidden;
+            padding-bottom: 0;
+        }
+
+        input[type=date] {
+            width: 100%;
+            padding: 7.5px;
+            border: none;
+            outline: none;
+            border-top-left-radius: 5px;
+            border-bottom-left-radius: 5px;
+            background-color: rgb(255, 255, 255, 0.5);
+        }
+        input[type=submit] {
+            cursor: pointer;
+            padding: 10px;
+            text-transform: uppercase;
+            border: none;
+            outline: none;
+            border-top-right-radius: 5px;
+            border-bottom-right-radius: 5px;
+        }
+    }
+}
+
+.children-list ul > li{
+    text-transform: uppercase;
     letter-spacing: 2px;
-    padding-bottom: 25px;
-}
-
-label{
     font-family: "Rubik";
-    color: white;
-    font-size: 23px;
-    letter-spacing: 1px;
-    font-weight: 400;
-    font-style: italic;
-    padding-bottom: 25px;
+
 }

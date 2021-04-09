@@ -11,6 +11,8 @@ const StoreContext = createContext({
 const { Provider } = StoreContext;
 
 function reducer(state, action) {
+  // console.log("state from globalState is " + JSON.stringify(state));
+  // console.log("action from globalState is " + JSON.stringify(action));
   switch (action.type) {
     case "setUser":
       return {
