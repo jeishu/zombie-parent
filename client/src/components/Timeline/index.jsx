@@ -10,17 +10,25 @@ import TimelineDot from '@material-ui/lab/TimelineDot';
 import TimelineOppositeContent from '@material-ui/lab/TimelineOppositeContent';
 import Typography from '@material-ui/core/Typography';
 import moment from "moment";
+import { useStoreContext } from "../../utils/GlobalState"
+import Fire from "../../Fire";
+import { initUser } from "../../utils/loginFunctions";
+
 
 const TimeData = () => {
     const [diaper, setDiaper] = useState({ name: [] });
     const [feeding, setFeeding] = useState({ name: [] });
     const [sleep, setSleep] = useState({ name: [] });
+    const [state, dispatch] = useStoreContext();
 
+    // "606e47ca5394d53a2ce4c0d3", "diaper" ObjectId("606f7a611b9c8749e4bf9a9e") state.user.lastViewedChild
+    
     useEffect(() => {
         API.getActionsLastDayByName("606e76158b0f207cd492903f", "diaper").then(res => {
             setDiaper({
                 name: res.data.reverse()
             })
+            console.log(res.data)
         });
         API.getActionsLastDayByName("606e76158b0f207cd492903f", "sleep").then(res => {
             setSleep({

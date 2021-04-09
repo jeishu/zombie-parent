@@ -1,20 +1,35 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import jsonData from "../tempData.json";
 import DatePicker from "react-date-picker";
 import moment from "moment";
 import API from "../utils/API";
 import { useStoreContext } from "../utils/GlobalState";
 import "../pages/profile.scss";
+import Fire from "../Fire";
+import { initUser, setUser, loginChecklist } from "../utils/loginFunctions";
+import { set } from "mongoose";
 
 export default function Profile() {
-  const [dobValue, dobOnChange] = useState(new Date());
-  const [nameValue, nameOnChange] = useState("");
+  const [dobValue, setDobValue] = useState(new Date());
+  const [nameValue, setNameValue] = useState("");
   const [state, dispatch] = useStoreContext();
   const children = jsonData.children;
+  const [userEmail, setUserEmail] = useState("email");
 
   // create function that takes in name and birthdate.
 
-  function handleCreateChild(res) {
+  useEffect(() => {
+    let Im = Fire.auth().currentUser;
+    console.log(Im.uid);
+    let userCredential = { user: { uid: Im.uid } };
+
+    initUser(userCredential, dispatch);
+    // loginChecklist(state, dispatch);
+  }, []);
+
+  function handleCreateChild(e) {
+    // console.log(dobValue, nameValue);
+    e.preventDefault();
     dispatch({
       type: "loading",
     });
@@ -26,69 +41,82 @@ export default function Profile() {
       dispatch({
         type: "setChild",
         child: childReturn.data,
-      })
-      .then(() => {
-        API.updateUser({
-          ...state.user,
-          child: [...state.user.child, childReturn.data._id],
-          activeChild: [...state.user.child, childReturn.data._id],
-          lastViewedChild: childReturn.data._id,
-        })
-        .then((userReturn) => {
-          dispatch({
-            type: "setUser",
-            user: userReturn.data
-          }).then(() => {
-            dobValue = "";
-            nameValue = "";
-          })
-        })
-        .catch((error) => {
-          console.error(error);
+      });
+      const updatedUser = {
+        ...state.user,
+        child: [...state.user.child, childReturn.data._id],
+        activeChild: [...state.user.child, childReturn.data._id],
+        lastViewedChild: childReturn.data._id,
+      };
+      console.log(JSON.stringify(updatedUser, null, 2));
+      API.updateUser(state.user._id, updatedUser).then((userReturn) => {
+        console.log("userReturn is" + JSON.stringify(userReturn));
+        dispatch({
+          type: "setUser",
+          user: userReturn.data,
         });
-      })
-      .catch((error) => {
-        console.error(error);
+        setDobValue("");
+        setNameValue("");
+        console.log(state.user.lastViewedChild);
       });
     });
-
-    
-
-    
   }
 
   return (
-    <main className="page">
-      <h1>Profile Page</h1>
-      <h2>{state ? "username" : `${JSON.stringify(state)}`}</h2>
+    <main className="profile-page">
+      <h1 className="username">{state.loading === false ? state.user.email : "...loading"}</h1>
+      <div className="profile-container">
+        <div className="form-container">
+          <form action="" className="profile-form">
+            <h1 className="profile-h1">Add a Child</h1>
+            <label htmlFor="childsName">What is the childs name?</label>
+            <input
+              value={nameValue}
+              onChange={(e) => setNameValue(e.target.value)}
+              className="profile-input"
+            />
+            <br />
+            <label htmlFor="dobCalendar">What is the childs birthday?</label>{" "}
+            <div className="profile-dob">
+              <input
+                type="date"
+                id="dobCalendar"
+                name="Date of Birth"
+                value={dobValue}
+                onChange={(e) => setDobValue(e.target.value)}
+              // onClick={(e) => props.setTimeSubmit(e, document.getElementById("NAME_HERE").value)}
+              // min="2018-01-01"
+              // max="2018-12-31"
+              ></input>
+              <input
+                onClick={(e) => handleCreateChild(e)}
+                type="submit"
+                value="Add"
+              />
+            </div>
+          </form>
+        </div>
 
-      {/* add and see children */}
-      {/* https://github.com/wojtekmaj/react-date-picker */}
-      <div>
-        <form action="">
-          <label htmlFor="childsName">What is the childs name?</label> <br />
-          <input value={nameValue} onChange={(e)=> nameOnChange(e.target.value)} /><br />
-          <label htmlFor="dobCalendar">What is the childs birthday?</label>{" "}
-          <br />
-          <DatePicker
-            onChange={dobOnChange}
-            value={dobValue}
-            id="dobCalendar"
-            dayPlaceholder="dd"
-            monthPlaceholder="mm"
-            yearPlaceholder="yyyy"
-            calendarIcon={null}
-            clearIcon={null}
-          />{" "}
-          <br />
-          <input type="submit" value="Add a new child" />
-        </form>
-        <ul>
-          {children.map((child) => {
-            return <li key={child.name} style={{ listStyleType: "none" }}>{child.name}</li>;
-          })}
-        </ul>
+        <br />
+
+        <div className="children-list">
+          <h1 className="profile-h1">Children List</h1>
+          <ul>
+            {state.loading === false
+              ? state.user.child.map((child) => {
+                return (
+                  <li key={child._id} style={{ listStyleType: "none" }}>
+                    {child.name}
+                  </li>
+                );
+              })
+              : "loading"}
+          </ul>
+        </div>
       </div>
+
+
+      {/* <button onClick={() => console.log(state)}>State</button> */}
     </main>
   );
 }
