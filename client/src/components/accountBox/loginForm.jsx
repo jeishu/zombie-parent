@@ -12,26 +12,23 @@ import { AccountContext } from "./accountContext";
 import Fire from "../../Fire";
 
 export function LoginForm(props) {
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
   const { switchToSignup } = useContext(AccountContext);
 
-  const Login = () => {
-    const [email, setEmail] = useState();
-    const [password, setPassword] = useState();
+  const login = (event) => {
+    event.preventDefault();
 
-    const login = (event) => {
-      event.preventDefault();
+    // Error handling for incorrect authentication
+    Fire.auth()
+      .signInWithEmailAndPassword(email, password)
+      .catch((error) => {
+        console.error("Incorrect username or password");
+      });
 
-      // Error handling for incorrect authentication
-      Fire.auth()
-        .signInWithEmailAndPassword(email, password)
-        .catch((error) => {
-          console.error("Incorrect username or password");
-        });
-
-      // log inputted email and password
-      console.log(`submitted email:
+    // log inputted email and password
+    console.log(`submitted email:
               ${email} password: ${password}`);
-    };
   };
 
   return (
