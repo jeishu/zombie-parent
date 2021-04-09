@@ -1,8 +1,9 @@
 import React from "react";
+import "./setOz.scss";
 
 const SetOz = (props) => {
   return (
-    <form action="submit">
+    <form action="submit" className="set-Oz-form">
       <input
         type="number"
         id="oz"
@@ -11,6 +12,7 @@ const SetOz = (props) => {
         required
       />
       <input
+      className="set-Oz-submit"
         id="oz"
         style={{ display: props.showOz }}
         type="submit"

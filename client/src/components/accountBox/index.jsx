@@ -2,27 +2,33 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import Fire from "../../Fire";
 import "./index.scss";
+import "../Sessions/Login";
 import { LoginForm } from "./loginForm";
 import { SignupForm } from "./signupForm";
 import { AccountContext } from "./accountContext";
 import { motion } from "framer-motion";
 import { useStoreContext } from "../../utils/GlobalState";
 import { initUser, loginChecklist, setUser } from "../../utils/loginFunctions";
+import GoogleBtn from "../../img/misc/google";
 
 var provider = new Fire.auth.GoogleAuthProvider();
 
 const BoxContainer = styled.div`
-  width: 600px;
+  width: 100%;
   min-height: 550px;
+  height: 590px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  border-radius: 19px;
   background-color: #264653;
   box-shadow: 0 0 2px rgba(15, 15, 15, 0.28);
   position: relative;
   overflow: hidden;
-  margin-top: 50px;
+
+  @media (min-width:768px) {
+    width: 600px;
+    border-radius: 19px;
+  }
 `;
 
 const TopContainer = styled.div`
@@ -65,13 +71,17 @@ const HeaderText = styled.h2`
   font-family: "Rubik";
   font-weight: 600;
   line-height: 1.23;
-  color: #fff;
+  color: #ffffff;
+  text-shadow: 5px 5px 10px rgba(38, 70, 83, 0.4),
+               5px 5px 20px rgba(38, 70, 83, 0.4);
   z-index: 10;
   letter-spacing: 2px;
 `;
 
 const SmallText = styled.h5`
   color: #fff;
+  text-shadow: 5px 5px 10px #1a3038,
+               5px 5px 10px #1a3038;
   font-family: "Rubik";
   font-weight: 300;
   font-size: 15px;
@@ -178,7 +188,7 @@ export default function AccountBox(props) {
         <InnerContainer>
           {active === "signin" && <LoginForm />}
           {active === "signup" && <SignupForm />}
-          <button onClick={googleSignin}>Google Signin</button>
+          <button onClick={googleSignin} className="googleSignBtn"><GoogleBtn/><span>Sign in with Google</span></button>
         </InnerContainer>
       </BoxContainer>
     </AccountContext.Provider>
