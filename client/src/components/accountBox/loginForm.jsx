@@ -14,7 +14,6 @@ import Fire from "../../Fire";
 export function LoginForm(props) {
   const { switchToSignup } = useContext(AccountContext);
 
-  const Login = () => {
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
 
@@ -32,7 +31,6 @@ export function LoginForm(props) {
       console.log(`submitted email:
               ${email} password: ${password}`);
     };
-  };
 
   return (
     <BoxContainer>
