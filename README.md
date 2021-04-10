@@ -29,20 +29,27 @@ Working Features:
 * Users can:
     
     * [x] Login/Sign up with Google account
+    * [x] Login/Sign up with email
     * [x] Log when the child uses the diaper
     * [x] Log when the child is fed
-    * [x] Log when the sleeps
-    * [x] Create a new child
-        * [x] Adding birthday
-    * [x] Add a new child
+    * [x] Log when the child sleeps
+    * [x] Create a new child with name and birthday
     * [x] Use either mobile or desktop version
     * [x] See their current time on the desktop version
+    * [x] View on the last 24 hours of the logged actions on the homepage
+    * [x] View logs of the current active child
+    * [x] Switch between active child on the Profile Page
 
-Underdevelopment:
+Under Development:
 
-* Login/Sign up with email
+* Display additional data on the homepage for future data
+* Switch between different children on the homepage
+* Long term data display to view patterns
 * Delete a current child
 * Update a new child
+* Upload images for users and children
+* Editing usernames
+* REACT NATIVE
 
 ## Links
 
@@ -51,7 +58,11 @@ Underdevelopment:
 
 ## Workflow
 
-![Picture](./public/images/DungeonScribe1.png)
+![Picture](./client/public/images/desktop_login.png)
+![Picture](./client/public/images/mobile_action_log.png)
+![Picture](./client/public/images/mobile_child_add.png)
+![Picture](./client/public/images/mobile_login.png)
+
 
 ## Technology
 
@@ -62,15 +73,16 @@ Underdevelopment:
 | CSS | express | if-env |
 | SASS | Framer-motion | Mongoose |
 | React | Style-components | nodemon |
-| | react-time-picker | react-moment |
+| | react-router-dom | react-moment |
 | | Sass-loader | Material-UI-Core |
-| | Material-UI-Lab | react-router-dom
+| | Material-UI-Lab | 
 
 ## Reference
 
 | Name | Description |
 | --- | --- | 
-| [Flaticon](https://www.flaticon.com/authors/freepik) | All Icons were uses from this website from the same author, Freepik |
+| [Flaticon](https://www.flaticon.com/authors/freepik) | All Icons were uses from this website from the same author, Freepik. |
+
 
 ## Contributors
 
@@ -81,10 +93,9 @@ Developer Roles
     * Google Authentication
 * Dan Aument
     * Backend Developer
-        * API Routes
-        * Controller
-        * Models
-        * Routes
+        * Database
+        * Mongoose Setup
+    * Frontend Developer
 * Darren Garcia
     * UI/UX Design
 * Jeremy Zhu
@@ -95,7 +106,6 @@ Developer Roles
 * Joey Sisk
     * Frontend Developer
     * React Mechanic
-
 
 ## Questions
 If you have any question about the application, don't hesitate to contact us from our Github Profile:
