@@ -2,8 +2,8 @@
 @use "../../scss/fonts" as *;
 
 .main-home {
-    height: 100vh;
-    padding-bottom: 6rem;
+    height: 100%;
+    // padding-bottom: 6rem;
     
     @media (min-width: 768px) {
         padding-bottom: 0;
@@ -16,18 +16,15 @@
     flex-direction: column;
     // margin-top: 1rem;
     width: 350px;
-    height: auto;
-    overflow-y: scroll;
+    height: 100%;
     
     &::-webkit-scrollbar {
         width: 0;
     }
-
-    @media (min-width: 1024px){
+    @media (min-width: 768px){
         flex-direction: row;
         height: 600px;
         width: 100%;
-        overflow-y: hidden;
     }
 
     ul {
@@ -39,12 +36,21 @@
         backdrop-filter: blur( 2.5px );
         -webkit-backdrop-filter: blur( 2.5px );
         width: 100%;
+        height: 160px;
+        overflow-y: scroll;
+
+        &::-webkit-scrollbar {
+            width: 0;
+        }
+
         h1 {
             text-align: center;
             color: $non-active-color;
         }
 
-        @media (min-width: 1024px){
+        @media (min-width: 768px) {
+            height: 600px;
+            width: 300px;
             margin: 0 1rem 0;
         }
     }
