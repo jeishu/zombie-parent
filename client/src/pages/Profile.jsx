@@ -125,10 +125,6 @@ export default function Profile() {
           </ul>
         </div>
       </div>
-<<<<<<< HEAD
-=======
-
->>>>>>> origin
       {/* <button onClick={() => console.log(state)}>State</button> */}
     </main>
   );
