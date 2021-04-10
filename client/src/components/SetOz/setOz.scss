@@ -6,21 +6,29 @@
     display: flex;
     flex-direction: row;
     outline: none;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+    padding: .5rem;
+    border-radius: 5px;
 
     input[type=number] {
         padding: .5rem;
         border: none;
         outline: none;
-        border-top-left-radius: 5px;
-        border-bottom-left-radius: 5px;
         background-color: rgb(255, 255, 255, 0.5);
+        margin-bottom: .5rem;
+        border-radius: 5px;
     }
-    input[type=submit].set-Oz-submit {
+    input[type=submit] {
         cursor: pointer;
-        padding: 0 .5rem;
+        padding: .5rem;
         text-transform: uppercase;
         border: none;
-        border-top-right-radius: 5px;
-        border-bottom-right-radius: 5px;
+        border-radius: 5px;
+        width: 100%;
+        transition: .2s ease-in-out;
+
+        &:hover {
+            background-color: rgba(201, 201, 201, 0.9);
+        }
     }
 }

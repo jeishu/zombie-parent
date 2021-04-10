@@ -3,7 +3,7 @@ import "./setOz.scss";
 
 const SetOz = (props) => {
   return (
-    <form action="submit" className="set-Oz-form">
+    <form action="submit" className="set-Oz-form" style={{ display: props.showOz }}>
       <input
         type="number"
         id="oz"

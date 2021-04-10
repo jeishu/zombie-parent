@@ -37,13 +37,14 @@
         font-weight: normal;
         color: #E9C46A;
         letter-spacing: 2px;
-        padding-bottom: 1rem;
-        margin: 0 1rem 1rem;
+        margin: 0 1rem 0rem;
         text-transform: uppercase;
         width: 100%;
         text-align: center;
         @media (min-width: 768px) {
             border-bottom: 1px rgba( 255, 255, 255, 0.18 ) solid;
+            margin: 0 1rem 1rem;
+            padding-bottom: 1rem;
         }
     }
 
@@ -127,5 +128,8 @@
     text-transform: uppercase;
     letter-spacing: 2px;
     font-family: "Rubik";
-
+    cursor: pointer;
+    margin: .5rem;
+    @include animate-underline-left;
+    width: fit-content;
 }

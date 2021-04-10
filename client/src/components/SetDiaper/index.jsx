@@ -3,7 +3,7 @@ import "./setTime.scss";
 
 const SetDiaper = (props) => {
   return (
-    <form action="submit" className="set-time-form">
+    <form action="submit" className="set-time-form" style={{ display: props.showDiaper }}>
       <input
         type="datetime-local"
         id="diaper"

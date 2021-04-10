@@ -4,7 +4,7 @@ import TimeData from "../components/Timeline/index";
 export default function Home() {
 
   return (
-    <main>
+    <main className="main-home">
       <div className="timeline">
         <TimeData />
       </div>

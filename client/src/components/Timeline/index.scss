@@ -1,17 +1,33 @@
 @use "../../scss/colors" as *;
 @use "../../scss/fonts" as *;
 
+.main-home {
+    height: 100vh;
+    padding-bottom: 6rem;
+    
+    @media (min-width: 768px) {
+        padding-bottom: 0;
+        height: 100%;
+    }
+}
+
 .timeline {
     display: flex;
     flex-direction: column;
-    width: auto;
-    margin-top: 1rem;
-    width: 300px;
+    // margin-top: 1rem;
+    width: 350px;
+    height: auto;
+    overflow-y: scroll;
+    
+    &::-webkit-scrollbar {
+        width: 0;
+    }
 
     @media (min-width: 1024px){
         flex-direction: row;
         height: 600px;
         width: 100%;
+        overflow-y: hidden;
     }
 
     ul {

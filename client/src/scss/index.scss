@@ -7,10 +7,10 @@
 body {
     // background-image: linear-gradient(to right top, #e76f51, #f08492, #e6a4c2, #d8c3da, #dcdcdc);  
     background-image: linear-gradient(to right top, #1a2f38, #1f3842, #23414d, #284a57, #2d5362);  
-    
+    // background-size: cover;
     background-repeat: no-repeat;
     height: 100vh;
-
+    
     @media (min-width: 768px) {
         padding: 50px 30px 50px 200px;
     }
@@ -23,7 +23,6 @@ body {
 main {
     display: flex;
     flex-direction: column;
-    // justify-content: space-evenly;
     align-items: center;
     height: 100%;
     width: 100%;
