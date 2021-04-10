@@ -68,7 +68,7 @@ const TimeData = () => {
             <TimelineItem key={action._id}>
               <TimelineOppositeContent>
                 <Typography color="textSecondary">
-                  {moment(action.endTime).format("dddd")}
+                  {moment(action.endTime).local().format("dddd")}
                 </Typography>
               </TimelineOppositeContent>
               <TimelineSeparator>
@@ -77,7 +77,7 @@ const TimeData = () => {
               </TimelineSeparator>
               <TimelineContent>
                 <Typography>
-                  {moment(action.endTime).format("hh mm a")}
+                  {moment(action.endTime).local().format("hh mm a")}
                 </Typography>
               </TimelineContent>
             </TimelineItem>
@@ -91,7 +91,7 @@ const TimeData = () => {
             <TimelineItem key={action._id}>
               <TimelineOppositeContent>
                 <Typography color="textSecondary">
-                  {moment(action.endTime).format("dddd")}
+                  {moment(action.endTime).local().format("dddd")}
                 </Typography>
               </TimelineOppositeContent>
               <TimelineSeparator>
@@ -100,7 +100,7 @@ const TimeData = () => {
               </TimelineSeparator>
               <TimelineContent>
                 <Typography>
-                  {moment(action.endTime).format("hh mm a")}
+                  {moment(action.endTime).local().format("hh mm a")}
                 </Typography>
               </TimelineContent>
             </TimelineItem>
@@ -113,7 +113,7 @@ const TimeData = () => {
           return (
             <TimelineItem key={action._id}>
               <TimelineOppositeContent>
-                <Typography color="textSecondary">{moment(action.endTime).format("dddd")}</Typography>
+                <Typography color="textSecondary">{moment(action.endTime).local().format("dddd")}</Typography>
               </TimelineOppositeContent>
               <TimelineSeparator>
                 <TimelineDot />
@@ -121,7 +121,7 @@ const TimeData = () => {
               </TimelineSeparator>
               <TimelineContent>
                 <Typography>
-                  {moment(action.endTime).format("hh mm a")}
+                  {moment(action.endTime).local().format("hh mm a")}
                 </Typography>
               </TimelineContent>
             </TimelineItem>
