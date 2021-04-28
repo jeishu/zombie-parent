@@ -161,6 +161,9 @@ export default function Log() {
       btnName !== "Start Right" &&
       btnName !== "Stop" &&
       btnChoice !== "Add Nap" &&
+      btnChoice !== "Add Left" &&
+      btnChoice !== "Add Right" &&
+      btnChoice !== "Add Bottle" &&
       btnName !== dir[dirLengthLessOne].name
     ) {
       setDir((dir) => [
