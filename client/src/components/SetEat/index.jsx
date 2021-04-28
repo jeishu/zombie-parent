@@ -3,7 +3,7 @@ import "./setEat.scss";
 
 const SetEat = (props) => {
   return (
-    <form action="submit" style={{ display: props.showAddOz }} className="set-eat-form">
+    <form action="submit" style={{ display: props.showEat }} className="set-eat-form">
       <label htmlFor="addOz" style={{ display: props.showAddOz }}>How many ounces?</label>
       <input
         type="number"
@@ -11,7 +11,7 @@ const SetEat = (props) => {
         style={{ display: props.showAddOz }}
         name="addOz"
       />
-      <label htmlFor="startEat" style={{ display: props.showAddOz }}>Start Time?</label>
+      <label htmlFor="startEat" style={{ display: props.showEat }}>Start Time?</label>
       <input
         type="datetime-local"
         id="startEat"
@@ -19,7 +19,7 @@ const SetEat = (props) => {
         name="startEat"
         required
       />
-      <label htmlFor="stopEat" style={{ display: props.showAddOz }}>End Times?</label>
+      <label htmlFor="stopEat" style={{ display: props.showEat }}>End Times?</label>
       <input
         type="datetime-local"
         id="stopEat"
